@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Custom Post Limits
-Version: 0.9
+Version: 1.0
 Author: Scott Reilly
 Author URI: http://www.coffee2code.com
-Description: Control the number of posts that appear on the front page, category archives, date archives, and search results, independent of the other sections.
+Description: Control the number of posts that appear on the front page, search results, and category, tag, and date archives, independent of the other sections.
 
 Compatible with WordPress 2.2+, and 2.3+.
 
@@ -69,6 +69,7 @@ class CustomPostLimits {
 			'front_page_limit' => '',
 			'month_archives_limit' => '',
 			'searches_limit' => '',
+			'tags_limit' => '',
 			'year_archives_limit' => ''
 		);
         $existing_options = get_option($this->admin_options_name);
@@ -103,7 +104,7 @@ class CustomPostLimits {
 		<div class='wrap'>\n
 			<h2>Custom Post Limits Plugin Options</h2>\n
 			<p>By default, WordPress provides a single configuration option to control how many posts should be listed on your
-			blog.  This value applies for the front page listing, archive listings, category listings, and search results.
+			blog.  This value applies for the front page listing, archive listings, category listings, tag listings, and search results.
 			<strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.</p>
 
 			<p>If the limit field is empty or 0 for a particular section type, then the default post limit will apply.</p>
@@ -152,7 +153,6 @@ END;
 		// $sql_limit should look like: LIMIT 0, 10
 		// WP takes a few things into account when determining the offset part of the LIMIT,
 		//	so refrain from re-determining it
-//echo "limit is $sql_limit";
 		if (!$sql_limit) return;
 		$options = $this->get_options();
 		list($offset, $old_limit) = explode(',', $sql_limit);
@@ -160,6 +160,8 @@ END;
 			$limit = $options['front_page_limit'];
 		elseif (is_category())
 			$limit = $options['categories_limit'];
+		elseif (is_tag())
+			$limit = $options['tags_limit'];
 		elseif (is_search())
 			$limit = $options['searches_limit'];
 		elseif (is_year())
