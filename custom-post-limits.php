@@ -101,8 +101,8 @@ class CustomPostLimits {
 		$option_url = "<a href='" . get_option('siteurl') . "/wp-admin/options-reading.php'>Options &raquo; Reading</a>";
 		
 		echo <<<END
-		<div class='wrap'>\n
-			<h2>Custom Post Limits Plugin Options</h2>\n
+		<div class='wrap'>
+			<h2>Custom Post Limits Plugin Options</h2>
 			<p>By default, WordPress provides a single configuration option to control how many posts should be listed on your
 			blog.  This value applies for the front page listing, archive listings, category listings, tag listings, and search results.
 			<strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.</p>
