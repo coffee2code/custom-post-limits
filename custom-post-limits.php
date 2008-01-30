@@ -4,7 +4,7 @@ Plugin Name: Custom Post Limits
 Version: 1.0
 Author: Scott Reilly
 Author URI: http://www.coffee2code.com
-Description: Control the number of posts that appear on the front page, search results, and category, tag, and date archives, independent of the other sections.
+Description: Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of the other sections.
 
 Compatible with WordPress 2.2+, and 2.3+.
 
@@ -64,6 +64,7 @@ class CustomPostLimits {
 	function get_options() {
 	    $options = array(
 			'archives_limit' => '',
+			'authors_limit' => '',
 			'categories_limit' => '',
 			'day_archives_limit' => '',
 			'front_page_limit' => '',
@@ -164,6 +165,8 @@ END;
 			$limit = $options['tags_limit'];
 		elseif (is_search())
 			$limit = $options['searches_limit'];
+		elseif (is_author())
+			$limit = $options['authors_limit'];
 		elseif (is_year())
 			$limit = $options['year_archives_limit'] ? $options['year_archives_limit'] : $options['archives_limit'];
 		elseif (is_month())
