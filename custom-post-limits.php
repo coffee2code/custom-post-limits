@@ -4,7 +4,7 @@ Plugin Name: Custom Post Limits
 Version: 1.0
 Author: Scott Reilly
 Author URI: http://www.coffee2code.com
-Description: Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of the other sections.
+Description: Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
 
 Compatible with WordPress 2.2+, and 2.3+.
 

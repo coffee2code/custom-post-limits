@@ -7,11 +7,11 @@ Tested up to: 2.3.2
 Stable tag: trunk
 Version: 1.0
 
-Control the number of posts that appear on the front page, search results, and category, tag, and date archives, independent of the other sections.
+Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
 
 == Description ==
 
-Control the number of posts that appear on the front page, search results, and category, tag, and date archives, independent of the other sections.
+Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
 
 By default, WordPress provides a single configuration option to control how many posts should be listed on your blog.  This value applies for the front page listing, archive listings, category listings, and search results.  This plugin allows you to override that value for each of those different sections.
 
