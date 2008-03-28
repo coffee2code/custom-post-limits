@@ -2,22 +2,20 @@
 /*
 Plugin Name: Custom Post Limits
 Version: 1.0
+Plugin URI: http://coffee2code.com/wp-plugins/custom-post-limits
 Author: Scott Reilly
-Author URI: http://www.coffee2code.com
+Author URI: http://coffee2code.com
 Description: Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
 
-Compatible with WordPress 2.2+, and 2.3+.
+Compatible with WordPress 2.2+, 2.3+, and 2.5.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
 
 Installation:
 
-1. Download the file http://www.coffee2code.com/wp-plugins/custom-post-limits.zip and unzip it into your 
+1. Download the file http://coffee2code.com/wp-plugins/custom-post-limits.zip and unzip it into your 
 /wp-content/plugins/ directory.
--OR-
-Copy and paste the the code ( http://www.coffee2code.com/wp-plugins/custom-post-limits.phps ) into a file called 
-custom-post-limits.php, and put that file into your /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
 3. Go to the new Options -> Post Limits admin options page.  Optionally customize the limits.
 
@@ -116,11 +114,11 @@ class CustomPostLimits {
 			<form name="custom_post_limits" action="$action_url" method="post">	
 END;
 				wp_nonce_field($this->nonce_field);
-		echo '<fieldset class="option"><table width="100%" cellspacing="2" cellpadding="5" class="optiontable editform">';
+		echo '<table width="100%" cellspacing="2" cellpadding="5" class="optiontable editform form-table">';
 				foreach (array_keys($options) as $opt) {
 					$opt_name = implode(' ', array_map('ucfirst', explode('_', $opt)));
 					$opt_value = $options[$opt];
-					echo "<tr valign='top'><th width='33%' scope='row'>$opt_name : </th>";
+					echo "<tr valign='top'><th width='33%' scope='row'>$opt_name</th>";
 					echo "<td><input name='$opt' type='text' id='$opt' value='$opt_value' />";
 					echo " <span style='color:#777; font-size:x-small;'>";
 					$is_archive = in_array($opt, array('day_archives_limit', 'month_archives_limit', 'year_archives_limit'));
@@ -139,14 +137,42 @@ END;
 				}
 		echo <<<END
 			</table>
-			</fieldset>
 			<input type="hidden" name="submitted" value="1" />
-			<div class="submit"><input type="submit" name="Submit" value="Update Options &raquo;" /></div>
+			<div class="submit"><input type="submit" name="Submit" value="Save Changes" /></div>
 		</form>
 			</div>
 END;
+		$logo = get_option('siteurl') . '/wp-content/plugins/' . basename($_GET['page'], '.php') . '/c2c_minilogo.png';
 		echo <<<END
-		<div class='wrap' style="text-align:center; color:#888;">This plugin brought to you by <a href="http://coffee2code.com" title="coffee2code.com">Scott Reilly, aka coffee2code</a>.<br /><span style="font-size:x-small;"><a href="http://coffee2code.com/donate">Did you find this plugin useful?</a></span></div>
+		<style type="text/css">
+			#c2c {
+				text-align:center;
+				color:#888;
+				background-color:#ffffef;
+				padding:5px 0 0;
+				margin-top:12px;
+				border-style:solid;
+				border-color:#dadada;
+				border-width:1px 0;
+			}
+			#c2c div {
+				margin:0 auto;
+				padding:5px 40px 0 0;
+				width:45%;
+				min-height:40px;
+				background:url('$logo') no-repeat top right;
+			}
+			#c2c span {
+				display:block;
+				font-size:x-small;
+			}
+		</style>
+		<div id='c2c' class='wrap'>
+			<div>
+			This plugin brought to you by <a href="http://coffee2code.com" title="coffee2code.com">Scott Reilly, aka coffee2code</a>.
+			<span><a href="http://coffee2code.com/donate" title="Please consider a donation">Did you find this plugin useful?</a></span>
+			</div>
+		</div>
 END;
 	}
 
