@@ -99,7 +99,7 @@ class CustomPostLimits {
 		$action_url = $_SERVER[PHP_SELF] . '?page=' . basename(__FILE__);
 
 		$current_limit = get_option('posts_per_page');
-		$option_url = "<a href='" . get_option('siteurl') . "/wp-admin/options-reading.php'>Options &raquo; Reading</a>";
+		$option_url = "<a href='" . get_option('siteurl') . "/wp-admin/options-reading.php'>here</a>";
 		
 		echo <<<END
 		<div class='wrap'>
@@ -112,7 +112,7 @@ class CustomPostLimits {
 			value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown).</p>
 			
 			<p>The default post limit as set in your options is <strong>$current_limit</strong>.  You can change this value
-			at $option_url.  It's under the <em>Blog Pages</em>, labeled <em>Show at most: [ ] posts</em></p>
+			$option_url.  It's under the <em>Blog Pages</em>, labeled <em>Show at most: [ ] posts</em></p>
 			
 			<form name="custom_post_limits" action="$action_url" method="post">	
 END;
@@ -185,7 +185,7 @@ END;
 		// $sql_limit should look like: LIMIT 0, 10
 		// WP takes a few things into account when determining the offset part of the LIMIT,
 		//	so refrain from re-determining it
-		if (!$sql_limit) return;
+		if (!$sql_limit || is_admin()) return $sql_limit;
 		$options = $this->get_options();
 		list($offset, $old_limit) = explode(',', $sql_limit, 2);
 		if (is_home())
