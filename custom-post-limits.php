@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Custom Post Limits
-Version: 1.0
+Version: 1.1
 Plugin URI: http://coffee2code.com/wp-plugins/custom-post-limits
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -17,10 +17,12 @@ Installation:
 1. Download the file http://coffee2code.com/wp-plugins/custom-post-limits.zip and unzip it into your 
 /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. Go to the new Options -> Post Limits admin options page.  Optionally customize the limits.
+3. Go to the new Options -> Post Limits (or in WP 2.5: Settings -> Post Limits) admin options page.
+Optionally customize the limits.
 
 If no limit is defined, then the default limit as defined in your WordPress configuration is used (accessible via 
-	the WordPress admin options page at Options -> Reading, the setting labeled "Blog Pages: Show at most:").
+	the WordPress admin options page at Options -> Reading (or in WP 2.5: Settings -> Reading), the setting 
+	labeled "Blog Pages: Show at most:").
 */
 
 /*
@@ -106,7 +108,8 @@ class CustomPostLimits {
 			blog.  This value applies for the front page listing, archive listings, category listings, tag listings, and search results.
 			<strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.</p>
 
-			<p>If the limit field is empty or 0 for a particular section type, then the default post limit will apply.</p>
+			<p>If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the
+			value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown).</p>
 			
 			<p>The default post limit as set in your options is <strong>$current_limit</strong>.  You can change this value
 			at $option_url.  It's under the <em>Blog Pages</em>, labeled <em>Show at most: [ ] posts</em></p>
@@ -127,6 +130,8 @@ END;
 							echo "(Archives Limit of {$options['archives_limit']} is being used)";
 						else
 							echo "(The WordPress default of $current_limit is being used)";
+					} elseif ($opt_value == '-1') {
+						echo "(ALL posts are set to be displayed for this)";
 					}
 					if ($is_archive)
 						echo "<br />If not defined, it assumes the value of Archives Limit.";
@@ -182,7 +187,7 @@ END;
 		//	so refrain from re-determining it
 		if (!$sql_limit) return;
 		$options = $this->get_options();
-		list($offset, $old_limit) = explode(',', $sql_limit);
+		list($offset, $old_limit) = explode(',', $sql_limit, 2);
 		if (is_home())
 			$limit = $options['front_page_limit'];
 		elseif (is_category())
@@ -204,6 +209,8 @@ END;
 
 		if (!$limit)
 			$limit = trim($old_limit);
+		elseif ($limit == '-1')
+			$limit = '18446744073709551615';	// Hacky, but it's what the MySQL docs suggest!
 		return ($limit ? "$offset, $limit" : '');
 	}
 } // end CustomPostLimits

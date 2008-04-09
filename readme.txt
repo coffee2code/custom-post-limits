@@ -5,7 +5,7 @@ Tags: posts, archives, listing, front page, categories
 Requires at least: 2.0.2
 Tested up to: 2.5
 Stable tag: trunk
-Version: 1.0
+Version: 1.1
 
 Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
 
@@ -15,13 +15,13 @@ Control the number of posts that appear on the front page, search results, and a
 
 By default, WordPress provides a single configuration option to control how many posts should be listed on your blog.  This value applies for the front page listing, archive listings, category listings, and search results.  This plugin allows you to override that value for each of those different sections.
 
-If the limit field is empty or 0 for a particular section type, then the default post limit will apply.  The Archives Limit value is also treated as the default limit for Day, Month, and Year archives, unless those are explicitly defined.
+If the limit field is empty or 0 for a particular section type, then the default post limit will apply.  If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown).  The Archives Limit value is also treated as the default limit for Day, Month, and Year archives, unless those are explicitly defined.
 
 == Installation ==
 
 1. Unzip `custom-post-limits.zip` inside the `/wp-content/plugins/` directory, or upload `custom-post-limits.php` to `/wp-content/plugins/`
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Go to the new Options -> Post Limits admin options page.  Optionally customize the limits.
+1. Go to the new Options -> Post Limits (or in WP 2.5: Settings -> Post Limits) admin options page.  Optionally customize the limits.
 
 == Frequently Asked Questions ==
 
