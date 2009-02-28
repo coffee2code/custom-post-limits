@@ -71,6 +71,7 @@ class CustomPostLimits {
 	var $authors = '';
 	var $categories = '';
 	var $tags = '';
+	var $options = array(); // Don't use this directly
 
 	function CustomPostLimits() {
 		$this->plugin_name = __('Custom Post Limits');
@@ -82,8 +83,8 @@ class CustomPostLimits {
 	}
 
 	function install() {
-		$options = $this->get_options();
-		update_option($this->admin_options_name, $options);
+		$this->options = $this->get_options();
+		update_option($this->admin_options_name, $this->options);
 	}
 
 	function add_js() {
@@ -98,6 +99,7 @@ class CustomPostLimits {
 		</script>
 JS;
 	}
+
 	function admin_menu() {
 		if ( $this->show_admin ) {
 			global $wp_version;
@@ -116,7 +118,7 @@ JS;
 	}
 
 	function get_options() {
-		global $wpdb;
+		if (!empty($this->options)) return $this->options;
 	    $options = array(
 			'archives_limit' => '',
 			'authors_limit' => '',
@@ -132,8 +134,10 @@ JS;
 			'year_archives_limit' => ''
 		);
 		
-		if (!$this->authors)
+		if (!$this->authors) {
+			global $wpdb;
 			$this->authors = $wpdb->get_results("SELECT ID, display_name from $wpdb->users ORDER BY display_name");
+		}
 		foreach ( (array) $this->authors as $author ) {
 			$options['authors_' . $author->ID . '_limit'] = '';
 		}
@@ -151,7 +155,8 @@ JS;
 		}
 
         $existing_options = get_option($this->admin_options_name);
-		return wp_parse_args($existing_options, $options);
+		$this->options = wp_parse_args($existing_options, $options);
+		return $this->options;
 	}
 
 	function options_page() {
