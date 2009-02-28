@@ -5,7 +5,26 @@ Version: 1.5
 Plugin URI: http://coffee2code.com/wp-plugins/custom-post-limits
 Author: Scott Reilly
 Author URI: http://coffee2code.com
-Description: Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
+Description: Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
+
+By default, WordPress provides a single configuration option to control how many posts should be listed on your blog.  This
+value applies for the front page listing, author listings, archive listings, category listings, tag listings, and search
+results.  This plugin allows you to override that value for each of those different sections.
+
+Specifically, this plugin allows you to define limits for:
+
+* Authors archives (the archive listing of posts for any author)
+* Author archives (the archive listing of posts for any specific author)
+* Categories archives (the archive listings of posts for any category)
+* Category archive (the archive listings of posts for any specific category)
+* Date-based archives (the archive listings of posts for any date)
+* Day archives (the archive listings of posts for any day)
+* Front page (the listing of posts on the front page of the blog)
+* Month archives (the archive listings of posts for any month)
+* Search results (the listing of search results)
+* Tags archives (the archive listings of posts for any tag)
+* Tag archive (the archive listings of posts for any specific tag)
+* Year archives (the archive listings of posts for any year)
 
 Compatible with WordPress 2.2+, 2.3+, 2.5+, 2.6+, 2.7+.
 
@@ -17,12 +36,11 @@ Installation:
 1. Download the file http://coffee2code.com/wp-plugins/custom-post-limits.zip and unzip it into your 
 /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. Go to the new Options -> Post Limits (or in WP 2.5: Settings -> Post Limits) admin options page.
-Optionally customize the limits.
+3. Click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the 
+Settings -> Post Limits, to go to the plugin's admin options page.  Optionally customize the limits.
 
 If no limit is defined, then the default limit as defined in your WordPress configuration is used (accessible via 
-	the WordPress admin options page at Options -> Reading (or in WP 2.5: Settings -> Reading), the setting 
-	labeled "Blog Pages: Show at most:").
+	the WordPress admin options page at Settings -> Reading), the setting labeled "Blog Pages: Show at most:").
 */
 
 /*
@@ -72,10 +90,10 @@ class CustomPostLimits {
 		echo <<<JS
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
-				jQuery('#cpl-categories, #cpl-tags, #cpl-authors, .cpl-categories').hide();
-				jQuery('#cpl-categories-link').click(function() {jQuery("#cpl-categories, .cpl-categories").toggle(); });
-				jQuery('#cpl-tags-link').click(function() {jQuery("#cpl-tags").toggle(); });
-				jQuery('#cpl-authors-link').click(function() {jQuery("#cpl-authors").toggle(); });
+				jQuery('.cpl-categories, .cpl-tags, .cpl-authors').hide();
+				jQuery('#cpl-categories-link').click(function() {jQuery(".cpl-categories").toggle(); });
+				jQuery('#cpl-tags-link').click(function() {jQuery(".cpl-tags").toggle(); });
+				jQuery('#cpl-authors-link').click(function() {jQuery(".cpl-authors").toggle(); });
 			});
 		</script>
 JS;
@@ -94,7 +112,6 @@ JS;
 	function plugin_action_links($action_links) {
 		$settings_link = '<a href="options-general.php?page='.$this->plugin_basename.'">' . __('Settings') . '</a>';
 		array_unshift( $action_links, $settings_link );
-
 		return $action_links;
 	}
 
@@ -116,20 +133,20 @@ JS;
 		);
 		
 		if (!$this->authors)
-			$this->authors = $wpdb->get_results("SELECT ID, user_nicename from $wpdb->users ORDER BY display_name");
-		foreach ( (array) $this->authors as $author) {
+			$this->authors = $wpdb->get_results("SELECT ID, display_name from $wpdb->users ORDER BY display_name");
+		foreach ( (array) $this->authors as $author ) {
 			$options['authors_' . $author->ID . '_limit'] = '';
 		}
 
 		if (!$this->categories)
 			$this->categories = get_categories(array('hide_empty' => false));
-		foreach ( (array) $this->cats as $cat) {
+		foreach ( (array) $this->categories as $cat ) {
 			$options['categories_' . $cat->cat_ID . '_limit'] = '';
 		}
 		
 		if (!$this->tags)
-			$tags = get_tags(array('hide_empty' => false));
-		foreach ( (array) $this->tags as $tag) {
+			$this->tags = get_tags(array('hide_empty' => false));
+		foreach ( (array) $this->tags as $tag)  {
 			$options['tags_' . $tag->term_id . '_limit'] = '';
 		}
 
@@ -180,31 +197,37 @@ END;
 
 					if (strpos($opt, 'individual_') !== false) {
 						$type = array_pop(explode('_', $opt, 2));
-						if ( ($type == 'categories' && count($this->categories) <= 1) ||
-							($type == 'tags' && count($this->tags) <= 1) ||
-							($type == 'authors' && count($this->authors) <= 1) ) {
+						if ( ($type == 'categories' && count($this->categories) < 1) ||
+							($type == 'tags' && count($this->tags) < 1) ||
+							($type == 'authors' && count($this->authors) < 1) ) {
 								continue;
 						}
-						echo "<tr valign='top' id='cpl-$type'><td colspan='2'><table style='padding-left:25px;' width='60%' cellspacing='1' cellpadding='1'><tr><th>ID</th><th>Name</th><th>Limit</th></tr>";
 						if ($type == 'categories') {
-							foreach ( (array) $this->categories as $cat) {
-								$value = $options[$type . '_' . $cat->cat_ID . '_limit'];
-								echo "<tr valign='top'><td>{$cat->cat_ID}</td><td>" . get_cat_name($cat->cat_ID) . "</td><td><input type='text' class='small-text' value='$value' /></td></tr>";
+							foreach ( (array) $this->categories as $cat ) {
+								$index = $type . '_' . $cat->cat_ID . '_limit';
+								$value = $options[$index];
+								echo "<tr valign='top' class='cpl-$type'><th width='33%' scope='row'>&#8212;&#8212; ".get_cat_name($cat->cat_ID)."</th>";
+								echo "<td><input type='text' class='small-text' name='$index' value='$value' /></td></tr>";
 							}
 						} elseif ($type == 'tags') {
-							foreach ( (array) $this->tags as $tag) {
-								$value = $options[$type . '_' . $tag->term_id . '_limit'];
-								echo "<tr valign='top'><td>{$tag->term_id}</td><td>" . $tag->term_name . "</td><td><input type='text' class='small-text' value='$value' /></td></tr>";
+							foreach ( (array) $this->tags as $tag ) {
+								$index = $type . '_' . $tag->term_id . '_limit';
+								$value = $options[$index];
+								echo "<tr valign='top' class='cpl-$type'><th width='33%' scope='row'>&#8212;&#8212; $tag->term_name</th>";
+								echo "<td><input type='text' class='small-text' name='$index' value='$value' /></td></tr>";
 							}
 						} elseif ($type == 'authors') {
-							foreach ( (array) $this->authors as $author) {
-								$value = $options[$type . '_' . $author->ID . '_limit'];
-								echo "<tr valign='top'><td>{$author->ID}</td><td>" . $author->user_nicename . "</td><td><input type='text' class='small-text' value='$value' /></td></tr>";
+							foreach ( (array) $this->authors as $author ) {
+								$index = $type . '_' . $author->ID . '_limit';
+								$value = $options[$index];
+								echo "<tr valign='top' class='cpl-$type'><th width='33%' scope='row'>&#8212;&#8212; $author->display_name</th>";
+								echo "<td><input type='text' class='small-text' name='$index' value='$value' /></td></tr>";
 							}
 						}
-						echo  "</table></td></tr>\n";
 					} else {
-						$opt_name = implode(' ', array_map('ucfirst', explode('_', $opt)));
+						$parts = explode('_', $opt);
+						if ((int)$parts[1] > 0) continue;
+						$opt_name = implode(' ', array_map('ucfirst', $parts));
 						$opt_value = $options[$opt];
 						echo "<tr valign='top'><th width='33%' scope='row'>$opt_name</th>";
 						echo "<td><input name='$opt' type='text' class='small-text' id='$opt' value='$opt_value' />";
@@ -219,8 +242,8 @@ END;
 							echo "(ALL posts are set to be displayed for this)";
 						}
 						$type = strtolower(array_shift(explode(' ', $opt_name)));
-						if ( array_key_exists('individual_'.$type, $options) && count($this->$type) > 1)
-							echo " <a id='cpl-{$type}-link' href='javascript:return false;'>&#8211; Show/hide individual $opt</a>";
+						if ( array_key_exists('individual_'.$type, $options) && count($this->$type) > 0)
+							echo " &#8211; <a id='cpl-{$type}-link' href='javascript:return false;'>Show/hide individual ".strtolower($opt_name)."</a>";
 						
 						if ($is_archive)
 							echo "<br />If not defined, it assumes the value of Archives Limit.";
@@ -320,6 +343,23 @@ END;
 			$limit = trim($old_limit);
 		elseif ($limit == '-1')
 			$limit = '18446744073709551615';	// Hacky, but it's what the MySQL docs suggest!
+
+		// Deal with possible paging
+		if (is_paged()) {
+			global $wp_query;
+			$offset = absint($wp_query->query_vars['offset']);
+			$page = absint($wp_query->query_vars['paged']);
+			if (empty($page))
+				$page = 1;
+
+			if (empty($offset)) {
+				$offset = ($page - 1) * $limit;
+			} else { // we're ignoring $page and using 'offset'
+				$offset = absint($offset);
+			}
+			$offset = "LIMIT $offset";
+		}
+
 		return ($limit ? "$offset, $limit" : '');
 	}
 } // end CustomPostLimits
