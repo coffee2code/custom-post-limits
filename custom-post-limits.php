@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Custom Post Limits
-Version: 1.1
+Version: 1.5
 Plugin URI: http://coffee2code.com/wp-plugins/custom-post-limits
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Description: Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
 
-Compatible with WordPress 2.2+, 2.3+, and 2.5.
+Compatible with WordPress 2.2+, 2.3+, 2.5+, 2.6+, 2.7+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -26,7 +26,7 @@ If no limit is defined, then the default limit as defined in your WordPress conf
 */
 
 /*
-Copyright (c) 2008 by Scott Reilly (aka coffee2code)
+Copyright (c) 2008-2009 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, 
@@ -46,8 +46,15 @@ if ( !class_exists('CustomPostLimits') ) :
 class CustomPostLimits {
 	var $admin_options_name = 'c2c_post_limits';
 	var $nonce_field = 'update-custom_post_limits';
+	var $show_admin = true;	// Change this to false if you don't want the plugin's admin page shown.
+	var $plugin_name = '';
+	var $short_name = '';
+	var $plugin_basename = '';
 
 	function CustomPostLimits() {
+		$this->plugin_name = __('Custom Post Limits');
+		$this->short_name = __('Post Limits');
+		$this->plugin_basename = plugin_basename(__FILE__); 
 		add_action('admin_menu', array(&$this, 'admin_menu'));
 		add_action('post_limits', array(&$this, 'custom_post_limits'));
 	}
@@ -58,7 +65,21 @@ class CustomPostLimits {
 	}
 
 	function admin_menu() {
-		add_options_page('Custom Post Limits', 'Post Limits', 9, basename(__FILE__), array(&$this, 'options_page'));
+		if ( $this->show_admin ) {
+			global $wp_version;
+			if ( current_user_can('edit_posts') ) {
+				if ( version_compare( $wp_version, '2.6.999', '>' ) )
+					add_filter( 'plugin_action_links_' . $this->plugin_basename, array(&$this, 'plugin_action_links') );
+				add_options_page($this->plugin_name, $this->short_name, 9, $this->plugin_basename, array(&$this, 'options_page'));
+			}
+		}
+	}
+
+	function plugin_action_links($action_links) {
+		$settings_link = '<a href="options-general.php?page='.$this->plugin_basename.'">' . __('Settings') . '</a>';
+		array_unshift( $action_links, $settings_link );
+
+		return $action_links;
 	}
 
 	function get_options() {
@@ -93,17 +114,19 @@ class CustomPostLimits {
 			// Remember to put all the other options into the array or they'll get lost!
 			update_option($this->admin_options_name, $options);
 
-			echo "<div class='updated'><p>Plugin settings saved.</p></div>";
+			echo "<div id='message' class='updated fade'><p><strong>" . __('Settings saved.') . '</strong></p></div>';
 		}
 
-		$action_url = $_SERVER[PHP_SELF] . '?page=' . basename(__FILE__);
+		$action_url = $_SERVER[PHP_SELF] . '?page=' . $this->plugin_basename;
+		$logo = get_option('siteurl') . '/wp-content/plugins/' . basename($_GET['page'], '.php') . '/c2c_minilogo.png';
 
 		$current_limit = get_option('posts_per_page');
 		$option_url = "<a href='" . get_option('siteurl') . "/wp-admin/options-reading.php'>here</a>";
 		
 		echo <<<END
 		<div class='wrap'>
-			<h2>Custom Post Limits Plugin Options</h2>
+			<div class="icon32" style="width:44px;"><img src='$logo' alt='A plugin by coffee2code' /><br /></div>
+			<h2>{$this->plugin_name} Plugin Options</h2>
 			<p>By default, WordPress provides a single configuration option to control how many posts should be listed on your
 			blog.  This value applies for the front page listing, archive listings, category listings, tag listings, and search results.
 			<strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.</p>
@@ -122,7 +145,7 @@ END;
 					$opt_name = implode(' ', array_map('ucfirst', explode('_', $opt)));
 					$opt_value = $options[$opt];
 					echo "<tr valign='top'><th width='33%' scope='row'>$opt_name</th>";
-					echo "<td><input name='$opt' type='text' id='$opt' value='$opt_value' />";
+					echo "<td><input name='$opt' type='text' class='small-text' id='$opt' value='$opt_value' />";
 					echo " <span style='color:#777; font-size:x-small;'>";
 					$is_archive = in_array($opt, array('day_archives_limit', 'month_archives_limit', 'year_archives_limit'));
 					if (!$opt_value) {
@@ -143,11 +166,10 @@ END;
 		echo <<<END
 			</table>
 			<input type="hidden" name="submitted" value="1" />
-			<div class="submit"><input type="submit" name="Submit" value="Save Changes" /></div>
+			<div class="submit"><input type="submit" name="Submit" class="button-primary" value="Save Changes" /></div>
 		</form>
 			</div>
 END;
-		$logo = get_option('siteurl') . '/wp-content/plugins/' . basename($_GET['page'], '.php') . '/c2c_minilogo.png';
 		echo <<<END
 		<style type="text/css">
 			#c2c {
@@ -182,7 +204,6 @@ END;
 	}
 
 	function custom_post_limits($sql_limit) {
-		// $sql_limit should look like: LIMIT 0, 10
 		// WP takes a few things into account when determining the offset part of the LIMIT,
 		//	so refrain from re-determining it
 		if (!$sql_limit || is_admin()) return $sql_limit;
