@@ -50,11 +50,15 @@ class CustomPostLimits {
 	var $plugin_name = '';
 	var $short_name = '';
 	var $plugin_basename = '';
+	var $authors = '';
+	var $categories = '';
+	var $tags = '';
 
 	function CustomPostLimits() {
 		$this->plugin_name = __('Custom Post Limits');
 		$this->short_name = __('Post Limits');
 		$this->plugin_basename = plugin_basename(__FILE__); 
+		add_action('admin_footer', array(&$this, 'add_js'));
 		add_action('admin_menu', array(&$this, 'admin_menu'));
 		add_action('post_limits', array(&$this, 'custom_post_limits'));
 	}
@@ -64,6 +68,18 @@ class CustomPostLimits {
 		update_option($this->admin_options_name, $options);
 	}
 
+	function add_js() {
+		echo <<<JS
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				jQuery('#cpl-categories, #cpl-tags, #cpl-authors, .cpl-categories').hide();
+				jQuery('#cpl-categories-link').click(function() {jQuery("#cpl-categories, .cpl-categories").toggle(); });
+				jQuery('#cpl-tags-link').click(function() {jQuery("#cpl-tags").toggle(); });
+				jQuery('#cpl-authors-link').click(function() {jQuery("#cpl-authors").toggle(); });
+			});
+		</script>
+JS;
+	}
 	function admin_menu() {
 		if ( $this->show_admin ) {
 			global $wp_version;
@@ -83,23 +99,42 @@ class CustomPostLimits {
 	}
 
 	function get_options() {
+		global $wpdb;
 	    $options = array(
 			'archives_limit' => '',
 			'authors_limit' => '',
+			'individual_authors' => '',
 			'categories_limit' => '',
+			'individual_categories' => '',
 			'day_archives_limit' => '',
 			'front_page_limit' => '',
 			'month_archives_limit' => '',
 			'searches_limit' => '',
 			'tags_limit' => '',
+			'individual_tags' => '',
 			'year_archives_limit' => ''
 		);
+		
+		if (!$this->authors)
+			$this->authors = $wpdb->get_results("SELECT ID, user_nicename from $wpdb->users ORDER BY display_name");
+		foreach ( (array) $this->authors as $author) {
+			$options['authors_' . $author->ID . '_limit'] = '';
+		}
+
+		if (!$this->categories)
+			$this->categories = get_categories(array('hide_empty' => false));
+		foreach ( (array) $this->cats as $cat) {
+			$options['categories_' . $cat->cat_ID . '_limit'] = '';
+		}
+		
+		if (!$this->tags)
+			$tags = get_tags(array('hide_empty' => false));
+		foreach ( (array) $this->tags as $tag) {
+			$options['tags_' . $tag->term_id . '_limit'] = '';
+		}
+
         $existing_options = get_option($this->admin_options_name);
-        if (!empty($existing_options)) {
-            foreach ($existing_options as $key => $option)
-                $options[$key] = $option;
-        }            
-        return $options;
+		return wp_parse_args($existing_options, $options);
 	}
 
 	function options_page() {
@@ -128,7 +163,7 @@ class CustomPostLimits {
 			<div class="icon32" style="width:44px;"><img src='$logo' alt='A plugin by coffee2code' /><br /></div>
 			<h2>{$this->plugin_name} Plugin Options</h2>
 			<p>By default, WordPress provides a single configuration option to control how many posts should be listed on your
-			blog.  This value applies for the front page listing, archive listings, category listings, tag listings, and search results.
+			blog.  This value applies for the front page listing, archive listings, author listings, category listings, tag listings, and search results.
 			<strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.</p>
 
 			<p>If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the
@@ -142,26 +177,58 @@ END;
 				wp_nonce_field($this->nonce_field);
 		echo '<table width="100%" cellspacing="2" cellpadding="5" class="optiontable editform form-table">';
 				foreach (array_keys($options) as $opt) {
-					$opt_name = implode(' ', array_map('ucfirst', explode('_', $opt)));
-					$opt_value = $options[$opt];
-					echo "<tr valign='top'><th width='33%' scope='row'>$opt_name</th>";
-					echo "<td><input name='$opt' type='text' class='small-text' id='$opt' value='$opt_value' />";
-					echo " <span style='color:#777; font-size:x-small;'>";
-					$is_archive = in_array($opt, array('day_archives_limit', 'month_archives_limit', 'year_archives_limit'));
-					if (!$opt_value) {
-						if ($is_archive && $options['archives_limit'])
-							echo "(Archives Limit of {$options['archives_limit']} is being used)";
-						else
-							echo "(The WordPress default of $current_limit is being used)";
-					} elseif ($opt_value == '-1') {
-						echo "(ALL posts are set to be displayed for this)";
+
+					if (strpos($opt, 'individual_') !== false) {
+						$type = array_pop(explode('_', $opt, 2));
+						if ( ($type == 'categories' && count($this->categories) <= 1) ||
+							($type == 'tags' && count($this->tags) <= 1) ||
+							($type == 'authors' && count($this->authors) <= 1) ) {
+								continue;
+						}
+						echo "<tr valign='top' id='cpl-$type'><td colspan='2'><table style='padding-left:25px;' width='60%' cellspacing='1' cellpadding='1'><tr><th>ID</th><th>Name</th><th>Limit</th></tr>";
+						if ($type == 'categories') {
+							foreach ( (array) $this->categories as $cat) {
+								$value = $options[$type . '_' . $cat->cat_ID . '_limit'];
+								echo "<tr valign='top'><td>{$cat->cat_ID}</td><td>" . get_cat_name($cat->cat_ID) . "</td><td><input type='text' class='small-text' value='$value' /></td></tr>";
+							}
+						} elseif ($type == 'tags') {
+							foreach ( (array) $this->tags as $tag) {
+								$value = $options[$type . '_' . $tag->term_id . '_limit'];
+								echo "<tr valign='top'><td>{$tag->term_id}</td><td>" . $tag->term_name . "</td><td><input type='text' class='small-text' value='$value' /></td></tr>";
+							}
+						} elseif ($type == 'authors') {
+							foreach ( (array) $this->authors as $author) {
+								$value = $options[$type . '_' . $author->ID . '_limit'];
+								echo "<tr valign='top'><td>{$author->ID}</td><td>" . $author->user_nicename . "</td><td><input type='text' class='small-text' value='$value' /></td></tr>";
+							}
+						}
+						echo  "</table></td></tr>\n";
+					} else {
+						$opt_name = implode(' ', array_map('ucfirst', explode('_', $opt)));
+						$opt_value = $options[$opt];
+						echo "<tr valign='top'><th width='33%' scope='row'>$opt_name</th>";
+						echo "<td><input name='$opt' type='text' class='small-text' id='$opt' value='$opt_value' />";
+						echo " <span style='color:#777; font-size:x-small;'>";
+						$is_archive = in_array($opt, array('day_archives_limit', 'month_archives_limit', 'year_archives_limit'));
+						if (!$opt_value) {
+							if ($is_archive && $options['archives_limit'])
+								echo "(Archives Limit of {$options['archives_limit']} is being used)";
+							else
+								echo "(The WordPress default of $current_limit is being used)";
+						} elseif ($opt_value == '-1') {
+							echo "(ALL posts are set to be displayed for this)";
+						}
+						$type = strtolower(array_shift(explode(' ', $opt_name)));
+						if ( array_key_exists('individual_'.$type, $options) && count($this->$type) > 1)
+							echo " <a id='cpl-{$type}-link' href='javascript:return false;'>&#8211; Show/hide individual $opt</a>";
+						
+						if ($is_archive)
+							echo "<br />If not defined, it assumes the value of Archives Limit.";
+						elseif ($opt == 'archives_limit')
+							echo '<br />This is the default for Day, Month, and Year archives, unless those are defined explicitly below.';
+						echo '</span>';
+						echo "</td></tr>\n";
 					}
-					if ($is_archive)
-						echo "<br />If not defined, it assumes the value of Archives Limit.";
-					elseif ($opt == 'archives_limit')
-						echo '<br />This is the default for Day, Month, and Year archives, unless those are defined explicitly below.';
-					echo '</span>';
-					echo "</td></tr>";
 				}
 		echo <<<END
 			</table>
@@ -211,15 +278,36 @@ END;
 		list($offset, $old_limit) = explode(',', $sql_limit, 2);
 		if (is_home())
 			$limit = $options['front_page_limit'];
-		elseif (is_category())
+		elseif (is_category()) {
 			$limit = $options['categories_limit'];
-		elseif (is_tag())
+			foreach ($this->categories as $cat) {
+				$opt = 'categories_' . $cat->cat_ID . '_limit';
+				if ( $options[$opt] && is_category($cat->cat_ID) ) {
+					$limit = $options[$opt];
+					break;
+				}
+			}
+		} elseif (is_tag()) {
 			$limit = $options['tags_limit'];
-		elseif (is_search())
+			foreach ($this->tags as $tag) {
+				$opt = 'tags_' . $tag->term_id . '_limit';
+				if ( $options[$opt] && is_tag($tag->term_id) ) {
+					$limit = $options[$opt];
+					break;
+				}
+			}
+		} elseif (is_search())
 			$limit = $options['searches_limit'];
-		elseif (is_author())
+		elseif (is_author()) {
 			$limit = $options['authors_limit'];
-		elseif (is_year())
+			foreach ($this->authors as $author) {
+				$opt = 'authors_' . $author->ID . '_limit';
+				if ( $options[$opt] && is_author($author->ID) ) {
+					$limit = $options[$opt];
+					break;
+				}
+			}
+		} elseif (is_year())
 			$limit = $options['year_archives_limit'] ? $options['year_archives_limit'] : $options['archives_limit'];
 		elseif (is_month())
 			$limit = $options['month_archives_limit'] ? $options['month_archives_limit'] : $options['archives_limit'];

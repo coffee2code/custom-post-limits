@@ -1,19 +1,34 @@
 === Custom Post Limits ===
 Contributors: coffee2code
 Donate link: http://coffee2code.com
-Tags: posts, archives, listing, front page, categories
-Requires at least: 2.0.2
-Tested up to: 2.5
+Tags: posts, archives, listing, limit, query, front page, categories, tags
+Requires at least: 2.2
+Tested up to: 2.7.1
 Stable tag: trunk
-Version: 1.1
+Version: 1.5
 
-Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
+Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
 
 == Description ==
 
-Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other.
+Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
 
-By default, WordPress provides a single configuration option to control how many posts should be listed on your blog.  This value applies for the front page listing, archive listings, category listings, and search results.  This plugin allows you to override that value for each of those different sections.
+By default, WordPress provides a single configuration option to control how many posts should be listed on your blog.  This value applies for the front page listing, author listings, archive listings, category listings, tag listings, and search results.  This plugin allows you to override that value for each of those different sections.
+
+Specifically, this plugin allows you to define limits for:
+
+* Authors archives (the archive listing of posts for any author)
+* Author archives (the archive listing of posts for any specific author)
+* Categories archives (the archive listings of posts for any category)
+* Category archive (the archive listings of posts for any specific category)
+* Date-based archives (the archive listings of posts for any date)
+* Day archives (the archive listings of posts for any day)
+* Front page (the listing of posts on the front page of the blog)
+* Month archives (the archive listings of posts for any month)
+* Search results (the listing of search results)
+* Tags archives (the archive listings of posts for any tag)
+* Tag archive (the archive listings of posts for any specific tag)
+* Year archives (the archive listings of posts for any year)
 
 If the limit field is empty or 0 for a particular section type, then the default post limit will apply.  If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown).  The Archives Limit value is also treated as the default limit for Day, Month, and Year archives, unless those are explicitly defined.
 
@@ -21,7 +36,7 @@ If the limit field is empty or 0 for a particular section type, then the default
 
 1. Unzip `custom-post-limits.zip` inside the `/wp-content/plugins/` directory, or upload `custom-post-limits.php` to `/wp-content/plugins/`
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Go to the new Options -> Post Limits (or in WP 2.5: Settings -> Post Limits) admin options page.  Optionally customize the limits.
+1. Click the plugin's `Settings` link next to its `Deactivate` link (still on the Plugins page), or click on the `Settings` -> `SMTP` link, to go to the plugin's admin options page.  Optionally customize the limits.
 
 == Frequently Asked Questions ==
 
