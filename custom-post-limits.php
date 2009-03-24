@@ -7,7 +7,7 @@ Author: Scott Reilly
 Author URI: http://coffee2code.com
 Description: Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
 
-By default, WordPress provides a single configuration option to control how many posts should be listed on your blog.  This
+By default, WordPress provides a single configuration setting to control how many posts should be listed on your blog.  This
 value applies for the front page listing, author listings, archive listings, category listings, tag listings, and search
 results.  This plugin allows you to override that value for each of those different sections.
 
@@ -37,10 +37,10 @@ Installation:
 /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
 3. Click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the 
-Settings -> Post Limits, to go to the plugin's admin options page.  Optionally customize the limits.
+Settings -> Post Limits, to go to the plugin's admin settings page.  Optionally customize the limits.
 
 If no limit is defined, then the default limit as defined in your WordPress configuration is used (accessible via 
-	the WordPress admin options page at Settings -> Reading), the setting labeled "Blog Pages: Show at most:").
+	the WordPress admin settings page at Settings -> Reading), the setting labeled "Blog Pages: Show at most:").
 */
 
 /*
@@ -90,11 +90,11 @@ class CustomPostLimits {
 	function add_js() {
 		echo <<<JS
 		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				jQuery('.cpl-categories, .cpl-tags, .cpl-authors').hide();
-				jQuery('#cpl-categories-link').click(function() {jQuery(".cpl-categories").toggle(); });
-				jQuery('#cpl-tags-link').click(function() {jQuery(".cpl-tags").toggle(); });
-				jQuery('#cpl-authors-link').click(function() {jQuery(".cpl-authors").toggle(); });
+			jQuery(document).ready(function($) {
+				$('.cpl-categories, .cpl-tags, .cpl-authors').hide();
+				$('#cpl-categories-link').click(function() { $(".cpl-categories").toggle(); });
+				$('#cpl-tags-link').click(function() { $(".cpl-tags").toggle(); });
+				$('#cpl-authors-link').click(function() { $(".cpl-authors").toggle(); });
 			});
 		</script>
 JS;
@@ -183,15 +183,15 @@ JS;
 		echo <<<END
 		<div class='wrap'>
 			<div class="icon32" style="width:44px;"><img src='$logo' alt='A plugin by coffee2code' /><br /></div>
-			<h2>{$this->plugin_name} Plugin Options</h2>
-			<p>By default, WordPress provides a single configuration option to control how many posts should be listed on your
+			<h2>{$this->plugin_name} Settings</h2>
+			<p>By default, WordPress provides a single configuration setting to control how many posts should be listed on your
 			blog.  This value applies for the front page listing, archive listings, author listings, category listings, tag listings, and search results.
 			<strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.</p>
 
 			<p>If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the
 			value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown).</p>
 			
-			<p>The default post limit as set in your options is <strong>$current_limit</strong>.  You can change this value
+			<p>The default post limit as set in your settings is <strong>$current_limit</strong>.  You can change this value
 			$option_url.  It's under the <em>Blog Pages</em>, labeled <em>Show at most: [ ] posts</em></p>
 			
 			<form name="custom_post_limits" action="$action_url" method="post">	

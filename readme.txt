@@ -13,7 +13,7 @@ Control the number of posts that appear on the front page, search results, and a
 
 Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
 
-By default, WordPress provides a single configuration option to control how many posts should be listed on your blog.  This value applies for the front page listing, author listings, archive listings, category listings, tag listings, and search results.  This plugin allows you to override that value for each of those different sections.
+By default, WordPress provides a single configuration setting to control how many posts should be listed on your blog.  This value applies for the front page listing, author listings, archive listings, category listings, tag listings, and search results.  This plugin allows you to override that value for each of those different sections.
 
 Specifically, this plugin allows you to define limits for:
 
@@ -36,7 +36,7 @@ If the limit field is empty or 0 for a particular section type, then the default
 
 1. Unzip `custom-post-limits.zip` inside the `/wp-content/plugins/` directory, or upload `custom-post-limits.php` to `/wp-content/plugins/`
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Click the plugin's `Settings` link next to its `Deactivate` link (still on the Plugins page), or click on the `Settings` -> `SMTP` link, to go to the plugin's admin options page.  Optionally customize the limits.
+1. Click the plugin's `Settings` link next to its `Deactivate` link (still on the Plugins page), or click on the `Settings` -> `Post Limits` link, to go to the plugin's admin settings page.  Optionally customize the limits.
 
 == Frequently Asked Questions ==
 
@@ -46,4 +46,4 @@ No.  The plugin filters the LIMIT clause of the primary WordPress post query as 
 
 == Screenshots ==
 
-1. A screenshot of the plugin's admin options page.
+1. A screenshot of the plugin's admin settings page (with individual authors limits expanded).
