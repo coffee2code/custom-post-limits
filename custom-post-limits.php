@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Custom Post Limits
-Version: 1.5
+Version: 2.0
 Plugin URI: http://coffee2code.com/wp-plugins/custom-post-limits
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -26,7 +26,7 @@ Specifically, this plugin allows you to define limits for:
 * Tag archive (the archive listings of posts for any specific tag)
 * Year archives (the archive listings of posts for any year)
 
-Compatible with WordPress 2.2+, 2.3+, 2.5+, 2.6+, 2.7+.
+Compatible with WordPress 2.2+, 2.3+, 2.5+, 2.6+, 2.7+, 2.8.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -79,7 +79,7 @@ class CustomPostLimits {
 		$this->plugin_basename = plugin_basename(__FILE__); 
 		add_action('admin_footer', array(&$this, 'add_js'));
 		add_action('admin_menu', array(&$this, 'admin_menu'));
-		add_action('post_limits', array(&$this, 'custom_post_limits'));
+		add_action('pre_option_posts_per_page', array(&$this, 'custom_post_limits'));
 	}
 
 	function install() {
@@ -103,7 +103,7 @@ JS;
 	function admin_menu() {
 		if ( $this->show_admin ) {
 			global $wp_version;
-			if ( current_user_can('edit_posts') ) {
+			if ( current_user_can('manage_options') ) {
 				if ( version_compare( $wp_version, '2.6.999', '>' ) )
 					add_filter( 'plugin_action_links_' . $this->plugin_basename, array(&$this, 'plugin_action_links') );
 				add_options_page($this->plugin_name, $this->short_name, 9, $this->plugin_basename, array(&$this, 'options_page'));
@@ -298,12 +298,9 @@ END;
 END;
 	}
 
-	function custom_post_limits($sql_limit) {
-		// WP takes a few things into account when determining the offset part of the LIMIT,
-		//	so refrain from re-determining it
-		if (!$sql_limit || is_admin()) return $sql_limit;
+	function custom_post_limits($old_limit) {
+		if (is_admin()) return $old_limit;
 		$options = $this->get_options();
-		list($offset, $old_limit) = explode(',', $sql_limit, 2);
 		if (is_home())
 			$limit = $options['front_page_limit'];
 		elseif (is_category()) {
@@ -345,27 +342,11 @@ END;
 			$limit = $options['archives_limit'];
 
 		if (!$limit)
-			$limit = trim($old_limit);
+			$limit = $old_limit;
 		elseif ($limit == '-1')
 			$limit = '18446744073709551615';	// Hacky, but it's what the MySQL docs suggest!
 
-		// Deal with possible paging
-		if (is_paged()) {
-			global $wp_query;
-			$offset = absint($wp_query->query_vars['offset']);
-			$page = absint($wp_query->query_vars['paged']);
-			if (empty($page))
-				$page = 1;
-
-			if (empty($offset)) {
-				$offset = ($page - 1) * $limit;
-			} else { // we're ignoring $page and using 'offset'
-				$offset = absint($offset);
-			}
-			$offset = "LIMIT $offset";
-		}
-
-		return ($limit ? "$offset, $limit" : '');
+		return $limit;
 	}
 } // end CustomPostLimits
 

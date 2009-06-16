@@ -1,11 +1,11 @@
 === Custom Post Limits ===
 Contributors: coffee2code
-Donate link: http://coffee2code.com
-Tags: posts, archives, listing, limit, query, front page, categories, tags
-Requires at least: 2.2
-Tested up to: 2.7.1
-Stable tag: trunk
-Version: 1.5
+Donate link: http://coffee2code.com/donate
+Tags: posts, archives, listing, limit, query, front page, categories, tags, coffee2code
+Requires at least: 2.6
+Tested up to: 2.8
+Stable tag: 2.0
+Version: 2.0
 
 Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
 
