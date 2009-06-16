@@ -26,7 +26,7 @@ Specifically, this plugin allows you to define limits for:
 * Tag archive (the archive listings of posts for any specific tag)
 * Year archives (the archive listings of posts for any year)
 
-Compatible with WordPress 2.2+, 2.3+, 2.5+, 2.6+, 2.7+, 2.8.
+Compatible with WordPress 2.6+, 2.7+, 2.8.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -36,11 +36,11 @@ Installation:
 1. Download the file http://coffee2code.com/wp-plugins/custom-post-limits.zip and unzip it into your 
 /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. Click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the 
+3. Click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on 
 Settings -> Post Limits, to go to the plugin's admin settings page.  Optionally customize the limits.
 
 If no limit is defined, then the default limit as defined in your WordPress configuration is used (accessible via 
-	the WordPress admin settings page at Settings -> Reading), the setting labeled "Blog Pages: Show at most:").
+	the WordPress admin settings page at Settings -> Reading), the setting labeled "Blog pages show at most").
 */
 
 /*
@@ -175,7 +175,7 @@ JS;
 		}
 
 		$action_url = $_SERVER[PHP_SELF] . '?page=' . $this->plugin_basename;
-		$logo = get_option('siteurl') . '/wp-content/plugins/' . basename($_GET['page'], '.php') . '/c2c_minilogo.png';
+		$logo = plugins_url() . '/' . basename($_GET['page'], '.php') . '/c2c_minilogo.png';
 
 		$current_limit = get_option('posts_per_page');
 		$option_url = "<a href='" . get_option('siteurl') . "/wp-admin/options-reading.php'>here</a>";
@@ -192,7 +192,7 @@ JS;
 			value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown).</p>
 			
 			<p>The default post limit as set in your settings is <strong>$current_limit</strong>.  You can change this value
-			$option_url.  It's under the <em>Blog Pages</em>, labeled <em>Show at most: [ ] posts</em></p>
+			$option_url, which is labeled as <em>Blog pages show at most</em></p>
 			
 			<form name="custom_post_limits" action="$action_url" method="post">	
 END;
@@ -218,7 +218,7 @@ END;
 							foreach ( (array) $this->tags as $tag ) {
 								$index = $type . '_' . $tag->term_id . '_limit';
 								$value = $options[$index];
-								echo "<tr valign='top' class='cpl-$type'><th width='33%' scope='row'>&#8212;&#8212; $tag->term_name</th>";
+								echo "<tr valign='top' class='cpl-$type'><th width='33%' scope='row'>&#8212;&#8212; $tag->name</th>";
 								echo "<td><input type='text' class='small-text' name='$index' value='$value' /></td></tr>";
 							}
 						} elseif ($type == 'authors') {
@@ -234,26 +234,26 @@ END;
 						if ((int)$parts[1] > 0) continue;
 						$opt_name = implode(' ', array_map('ucfirst', $parts));
 						$opt_value = $options[$opt];
-						echo "<tr valign='top'><th width='33%' scope='row'>$opt_name</th>";
+						echo "<tr valign='top'><th width='33%' scope='row'>" . __($opt_name) . '</th>';
 						echo "<td><input name='$opt' type='text' class='small-text' id='$opt' value='$opt_value' />";
 						echo " <span style='color:#777; font-size:x-small;'>";
 						$is_archive = in_array($opt, array('day_archives_limit', 'month_archives_limit', 'year_archives_limit'));
 						if (!$opt_value) {
 							if ($is_archive && $options['archives_limit'])
-								echo "(Archives Limit of {$options['archives_limit']} is being used)";
+								echo sprintf(__('(Archives Limit of %s is being used)'), $options['archives_limit']);
 							else
-								echo "(The WordPress default of $current_limit is being used)";
+								echo sprintf(__('(The WordPress default of %d is being used)'), $current_limit);
 						} elseif ($opt_value == '-1') {
-							echo "(ALL posts are set to be displayed for this)";
+							echo __('(ALL posts are set to be displayed for this)');
 						}
 						$type = strtolower(array_shift(explode(' ', $opt_name)));
 						if ( array_key_exists('individual_'.$type, $options) && count($this->$type) > 0)
-							echo " &#8211; <a id='cpl-{$type}-link' href='javascript:return false;'>Show/hide individual ".strtolower($opt_name)."</a>";
+							echo " &#8211; <a id='cpl-{$type}-link' href='javascript:return false;'>".sprintf(__('Show/hide individual %s'), strtolower($opt_name)) . '</a>';
 						
 						if ($is_archive)
-							echo "<br />If not defined, it assumes the value of Archives Limit.";
+							echo '<br />' . __('If not defined, it assumes the value of Archives Limit.');
 						elseif ($opt == 'archives_limit')
-							echo '<br />This is the default for Day, Month, and Year archives, unless those are defined explicitly below.';
+							echo '<br />' . __('This is the default for Day, Month, and Year archives, unless those are defined explicitly below.');
 						echo '</span>';
 						echo "</td></tr>\n";
 					}
