@@ -42,8 +42,41 @@ If the limit field is empty or 0 for a particular section type, then the default
 
 = Does this plugin introduce additional database queries (or excessively burden the primary query) to achieve its ends? =
 
-No.  The plugin filters the LIMIT clause of the primary WordPress post query as appropriate, resulting in retrieval of only the number of posts up to the limit you specified without significant alteration of the primary query itself and without additional queries.  Bottom line: this should perform efficiently.
+No.  The plugin filters the posts_per_page setting value as used by the primary WordPress post query as appropriate, resulting in retrieval of only the number of posts up to the limit you specified without significant alteration of the primary query itself and without additional queries.  Bottom line: this should perform efficiently.
 
 == Screenshots ==
 
 1. A screenshot of the plugin's admin settings page (with individual authors limits expanded).
+
+== Changelog ==
+
+= 2.0 =
+* Changed how post limiting is achieved by hooking 'pre_option_posts_per_page' rather than filtering 'post_limits'
+* Simplified custom_post_limits()
+* Changed permission check to access settings page
+* Used plugins_url() instead of hardcoded path
+* Removed compatibility with versions of WP older than 2.6
+* Noted compatibility with WP2.8
+* Began initial effort for localization
+* Fixed edge-case bug causing limiting to occur when not appropriate
+* Fixed bug with tag names not appearing
+
+= 1.5 =
+* NEW:
+* Added ability to specify limit on a per-category, per-author, and per-tag basis
+* Added ability to show all posts (i.e no limit, via a limit of -1)
+* Added "Settings" link next to "Activate"/"Deactivate" link next to the plugin on the admin plugin listings page
+* CHANGED:
+* Tweaked plugin's admin options page to conform to newer WP 2.7 style
+* Extended compatibility to WP 2.7+
+* Updated installation instructions, extended description, copyright
+* Facilitated translation of some text
+* Memoized options
+* In admin options page, due to difference b/w WP <2.5 and >2.5, link text for options page is just referred to as "here"
+* FIXED:
+* Prevent post limiting from occurring in the admin listing
+* Fixed plugin path problem in recent versions of WP
+* Fixed post paging (next_posts_link()/previous_posts_link()) was not taking post limit into account
+
+= 1.0 =
+* Initial release
