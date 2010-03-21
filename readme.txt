@@ -2,10 +2,10 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: posts, archives, listing, limit, query, front page, categories, tags, coffee2code
-Requires at least: 2.6
-Tested up to: 2.8
-Stable tag: 2.0
-Version: 2.0
+Requires at least: 2.8
+Tested up to: 2.9.1
+Stable tag: 2.6
+Version: 2.6
 
 Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
 
@@ -34,7 +34,7 @@ If the limit field is empty or 0 for a particular section type, then the default
 
 == Installation ==
 
-1. Unzip `custom-post-limits.zip` inside the `/wp-content/plugins/` directory, or upload `custom-post-limits.php` to `/wp-content/plugins/`
+1. Unzip `custom-post-limits.zip` inside the `/wp-content/plugins/` directory (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. Click the plugin's `Settings` link next to its `Deactivate` link (still on the Plugins page), or click on the `Settings` -> `Post Limits` link, to go to the plugin's admin settings page.  Optionally customize the limits.
 
@@ -49,6 +49,26 @@ No.  The plugin filters the posts_per_page setting value as used by the primary 
 1. A screenshot of the plugin's admin settings page (with individual authors limits expanded).
 
 == Changelog ==
+
+= 2.6 =
+* Revert post limiting back to hooking 'pre_option_posts_per_page' rather than filtering 'post_limits' (fixes bug introduced in v2.5)
+* Fix bug related to individual author/category/tag limits not applying (the primary intent of the v2.5 release, but needed re-fixing due to reversion)
+* Fix bug preventing value of individual limits from appearing on settings page (the value had been saved and used properly, though)
+* Add 'Reset Settings' button to facilitate resetting all limits configured via the plugin
+* Internal: add get_authors(), get_categories(), get_tags() to retrieve and buffer those respective values if actually needed
+* Update object's option buffer after saving changed submitted by user
+* Add PHPDoc documentation
+* Minor documentation tweaks
+
+= 2.5 =
+* Reverted post limiting method used to filtering 'post_limits' again rather than hooking 'pre_option_posts_per_page'
+* Fixed bug related to individual author/category/tag limits not applying
+* Changed invocation of plugin's install function to action hooked in constructor rather than in global space
+* Changed unobtrusively added JavaScript click events to return false, rather than depending on an embedded JS call in link (fixes IE8 compatibility)
+* Added full support for localization
+* Used admin_url() instead of hardcoded admin path
+* Removed compatibility with versions of WP older than 2.8
+* Noted compatibility with WP 2.9+
 
 = 2.0 =
 * Changed how post limiting is achieved by hooking 'pre_option_posts_per_page' rather than filtering 'post_limits'
