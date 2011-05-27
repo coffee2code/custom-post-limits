@@ -3,9 +3,9 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: posts, archives, listing, limit, query, front page, categories, tags, coffee2code
 Requires at least: 2.8
-Tested up to: 2.9.1
-Stable tag: 2.6
-Version: 2.6
+Tested up to: 3.0.1
+Stable tag: 3.0
+Version: 3.0
 
 Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
 
@@ -49,6 +49,21 @@ No.  The plugin filters the posts_per_page setting value as used by the primary 
 1. A screenshot of the plugin's admin settings page (with individual authors limits expanded).
 
 == Changelog ==
+
+= 3.0 =
+* Only output plugin's admin JS on its own page
+* Better localization support
+* Store plugin instance in global variable, $c2c_custom_post_limits, to allow for external manipulation
+* Re-implementation by extending C2C_Plugin_009, which adds support for:
+** Better sanitization of input values
+** Offload of core/basic functionality to generic plugin framework
+** Additional hooks for various stages/places of plugin operation
+** Easier localization support
+* Remove docs from top of plugin file (all that and more are in readme.txt)
+* Note compatibility with WP 3.0+
+* Minor tweaks to code formatting (spacing)
+* Add Upgrade Notice section to readme.txt
+* Remove trailing whitespace
 
 = 2.6 =
 * Revert post limiting back to hooking 'pre_option_posts_per_page' rather than filtering 'post_limits' (fixes bug introduced in v2.5)
@@ -100,3 +115,9 @@ No.  The plugin filters the posts_per_page setting value as used by the primary 
 
 = 1.0 =
 * Initial release
+
+
+== Upgrade Notice ==
+
+= 3.0 =
+Recommended update. Highlights: verified WP 3.0 compatibility.
