@@ -1,0 +1,217 @@
+# Copyright (C) 2008-2011 Scott Reilly
+# This file is distributed under the same license as the Custom Post Limits package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Post Limits 3.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/custom-post-limits\n"
+"POT-Creation-Date: 2011-08-16 00:34:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: c2c-plugin.php:77
+msgid "Invalid file specified for C2C_Plugin: %s"
+msgstr ""
+
+#: c2c-plugin.php:306
+msgid "Settings reset."
+msgstr ""
+
+#: c2c-plugin.php:317 c2c-plugin.php:325
+msgid "A value is required for: \"%s\""
+msgstr ""
+
+#: c2c-plugin.php:334
+msgid "Expected integer value for: %s"
+msgstr ""
+
+#: c2c-plugin.php:445
+msgid "More information about %1$s %2$s"
+msgstr ""
+
+#: c2c-plugin.php:446
+msgid "Click for more help on this plugin"
+msgstr ""
+
+#: c2c-plugin.php:447
+msgid " (especially check out the \"Other Notes\" tab, if present)"
+msgstr ""
+
+#: c2c-plugin.php:540
+msgid "Settings"
+msgstr ""
+
+#: c2c-plugin.php:775
+msgid "See the \"Help\" link to the top-right of the page for more help."
+msgstr ""
+
+#: c2c-plugin.php:796
+msgid "A plugin by coffee2code"
+msgstr ""
+
+#: c2c-plugin.php:807
+msgid "Save Changes"
+msgstr ""
+
+#: c2c-plugin.php:808
+msgid "Reset Settings"
+msgstr ""
+
+#: c2c-plugin.php:814
+msgid "Scott Reilly, aka coffee2code"
+msgstr ""
+
+#: c2c-plugin.php:815
+msgid "This plugin brought to you by %s."
+msgstr ""
+
+#: c2c-plugin.php:816
+msgid "Please consider a donation"
+msgstr ""
+
+#: c2c-plugin.php:817
+msgid "Did you find this plugin useful?"
+msgstr ""
+
+#. #-#-#-#-#  custom-post-limits.pot (Custom Post Limits 3.5)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: custom-post-limits.php:102
+msgid "Custom Post Limits"
+msgstr ""
+
+#: custom-post-limits.php:103
+msgid "Post Limits"
+msgstr ""
+
+#: custom-post-limits.php:107
+msgid "Archives Limit"
+msgstr ""
+
+#: custom-post-limits.php:109 custom-post-limits.php:113
+#: custom-post-limits.php:117 custom-post-limits.php:121
+#: custom-post-limits.php:125 custom-post-limits.php:129
+#: custom-post-limits.php:133 custom-post-limits.php:137
+#: custom-post-limits.php:141
+msgid " &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>"
+msgstr ""
+
+#: custom-post-limits.php:111
+msgid "Authors Limit"
+msgstr ""
+
+#: custom-post-limits.php:115
+msgid "Categories Limit"
+msgstr ""
+
+#: custom-post-limits.php:119
+msgid "Day Archives Limits"
+msgstr ""
+
+#: custom-post-limits.php:123
+msgid "Front Page Limit"
+msgstr ""
+
+#: custom-post-limits.php:127
+msgid "Month Archives Limit"
+msgstr ""
+
+#: custom-post-limits.php:131
+msgid "Searches Limit"
+msgstr ""
+
+#: custom-post-limits.php:135
+msgid "Tags Limit"
+msgstr ""
+
+#: custom-post-limits.php:139
+msgid "Year Archives Limits"
+msgstr ""
+
+#: custom-post-limits.php:180
+msgid "here"
+msgstr ""
+
+#: custom-post-limits.php:181
+msgid "Custom Post Limits Settings"
+msgstr ""
+
+#: custom-post-limits.php:182
+msgid ""
+"By default, WordPress provides a single configuration setting to control how "
+"many posts should be listed on your blog.  This value applies for the front "
+"page listing, archive listings, author listings, category listings, tag "
+"listings, and search results.  <strong>Custom Post Limits</strong> allows "
+"you to override that value for each of those different sections."
+msgstr ""
+
+#: custom-post-limits.php:183
+msgid ""
+"If the limit field is empty or 0 for a particular section type, then the "
+"default post limit will apply. If the value is set to -1, then there will be "
+"NO limit for that section (meaning ALL posts will be shown). For instance, "
+"you could set your Front Page to list 5 posts, but then list 10 on "
+"subsequent pages."
+msgstr ""
+
+#: custom-post-limits.php:184
+msgid ""
+"All but the individual archive limits support a \"paged (non first page)\" "
+"sub-setting that allows a different limit to apply for that listing type "
+"when not viewing the first page of the listing  (i.e. when on page 2 or "
+"later)."
+msgstr ""
+
+#: custom-post-limits.php:185
+msgid ""
+"The default post limit as set in your settings is <strong>%1$d</strong>.  "
+"You can change this value %2$s, which is labeled as <em>Blog pages show at "
+"most</em>"
+msgstr ""
+
+#: custom-post-limits.php:310
+msgid "(Archives Limit of %s is being used)"
+msgstr ""
+
+#: custom-post-limits.php:312
+msgid "(The WordPress default of %d is being used)"
+msgstr ""
+
+#: custom-post-limits.php:314
+msgid "(ALL posts are set to be displayed for this)"
+msgstr ""
+
+#: custom-post-limits.php:320
+msgid "Show/hide individual %s"
+msgstr ""
+
+#: custom-post-limits.php:323
+msgid "If not defined, it assumes the value of Archives Limit."
+msgstr ""
+
+#: custom-post-limits.php:325
+msgid ""
+"This is the default for Day, Month, and Year archives, unless those are "
+"defined explicitly below."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://coffee2code.com/wp-plugins/custom-post-limits/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Control the number of posts that appear on the front page, search results, "
+"and author, category, tag, and date archives, independent of each other, "
+"including specific archives."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Scott Reilly"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://coffee2code.com"
+msgstr ""
