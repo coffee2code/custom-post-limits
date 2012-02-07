@@ -3,11 +3,11 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: posts, archives, listing, limit, query, front page, categories, tags, coffee2code
 Requires at least: 3.1
-Tested up to: 3.2
-Stable tag: 3.5
-Version: 3.5
+Tested up to: 3.3.1
+Stable tag: 3.6
+Version: 3.6
 
-Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
+Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
 
 
 == Description ==
@@ -40,9 +40,12 @@ Specifically, this plugin allows you to define limits for:
 
 If the limit field is empty or 0 for a particular section type, then the default post limit will apply.  If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown).  The Archives Limit value is also treated as the default limit for Day, Month, and Year archives, unless those are explicitly defined.
 
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/custom-post-limits/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/custom-post-limits/) | [Author Homepage](http://coffee2code.com)
+
 
 == Installation ==
 
+1. Whether installing or updating, whether this plugin or any other, it is always advisable to back-up your data before starting
 1. Unzip `custom-post-limits.zip` inside the `/wp-content/plugins/` directory (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. Click the plugin's `Settings` link next to its `Deactivate` link (still on the Plugins page), or click on the `Settings` -> `Post Limits` link, to go to the plugin's admin settings page.  Optionally customize the limits.
@@ -57,10 +60,31 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 
 == Screenshots ==
 
-1. A screenshot of the plugin's admin settings page (with individual authors limits expanded).
+1. A screenshot of the plugin's admin settings page (with individual categories limits expanded) (top half of page).
+2. A screenshot of the plugin's admin settings page (with individual categories limits expanded) (bottom half of page).
 
 
 == Changelog ==
+
+= 3.6 =
+* Update plugin framework to version 034
+* Fix problem where plugin settings page won't load for sites with a lot of authors, categories, and/or tags
+* Fix correct_paged_offset() to only operate against main query
+* By default, disable listing of limits for individual authors, categories, and tags
+* Add filter 'c2c_cpl_enable_all_individual_limits' to allow enabling limits for all individual authors, categories, and tags (supersedes the specific limits)
+* Add filter 'c2c_cpl_enable_all_individual_author_limits' to allow enabling limits for individual authors
+* Add filter 'c2c_cpl_enable_all_individual_category_limits'  to allow enabling limits for individual categories
+* Add filter 'c2c_cpl_enable_all_individual_tag_limits'  to allow enabling limits for individual tags
+* Remove support for 'c2c_custom_post_limits' global
+* Note compatibility through WP 3.3+
+* Regenerate .pot
+* Change plugin description
+* Add 'Domain Path' directive to top of main plugin file
+* Add link to plugin directory page to readme.txt
+* Tweak installation instructions in readme.txt
+* Update screenshot for WP 3.3
+* Add second screenshot
+* Update copyright date (2012)
 
 = 3.5 =
 * Add support for different paged (non-first page) limits for each section (each requires separate setting)
@@ -151,6 +175,9 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 
 
 == Upgrade Notice ==
+
+= 3.6 =
+Recommended update: disabled support for individual archive limits by default (configurable) to help sites with lots of authors/categories/tags; noted compatibility through WP 3.3+; updated plugin framework; and more.
 
 = 3.5 =
 Recommended update: support different non-first-page limits; re-implemented display/handling of individual category/tag/author limits; noted compatibility through WP 3.2+, drop compatibility with WP 3.0; and more.

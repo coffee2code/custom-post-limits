@@ -1,10 +1,11 @@
-# Copyright (C) 2008-2011 Scott Reilly
-# This file is distributed under the same license as the Custom Post Limits package.
+# Translation of the WordPress plugin Custom Post Limits v3.6 by Scott Reilly.
+# Copyright (C) 2011 Scott Reilly
+# This file is distributed under the same license as the Custom Post Limits plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Custom Post Limits 3.5\n"
+"Project-Id-Version: Custom Post Limits 3.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/custom-post-limits\n"
-"POT-Creation-Date: 2011-08-16 00:34:30+00:00\n"
+"POT-Creation-Date: 2012-02-07 05:29:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,133 +13,178 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: c2c-plugin.php:77
+#: c2c-plugin.php:76
 msgid "Invalid file specified for C2C_Plugin: %s"
 msgstr ""
 
-#: c2c-plugin.php:306
-msgid "Settings reset."
-msgstr ""
-
-#: c2c-plugin.php:317 c2c-plugin.php:325
-msgid "A value is required for: \"%s\""
-msgstr ""
-
-#: c2c-plugin.php:334
-msgid "Expected integer value for: %s"
-msgstr ""
-
-#: c2c-plugin.php:445
-msgid "More information about %1$s %2$s"
-msgstr ""
-
-#: c2c-plugin.php:446
-msgid "Click for more help on this plugin"
-msgstr ""
-
-#: c2c-plugin.php:447
-msgid " (especially check out the \"Other Notes\" tab, if present)"
-msgstr ""
-
-#: c2c-plugin.php:540
-msgid "Settings"
-msgstr ""
-
-#: c2c-plugin.php:775
+#: c2c-plugin.php:296
 msgid "See the \"Help\" link to the top-right of the page for more help."
 msgstr ""
 
-#: c2c-plugin.php:796
+#: c2c-plugin.php:329
+msgid "Settings reset."
+msgstr ""
+
+#: c2c-plugin.php:340 c2c-plugin.php:348
+msgid "A value is required for: \"%s\""
+msgstr ""
+
+#: c2c-plugin.php:357
+msgid "Expected integer value for: %s"
+msgstr ""
+
+#: c2c-plugin.php:469
+msgid "More information about %1$s %2$s"
+msgstr ""
+
+#: c2c-plugin.php:470
+msgid "Click for more help on this plugin"
+msgstr ""
+
+#: c2c-plugin.php:471
+msgid " (especially check out the \"Other Notes\" tab, if present)"
+msgstr ""
+
+#: c2c-plugin.php:585
+msgid "More Help"
+msgstr ""
+
+#: c2c-plugin.php:597
+msgid "Settings"
+msgstr ""
+
+#: c2c-plugin.php:609
+msgid "Donation for coffee2code plugin: %s"
+msgstr ""
+
+#: c2c-plugin.php:610
+msgid "Coffee fuels my coding."
+msgstr ""
+
+#: c2c-plugin.php:848
 msgid "A plugin by coffee2code"
 msgstr ""
 
-#: c2c-plugin.php:807
+#: c2c-plugin.php:857
 msgid "Save Changes"
 msgstr ""
 
-#: c2c-plugin.php:808
+#: c2c-plugin.php:858
 msgid "Reset Settings"
 msgstr ""
 
-#: c2c-plugin.php:814
+#: c2c-plugin.php:864
 msgid "Scott Reilly, aka coffee2code"
 msgstr ""
 
-#: c2c-plugin.php:815
+#: c2c-plugin.php:865
 msgid "This plugin brought to you by %s."
 msgstr ""
 
-#: c2c-plugin.php:816
+#: c2c-plugin.php:866
 msgid "Please consider a donation"
 msgstr ""
 
-#: c2c-plugin.php:817
+#: c2c-plugin.php:867
 msgid "Did you find this plugin useful?"
 msgstr ""
 
-#. #-#-#-#-#  custom-post-limits.pot (Custom Post Limits 3.5)  #-#-#-#-#
+#. #-#-#-#-#  custom-post-limits.pot (Custom Post Limits 3.6)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: custom-post-limits.php:102
+#: custom-post-limits.php:105
 msgid "Custom Post Limits"
 msgstr ""
 
-#: custom-post-limits.php:103
+#: custom-post-limits.php:106
 msgid "Post Limits"
 msgstr ""
 
-#: custom-post-limits.php:107
+#: custom-post-limits.php:110
 msgid "Archives Limit"
 msgstr ""
 
-#: custom-post-limits.php:109 custom-post-limits.php:113
-#: custom-post-limits.php:117 custom-post-limits.php:121
-#: custom-post-limits.php:125 custom-post-limits.php:129
-#: custom-post-limits.php:133 custom-post-limits.php:137
-#: custom-post-limits.php:141
+#: custom-post-limits.php:112 custom-post-limits.php:119
+#: custom-post-limits.php:126 custom-post-limits.php:130
+#: custom-post-limits.php:134 custom-post-limits.php:138
+#: custom-post-limits.php:142 custom-post-limits.php:149
+#: custom-post-limits.php:153
 msgid " &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>"
 msgstr ""
 
-#: custom-post-limits.php:111
-msgid "Authors Limit"
+#: custom-post-limits.php:114
+msgid "Enable individual authors limit?"
 msgstr ""
 
 #: custom-post-limits.php:115
+msgid ""
+"Allows you to set limits for specific authors. If enabled, a link will "
+"appear after the Authors Limit field.<br /><em>Warning: if you have a lot of "
+"authors this may prevent this page from loading</em>."
+msgstr ""
+
+#: custom-post-limits.php:117
+msgid "Authors Limit"
+msgstr ""
+
+#: custom-post-limits.php:121
+msgid "Enable individual categories limit?"
+msgstr ""
+
+#: custom-post-limits.php:122
+msgid ""
+"Allows you to set limits for specific categories. If enabled, a link will "
+"appear after the Categories Limit field.<br /><em>Warning: if you have a lot "
+"of categories this may prevent this page from loading</em>."
+msgstr ""
+
+#: custom-post-limits.php:124
 msgid "Categories Limit"
 msgstr ""
 
-#: custom-post-limits.php:119
+#: custom-post-limits.php:128
 msgid "Day Archives Limits"
 msgstr ""
 
-#: custom-post-limits.php:123
+#: custom-post-limits.php:132
 msgid "Front Page Limit"
 msgstr ""
 
-#: custom-post-limits.php:127
+#: custom-post-limits.php:136
 msgid "Month Archives Limit"
 msgstr ""
 
-#: custom-post-limits.php:131
+#: custom-post-limits.php:140
 msgid "Searches Limit"
 msgstr ""
 
-#: custom-post-limits.php:135
+#: custom-post-limits.php:144
+msgid "Enable individual tags limit?"
+msgstr ""
+
+#: custom-post-limits.php:145
+msgid ""
+"Allows you to set limits for specific tags. If enabled, a link will appear "
+"after the Tags Limit field.<br /><em>Warning: if you have a lot of tags this "
+"may prevent this page from loading</em>."
+msgstr ""
+
+#: custom-post-limits.php:147
 msgid "Tags Limit"
 msgstr ""
 
-#: custom-post-limits.php:139
+#: custom-post-limits.php:151
 msgid "Year Archives Limits"
 msgstr ""
 
-#: custom-post-limits.php:180
+#: custom-post-limits.php:192
 msgid "here"
 msgstr ""
 
-#: custom-post-limits.php:181
+#: custom-post-limits.php:193
 msgid "Custom Post Limits Settings"
 msgstr ""
 
-#: custom-post-limits.php:182
+#: custom-post-limits.php:194
 msgid ""
 "By default, WordPress provides a single configuration setting to control how "
 "many posts should be listed on your blog.  This value applies for the front "
@@ -147,7 +193,7 @@ msgid ""
 "you to override that value for each of those different sections."
 msgstr ""
 
-#: custom-post-limits.php:183
+#: custom-post-limits.php:195
 msgid ""
 "If the limit field is empty or 0 for a particular section type, then the "
 "default post limit will apply. If the value is set to -1, then there will be "
@@ -156,7 +202,7 @@ msgid ""
 "subsequent pages."
 msgstr ""
 
-#: custom-post-limits.php:184
+#: custom-post-limits.php:196
 msgid ""
 "All but the individual archive limits support a \"paged (non first page)\" "
 "sub-setting that allows a different limit to apply for that listing type "
@@ -164,34 +210,34 @@ msgid ""
 "later)."
 msgstr ""
 
-#: custom-post-limits.php:185
+#: custom-post-limits.php:197
 msgid ""
 "The default post limit as set in your settings is <strong>%1$d</strong>.  "
 "You can change this value %2$s, which is labeled as <em>Blog pages show at "
 "most</em>"
 msgstr ""
 
-#: custom-post-limits.php:310
+#: custom-post-limits.php:347
 msgid "(Archives Limit of %s is being used)"
 msgstr ""
 
-#: custom-post-limits.php:312
+#: custom-post-limits.php:349
 msgid "(The WordPress default of %d is being used)"
 msgstr ""
 
-#: custom-post-limits.php:314
+#: custom-post-limits.php:351
 msgid "(ALL posts are set to be displayed for this)"
 msgstr ""
 
-#: custom-post-limits.php:320
+#: custom-post-limits.php:357
 msgid "Show/hide individual %s"
 msgstr ""
 
-#: custom-post-limits.php:323
+#: custom-post-limits.php:360
 msgid "If not defined, it assumes the value of Archives Limit."
 msgstr ""
 
-#: custom-post-limits.php:325
+#: custom-post-limits.php:362
 msgid ""
 "This is the default for Day, Month, and Year archives, unless those are "
 "defined explicitly below."
@@ -203,9 +249,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Control the number of posts that appear on the front page, search results, "
-"and author, category, tag, and date archives, independent of each other, "
-"including specific archives."
+"Independently control the number of posts listed on the front page, author/"
+"category/tag archives, search results, etc."
 msgstr ""
 
 #. Author of the plugin/theme
@@ -213,5 +258,5 @@ msgid "Scott Reilly"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://coffee2code.com"
+msgid "http://coffee2code.com/"
 msgstr ""
