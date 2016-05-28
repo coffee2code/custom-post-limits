@@ -70,6 +70,8 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 * Change: Add support for language packs:
     * Remove .pot file and /lang subdirectory.
     * Remove 'Domain Path' from plugin header.
+* Change: Re-license as GPLv2 or later (from X11)
+* New: Add 'License' and 'License URI' header tags to readme.txt and plugin file
 * Change: Note compatibility through WP 4.5+.
 * Change: Dropped compatibility with version of WP older than 4.1.
 
