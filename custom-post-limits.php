@@ -595,5 +595,3 @@ $this->first_page_offset = null;
 new c2c_CustomPostLimits();
 
 endif; // end if !class_exists()
-
-?>
