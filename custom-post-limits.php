@@ -46,6 +46,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+defined( 'ABSPATH' ) or die();
+
 if ( ! class_exists( 'c2c_CustomPostLimits' ) ) :
 
 require_once( 'c2c-plugin.php' );
