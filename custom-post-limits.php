@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) or die();
 
 if ( ! class_exists( 'c2c_CustomPostLimits' ) ) :
 
-require_once( 'c2c-plugin.php' );
+require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
 class c2c_CustomPostLimits extends C2C_Plugin_034 {
 
