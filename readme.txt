@@ -67,7 +67,9 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 
 = 4.0 () =
 * Change: Reformat plugin header.
-* Remove 'Domain Path' from plugin header.
+* Change: Add support for language packs:
+    * Remove .pot file and /lang subdirectory.
+    * Remove 'Domain Path' from plugin header.
 * Change: Note compatibility through WP 4.5+.
 * Change: Dropped compatibility with version of WP older than 4.1.
 
