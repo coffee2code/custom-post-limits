@@ -1,30 +1,32 @@
 <?php
 /**
+ * Plugin Name: Custom Post Limits
+ * Version:     4.0
+ * Plugin URI:  http://coffee2code.com/wp-plugins/custom-post-limits/
+ * Author:      Scott Reilly
+ * Author URI:  http://coffee2code.com/
+ * License:     GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: custom-post-limits
+ * Description: Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
+ *
+ * Compatible with WordPress 4.1 through 4.5+.
+ *
+ * =>> Read the accompanying readme.txt file for instructions and documentation.
+ * =>> Also, visit the plugin's homepage for additional information and updates.
+ * =>> Or visit: https://wordpress.org/plugins/custom-post-limits/
+ *
  * @package Custom_Post_Limits
- * @author Scott Reilly
- * @version 3.6
+ * @author  Scott Reilly
+ * @version 4.0
  */
+
 /*
-Plugin Name: Custom Post Limits
-Version: 3.6
-Plugin URI: http://coffee2code.com/wp-plugins/custom-post-limits/
-Author: Scott Reilly
-Author URI: http://coffee2code.com/
-Text Domain: custom-post-limits
-Domain Path: /lang/
-Description: Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
-
-Compatible with WordPress 3.1+, 3.2+, 3.3+.
-
-=>> Read the accompanying readme.txt file for instructions and documentation.
-=>> Also, visit the plugin's homepage for additional information and updates.
-=>> Or visit: http://wordpress.org/extend/plugins/custom-post-limits/
-
-TODO
-	* Extract post limit determination logic from custom_post_limits() into get_custom_limit( $type, $specific = null)
-	  (where specific can be a number to indicate a particular cat/tag/author or 'paged')
-
-*/
+ * TODO
+ * - Extract post limit determination logic from custom_post_limits() into get_custom_limit( $type, $specific = null)
+ *   (where specific can be a number to indicate a particular cat/tag/author or 'paged')
+ * - Add support for custom post types
+ */
 
 /*
 Copyright (c) 2008-2012 by Scott Reilly (aka coffee2code)

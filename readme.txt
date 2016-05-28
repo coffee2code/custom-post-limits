@@ -2,10 +2,9 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: posts, archives, listing, limit, query, front page, categories, tags, coffee2code
-Requires at least: 3.1
-Tested up to: 3.3.1
-Stable tag: 3.6
-Version: 3.6
+Requires at least: 4.1
+Tested up to: 4.5
+Stable tag: 4.0
 
 Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
 
@@ -65,6 +64,12 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 
 
 == Changelog ==
+
+= 4.0 () =
+* Change: Reformat plugin header.
+* Remove 'Domain Path' from plugin header.
+* Change: Note compatibility through WP 4.5+.
+* Change: Dropped compatibility with version of WP older than 4.1.
 
 = 3.6 =
 * Update plugin framework to version 034
