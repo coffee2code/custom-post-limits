@@ -73,6 +73,7 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 * Change: Re-license as GPLv2 or later (from X11)
 * New: Add 'License' and 'License URI' header tags to readme.txt and plugin file
 * New: Add LICENSE file.
+* New: Add empty index.php to prevent files from being listed if web server has enabled directory listings.
 * Change: Note compatibility through WP 4.5+.
 * Change: Dropped compatibility with version of WP older than 4.1.
 * Change: Update copyright date (2016).
