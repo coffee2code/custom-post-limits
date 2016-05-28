@@ -1,6 +1,6 @@
 === Custom Post Limits ===
 Contributors: coffee2code
-Donate link: http://coffee2code.com/donate
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522
 Tags: posts, archives, listing, limit, query, front page, categories, tags, coffee2code
 Requires at least: 4.1
 Tested up to: 4.5
@@ -76,6 +76,7 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 * New: Add empty index.php to prevent files from being listed if web server has enabled directory listings.
 * Change: Note compatibility through WP 4.5+.
 * Change: Dropped compatibility with version of WP older than 4.1.
+* Change: Update donate link.
 * Change: Update copyright date (2016).
 
 = 3.6 =
