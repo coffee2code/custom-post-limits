@@ -66,6 +66,12 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 == Changelog ==
 
 = 4.0 () =
+* Change: Improve singleton implementation.
+    * Add `get_instance()` static method for returning/creating singleton instance.
+    * Make static variable 'instance' private.
+    * Make constructor protected.
+    * Make class final.
+* Change: Discontinue use of PHP4-style constructor.
 * Change: Reformat plugin header.
 * Change: Add support for language packs:
     * Remove .pot file and /lang subdirectory.

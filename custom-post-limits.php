@@ -52,9 +52,14 @@ if ( ! class_exists( 'c2c_CustomPostLimits' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-class c2c_CustomPostLimits extends C2C_Plugin_034 {
+final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 
-	public static $instance;
+	/**
+	 * The one true instance.
+	 *
+	 * @var c2c_CustomPostLimits
+	 */
+	private static $instance;
 
 	private $authors           = '';
 	private $categories        = '';
@@ -64,20 +69,26 @@ class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	private static $individual_limits = array( 'all' => null, 'authors' => null, 'categories' => null, 'tags' => null );
 
 	/**
-	 * Class constructor: initializes class variables and adds actions and filters.
+	 * Get singleton instance.
+	 *
+	 * @since 4.0
 	 */
-	public function __construct() {
-		$this->c2c_CustomPostLimits();
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
 	}
 
-	public function c2c_CustomPostLimits() {
-		// Be a singleton
-		if ( ! is_null( self::$instance ) )
-			return;
-
-		parent::__construct( '3.5', 'custom-post-limits', 'c2c', __FILE__, array() );
+	/**
+	 * Constructor.
+	 */
+	protected function __construct() {
+		parent::__construct( '4.0', 'custom-post-limits', 'c2c', __FILE__, array() );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
-		self::$instance = $this;
+
+		return self::$instance = $this;
 	}
 
 	/**
@@ -591,7 +602,6 @@ $this->first_page_offset = null;
 
 } // end c2c_CustomPostLimits
 
-// To access plugin object instance use: c2c_CustomPostLimits::$instance
-new c2c_CustomPostLimits();
+c2c_CustomPostLimits::get_instance();
 
 endif; // end if !class_exists()
