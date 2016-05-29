@@ -98,7 +98,7 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	 *
 	 * @return void
 	 */
-	public function activation() {
+	public static function activation() {
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
@@ -109,7 +109,7 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	 *
 	 * @return void
 	 */
-	public function uninstall() {
+	public static function uninstall() {
 		delete_option( 'c2c_custom_post_limits' );
 	}
 

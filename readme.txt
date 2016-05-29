@@ -71,6 +71,7 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
     * Make static variable 'instance' private.
     * Make constructor protected.
     * Make class final.
+* Bugfix: Explicitly declare `activation()` and `uninstall()` static.
 * Change: Discontinue use of PHP4-style constructor.
 * Change: Discontinue use of explicit pass-by-reference for objects.
 * Change: Reformat plugin header.
