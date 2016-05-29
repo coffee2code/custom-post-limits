@@ -179,22 +179,22 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	public function register_filters() {
 		if ( $this->is_plugin_admin_page() ) {
 			// Add plugin settings page JS
-			add_action( 'admin_print_footer_scripts', array( &$this, 'add_plugin_admin_js' ) );
+			add_action( 'admin_print_footer_scripts',                      array( $this, 'add_plugin_admin_js' ) );
 			// Dynamically add help text to the plugin settings page
-			add_filter( $this->get_hook( 'option_help' ), array( &$this, 'dynamic_option_help' ), 10, 2 );
+			add_filter( $this->get_hook( 'option_help' ),                  array( $this, 'dynamic_option_help' ), 10, 2 );
 		}
 
 		if ( is_admin() ) {
-			add_filter( $this->get_hook( 'options' ), array( &$this, 'load_individual_options' ) );
+			add_filter( $this->get_hook( 'options' ),                      array( $this, 'load_individual_options' ) );
 			// Hook the post-display of each plugin option in order to potentially output dynamically listed individual items
-			add_action( $this->get_hook( 'post_display_option' ), array( &$this, 'display_individual_option' ) );
+			add_action( $this->get_hook( 'post_display_option' ),          array( $this, 'display_individual_option' ) );
 			// Hook post-updating of plugin option in order to save individually listed items
-			add_action ( 'pre_update_option_' . $this->admin_options_name, array( &$this, 'save_individual_options' ), 10, 2 );
+			add_action ( 'pre_update_option_' . $this->admin_options_name, array( $this, 'save_individual_options' ), 10, 2 );
 		} else {
 			// Override the default post limits prior to the db being queried
-			add_action( 'pre_option_posts_per_page', array( &$this, 'custom_post_limits' ) );
+			add_action( 'pre_option_posts_per_page',                       array( $this, 'custom_post_limits' ) );
 			// Possibly modify the offset within the LIMIT clause
-			add_filter( 'post_limits', array( &$this, 'correct_paged_offset' ), 10, 2 );
+			add_filter( 'post_limits',                                     array( $this, 'correct_paged_offset' ), 10, 2 );
 		}
 	}
 

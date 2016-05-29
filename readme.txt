@@ -72,6 +72,7 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
     * Make constructor protected.
     * Make class final.
 * Change: Discontinue use of PHP4-style constructor.
+* Change: Discontinue use of explicit pass-by-reference for objects.
 * Change: Reformat plugin header.
 * Change: Add support for language packs:
     * Remove .pot file and /lang subdirectory.
