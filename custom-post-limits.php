@@ -201,12 +201,13 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	/**
 	 * Outputs the text above the setting form
 	 *
-	 * @return void (Text will be echoed.)
+	 * @param string $localized_heading_text Optional. Localized page heading text.
 	 */
-	public function options_page_description() {
+	public function options_page_description( $localized_heading_text = '' ) {
 		$options = $this->get_options();
 		$current_limit = get_option( 'posts_per_page' );
 		$option_url = '<a href="' . admin_url( 'options-reading.php' ) . '">' . __( 'here', $this->textdomain ) . '</a>';
+
 		parent::options_page_description( __( 'Custom Post Limits Settings', $this->textdomain ) );
 		echo '<p>' . __( 'By default, WordPress provides a single configuration setting to control how many posts should be listed on your blog.  This value applies for the front page listing, archive listings, author listings, category listings, tag listings, and search results.  <strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.', $this->textdomain ) . '</p>';
 		echo '<p>' . __( 'If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown). For instance, you could set your Front Page to list 5 posts, but then list 10 on subsequent pages.', $this->textdomain ) . '</p>';
