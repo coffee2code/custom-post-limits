@@ -95,8 +95,6 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	 * Handles activation tasks, such as registering the uninstall hook.
 	 *
 	 * @since 3.5
-	 *
-	 * @return void
 	 */
 	public static function activation() {
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
@@ -106,8 +104,6 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	 * Handles uninstallation tasks, such as deleting plugin options.
 	 *
 	 * @since 3.5
-	 *
-	 * @return void
 	 */
 	public static function uninstall() {
 		delete_option( 'c2c_custom_post_limits' );
@@ -115,8 +111,6 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 
 	/**
 	 * Initializes the plugin's configuration and localizable text variables.
-	 *
-	 * @return void
 	 */
 	public function load_config() {
 		$this->name      = __( 'Custom Post Limits', $this->textdomain );
@@ -172,9 +166,7 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	}
 
 	/**
-	 * Override the plugin framework's register_filters() to register actions and filters.
-	 *
-	 * @return void
+	 * Override plugin framework's register_filters() to register actions and filters.
 	 */
 	public function register_filters() {
 		if ( $this->is_plugin_admin_page() ) {
@@ -199,7 +191,7 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	}
 
 	/**
-	 * Outputs the text above the setting form
+	 * Outputs the text above the setting form.
 	 *
 	 * @param string $localized_heading_text Optional. Localized page heading text.
 	 */
@@ -221,7 +213,7 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	 * @since 3.6
 	 *
 	 * @param string $type One of: author, category, or tag
-	 * @return bool True if the individual limits are enabled for the given archive type; false if not
+	 * @return bool  True if the individual limits are enabled for the given archive type; false if not
 	 */
 	public function is_individual_limits_enabled( $type ) {
 		$options = $this->get_options();
@@ -241,8 +233,9 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	/**
 	 * Returns an array of limits for individual authors, categories, and/or tags.
 	 *
-	 * @param array $primary_options The plugin's primary array of options
-	 * @param array $type (optional) Array containing the types of individual limits to return.  Can be any of: 'authors', 'categories', 'tags'. Default is an empty array, which returns the limits for all types.
+	 * @param array  $primary_options The plugin's primary array of options
+	 * @param array  $type            Optional. Array containing the types of individual limits to return.  Can be any of: 'authors', 'categories', 'tags'.
+	 *                                Default is an empty array, which returns the limits for all types.
 	 * @return array Array of primary limits amended with limits for specified types.
 	 */
 	public function load_individual_options( $primary_options, $type = array() ) {
@@ -269,7 +262,6 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	 * Displays related individual item limits fields.
 	 *
 	 * @param string $opt The option just displayed.
-	 * @return return Void
 	 */
 	public function display_individual_option( $opt ) {
 		$options = $this->get_options();
@@ -321,9 +313,9 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	 * be captured and stored into the settings array before the setting gets
 	 * updated. Don't worry; the data is sanitized.
 	 *
-	 * @param array $newvalue The value of the setting with current changes
-	 * @param array $oldvalue The old value of the setting (before the current save)
-	 * @return array The $newvalue array potentially amended with individual item limits
+	 * @param array  $newvalue The value of the setting with current changes.
+	 * @param array  $oldvalue The old value of the setting (before the current save).
+	 * @return array The $newvalue array potentially amended with individual item limits.
 	 */
 	public function save_individual_options( $newvalue, $oldvalue ) {
 		if ( isset( $_POST[$this->admin_options_name] ) ) {
@@ -342,9 +334,8 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 	/**
 	 * Outputs dynamically generated help text for settings fields.
 	 *
-	 * @param string $helptext The original help text
-	 * @param string $opt The option name
-	 * @return void
+	 * @param string $helptext The original help text.
+	 * @param string $opt      The option name.
 	 */
 	public function dynamic_option_help( $helptext, $opt ) {
 		$options = $this->get_options();
@@ -387,8 +378,6 @@ final class c2c_CustomPostLimits extends C2C_Plugin_034 {
 
 	/**
 	 * Outputs the JavaScript used by the plugin, within script tags.
-	 *
-	 * @return void (Text is echoed; nothing is returned)
 	 */
 	public function add_plugin_admin_js() {
 		echo <<<JS
@@ -408,7 +397,7 @@ JS;
 	/**
 	 * Returns a potentially overridden limit value for the currently queried posts.
 	 *
-	 * @param int $limit The default limit value for the current posts query.
+	 * @param int  $limit The default limit value for the current posts query.
 	 * @return int The limit value for the current posts query.
 	 */
 	public function custom_post_limits( $limit ) {
@@ -536,8 +525,8 @@ $this->first_page_offset = null;
 	 *
 	 * @since 3.5
 	 *
-	 * @param string $limit The SQL LIMIT clause
-	 * @param object $query_obj The WP_Query object performing the query
+	 * @param string  $limit     The SQL LIMIT clause
+	 * @param object  $query_obj The WP_Query object performing the query
 	 * @return string The potentially modified LIMIT clause
 	 */
 	public function correct_paged_offset( $limit, $query_obj ) {
