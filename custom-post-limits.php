@@ -117,51 +117,114 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 		$this->menu_name = __( 'Post Limits', 'custom-post-limits' );
 
 		$this->config = array(
-			'archives_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Archives Limit', 'custom-post-limits' ) ),
-			'archives_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
-			'enable_individual_authors_limit' => array( 'input' => 'checkbox', 'default' => false,
-					'label' => __( 'Enable individual authors limit?', 'custom-post-limits' ),
-					'help' => __( 'Allows you to set limits for specific authors. If enabled, a link will appear after the Authors Limit field.<br /><em>Warning: if you have a lot of authors this may prevent this page from loading</em>.', 'custom-post-limits' ) ),
-			'authors_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Authors Limit', 'custom-post-limits' ) ),
-			'authors_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
-			'enable_individual_categories_limit' => array( 'input' => 'checkbox', 'default' => false,
-					'label' => __( 'Enable individual categories limit?', 'custom-post-limits' ),
-					'help' => __( 'Allows you to set limits for specific categories. If enabled, a link will appear after the Categories Limit field.<br /><em>Warning: if you have a lot of categories this may prevent this page from loading</em>.', 'custom-post-limits' ) ),
-			'categories_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Categories Limit', 'custom-post-limits' ) ),
-			'categories_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
-			'day_archives_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Day Archives Limits', 'custom-post-limits' ) ),
-			'day_archives_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
-			'front_page_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Front Page Limit', 'custom-post-limits' ) ),
-			'front_page_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
-			'month_archives_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Month Archives Limit', 'custom-post-limits' ) ),
-			'month_archives_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
-			'searches_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Searches Limit', 'custom-post-limits' ) ),
-			'searches_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
-			'enable_individual_tags_limit' => array( 'input' => 'checkbox', 'default' => false,
-					'label' => __( 'Enable individual tags limit?', 'custom-post-limits' ),
-					'help' => __( 'Allows you to set limits for specific tags. If enabled, a link will appear after the Tags Limit field.<br /><em>Warning: if you have a lot of tags this may prevent this page from loading</em>.', 'custom-post-limits' ) ),
-			'tags_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Tags Limit', 'custom-post-limits' ) ),
-			'tags_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
-			'year_archives_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Year Archives Limits', 'custom-post-limits' ) ),
-			'year_archives_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) )
+			'archives_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Archives Limit', 'custom-post-limits' ),
+			),
+			'archives_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
+			'enable_individual_authors_limit' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'label'    => __( 'Enable individual authors limit?', 'custom-post-limits' ),
+				'help'     => __( 'Allows you to set limits for specific authors. If enabled, a link will appear after the Authors Limit field.<br /><em>Warning: if you have a lot of authors this may prevent this page from loading</em>.', 'custom-post-limits' ),
+			),
+			'authors_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Authors Limit', 'custom-post-limits' ),
+			),
+			'authors_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
+			'enable_individual_categories_limit' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'label'    => __( 'Enable individual categories limit?', 'custom-post-limits' ),
+				'help'     => __( 'Allows you to set limits for specific categories. If enabled, a link will appear after the Categories Limit field.<br /><em>Warning: if you have a lot of categories this may prevent this page from loading</em>.', 'custom-post-limits' ),
+			),
+			'categories_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Categories Limit', 'custom-post-limits' ),
+			),
+			'categories_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
+			'day_archives_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Day Archives Limits', 'custom-post-limits' ),
+			),
+			'day_archives_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
+			'front_page_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Front Page Limit', 'custom-post-limits' ),
+			),
+			'front_page_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
+			'month_archives_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Month Archives Limit', 'custom-post-limits' ),
+			),
+			'month_archives_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
+			'searches_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Searches Limit', 'custom-post-limits' ),
+			),
+			'searches_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
+			'enable_individual_tags_limit' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'label'    => __( 'Enable individual tags limit?', 'custom-post-limits' ),
+				'help'     => __( 'Allows you to set limits for specific tags. If enabled, a link will appear after the Tags Limit field.<br /><em>Warning: if you have a lot of tags this may prevent this page from loading</em>.', 'custom-post-limits' ),
+			),
+			'tags_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Tags Limit', 'custom-post-limits' ),
+			),
+			'tags_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
+			'year_archives_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( 'Year Archives Limits', 'custom-post-limits' ),
+			),
+			'year_archives_paged_limit' => array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+			),
 		);
 	}
 
@@ -201,10 +264,19 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 		$option_url = '<a href="' . admin_url( 'options-reading.php' ) . '">' . __( 'here', 'custom-post-limits' ) . '</a>';
 
 		parent::options_page_description( __( 'Custom Post Limits Settings', 'custom-post-limits' ) );
-		echo '<p>' . __( 'By default, WordPress provides a single configuration setting to control how many posts should be listed on your blog.  This value applies for the front page listing, archive listings, author listings, category listings, tag listings, and search results.  <strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.', 'custom-post-limits' ) . '</p>';
-		echo '<p>' . __( 'If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown). For instance, you could set your Front Page to list 5 posts, but then list 10 on subsequent pages.', 'custom-post-limits' ) . '</p>';
-		echo '<p>' . __( 'All but the individual archive limits support a "paged (non first page)" sub-setting that allows a different limit to apply for that listing type when not viewing the first page of the listing  (i.e. when on page 2 or later).', 'custom-post-limits' ) . '</p>';
-		echo '<p>' . sprintf( __( 'The default post limit as set in your settings is <strong>%1$d</strong>.  You can change this value %2$s, which is labeled as <em>Blog pages show at most</em>', 'custom-post-limits' ), $current_limit, $option_url ) . '</p>';
+		echo '<p>';
+		_e( 'By default, WordPress provides a single configuration setting to control how many posts should be listed on your blog.  This value applies for the front page listing, archive listings, author listings, category listings, tag listings, and search results.  <strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.', 'custom-post-limits' );
+		echo "</p>\n<p>";
+		_e( 'If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown). For instance, you could set your Front Page to list 5 posts, but then list 10 on subsequent pages.', 'custom-post-limits' );
+		echo "</p>\n<p>";
+		_e( 'All but the individual archive limits support a "paged (non first page)" sub-setting that allows a different limit to apply for that listing type when not viewing the first page of the listing  (i.e. when on page 2 or later).', 'custom-post-limits' );
+		echo "</p>\n<p>";
+		printf(
+			__( 'The default post limit as set in your settings is <strong>%1$d</strong>.  You can change this value %2$s, which is labeled as <em>Blog pages show at most</em>', 'custom-post-limits' ),
+			$current_limit,
+			$option_url
+		);
+		echo "</p>\n";
 	}
 
 	/**
@@ -218,14 +290,17 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 	public function is_individual_limits_enabled( $type ) {
 		$options = $this->get_options();
 
-		if ( ! isset( self::$individual_limits['all'] ) || is_null( self::$individual_limits['all'] ) )
+		if ( ! isset( self::$individual_limits['all'] ) || is_null( self::$individual_limits['all'] ) ) {
 			self::$individual_limits['all'] = apply_filters( 'c2c_cpl_enable_all_individual_limits', false );
+		}
 
-		if ( self::$individual_limits['all'] )
+		if ( self::$individual_limits['all'] ) {
 			return true;
+		}
 
-		if ( ! isset( self::$individual_limits[$type] ) || is_null( self::$individual_limits[$type] ) )
+		if ( ! isset( self::$individual_limits[$type] ) || is_null( self::$individual_limits[$type] ) ) {
 			self::$individual_limits[$type] = apply_filters( "c2c_cpl_enable_all_individual_{$type}_limits", $options["enable_individual_{$type}_limit"] );
+		}
 
 		return self::$individual_limits[$type];
 	}
@@ -240,21 +315,28 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 	 */
 	public function load_individual_options( $primary_options, $type = array() ) {
 		$options = array();
-		if ( ( empty( $type ) || in_array( 'authors', (array)$type ) ) && self::is_individual_limits_enabled( 'authors' ) ) {
+
+		if ( ( ! $type || in_array( 'authors', (array) $type ) ) && self::is_individual_limits_enabled( 'authors' ) ) {
 			$this->get_authors();
-			foreach ( (array) $this->authors as $author )
-				$options['authors_' . $author->ID . '_limit'] = '';
+			foreach ( (array) $this->authors as $author ) {
+				$options[ 'authors_' . $author->ID . '_limit' ] = '';
+			}
 		}
-		if ( ( empty( $type ) || in_array( 'categories', (array)$type ) ) && self::is_individual_limits_enabled( 'categories' ) ) {
+
+		if ( ( ! $type || in_array( 'categories', (array) $type ) ) && self::is_individual_limits_enabled( 'categories' ) ) {
 			$this->get_categories();
-			foreach ( (array) $this->categories as $cat )
-				$options['categories_' . $cat->cat_ID . '_limit'] = '';
+			foreach ( (array) $this->categories as $cat ) {
+				$options[ 'categories_' . $cat->cat_ID . '_limit' ] = '';
+			}
 		}
-		if ( ( empty( $type ) || in_array( 'tags', (array)$type ) ) && self::is_individual_limits_enabled( 'tags' ) ) {
+
+		if ( ( ! $type || in_array( 'tags', (array) $type ) ) && self::is_individual_limits_enabled( 'tags' ) ) {
 			$this->get_tags();
-			foreach ( (array) $this->tags as $tag )
-				$options['tags_' . $tag->term_id . '_limit'] = '';
+			foreach ( (array) $this->tags as $tag ) {
+				$options[ 'tags_' . $tag->term_id . '_limit' ] = '';
+			}
 		}
+
 		return array_merge( $options, $primary_options );
 	}
 
@@ -269,36 +351,37 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 		$type    = $parts[0];
 		$id      = $parts[1];
 
-		if ( ( $id == 'paged' ) ||
-			 ( $type == 'categories' && count( $this->categories ) < 1 ) ||
-			 ( $type == 'tags' && count( $this->tags ) < 1 ) ||
-			 ( $type == 'authors' && count( $this->authors ) < 1 ) ) {
+		if ( ( 'paged' == $id ) ||
+			 ( 'categories' == $type && count( $this->categories ) < 1 ) ||
+			 ( 'tags' == $type && count( $this->tags ) < 1 ) ||
+			 ( 'authors' == $type && count( $this->authors ) < 1 )
+		) {
 				return;
 		}
 
 		$before = "<tr valign='top' class='cpl-$type'><th scope='row'> &nbsp; &nbsp; &#8212; ";
 
-		if ( $type == 'categories' && self::is_individual_limits_enabled( 'categories' ) ) {
+		if ( 'categories' == $type && self::is_individual_limits_enabled( 'categories' ) ) {
 			foreach ( (array) $this->categories as $cat ) {
 				$idx = $type . '_' . $cat->cat_ID . '_limit';
 				$index = $this->admin_options_name . "[$idx]";
-				$value = isset( $options[$idx] ) ? $options[$idx] : '';
+				$value = isset( $options[ $idx ] ) ? $options[ $idx ] : '';
 				echo $before . get_cat_name( $cat->cat_ID ) . '</th>';
 				echo "<td><input type='text' class='c2c_short_text small-text' name='$index' value='$value' /></td></tr>";
 			}
-		} elseif ( $type == 'tags' && self::is_individual_limits_enabled( 'tags' ) ) {
+		} elseif ( 'tags' == $type && self::is_individual_limits_enabled( 'tags' ) ) {
 			foreach ( (array) $this->tags as $tag ) {
 				$idx = $type . '_' . $tag->term_id . '_limit';
 				$index = $this->admin_options_name . "[$idx]";
-				$value = isset( $options[$index] ) ? $options[$index] : '';
+				$value = isset( $options[ $index ] ) ? $options[ $index ] : '';
 				echo $before . $tag->name . '</th>';
 				echo "<td><input type='text' class='c2c_short_text small-text' name='$index' value='$value' /></td></tr>";
 			}
-		} elseif ( $type == 'authors' && self::is_individual_limits_enabled( 'authors' ) ) {
+		} elseif ( 'authors' == $type && self::is_individual_limits_enabled( 'authors' ) ) {
 			foreach ( (array) $this->authors as $author ) {
 				$idx = $type . '_' . $author->ID . '_limit';
 				$index = $this->admin_options_name . "[$idx]";
-				$value = isset( $options[$index] ) ? $options[$index] : '';
+				$value = isset( $options[ $index ] ) ? $options[ $index ] : '';
 				echo $before . $author->display_name . '</th>';
 				echo "<td><input type='text' class='c2c_short_text small-text' name='$index' value='$value' /></td></tr>";
 			}
@@ -318,16 +401,18 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 	 * @return array The $newvalue array potentially amended with individual item limits.
 	 */
 	public function save_individual_options( $newvalue, $oldvalue ) {
-		if ( isset( $_POST[$this->admin_options_name] ) ) {
-			foreach ( $_POST[$this->admin_options_name] as $key => $val ) {
+		if ( isset( $_POST[ $this->admin_options_name ] ) ) {
+			foreach ( $_POST[ $this->admin_options_name ] as $key => $val ) {
 				if ( strpos( $key, 'categories_' ) === 0 || strpos( $key, 'tags_' ) === 0 || strpos( $key, 'authors_') === 0 ) {
-					if ( empty( $val ) ) // Allow empty value; otherwise it must be an int
-						unset( $newvalue[$key] );
-					else
-						$newvalue[$key] = intval( $val );
+					if ( ! $val ) { // Allow empty value; otherwise it must be an int
+						unset( $newvalue[ $key ] );
+					} else {
+						$newvalue[ $key ] = intval( $val );
+					}
 				}
 			}
 		}
+
 		return $newvalue;
 	}
 
@@ -336,42 +421,48 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 	 *
 	 * @param string $helptext The original help text.
 	 * @param string $opt      The option name.
+	 * @return string
 	 */
 	public function dynamic_option_help( $helptext, $opt ) {
 		$options = $this->get_options();
 		$current_limit = get_option( 'posts_per_page' );
 		$parts = explode( '_', $opt );
 
-		if ( 'paged' == $parts[1] || 'enable' == $parts[0] || ( isset( $parts[2] ) && 'paged' == $parts[2] ) || intval( $parts[1] ) > 0 )
+		if ( 'paged' == $parts[1] || 'enable' == $parts[0] || ( isset( $parts[2] ) && 'paged' == $parts[2] ) || intval( $parts[1] ) > 0 ) {
 			return $helptext;
+		}
 
 		$opt_name = implode(' ', array_map( 'ucfirst', $parts ) );
-		$opt_value = $options[$opt];
+		$opt_value = $options[ $opt ];
 		$is_archive = in_array( $opt, array( 'day_archives_limit', 'month_archives_limit', 'year_archives_limit' ) );
 
 		$echo = '';
 
 		if ( ! $opt_value ) {
-			if ( $is_archive && $options['archives_limit'] )
+			if ( $is_archive && $options['archives_limit'] ) {
 				$echo .= sprintf( __( '(Archives Limit of %s is being used)', 'custom-post-limits' ), $options['archives_limit'] );
-			else
+			} else {
 				$echo .= sprintf( __( '(The WordPress default of %d is being used)', 'custom-post-limits' ), $current_limit );
-		} elseif ( $opt_value == '-1' ) {
+			}
+		} elseif ( '-1' == $opt_value ) {
 			$echo .= __( '(ALL posts are set to be displayed for this)', 'custom-post-limits' );
 		}
 
 		$type = strtolower( array_shift( explode( ' ', $opt_name ) ) );
 
-		if ( in_array( $type, array( 'authors', 'categories', 'tags' ) ) && self::is_individual_limits_enabled( $type ) && count( $this->$type ) > 0 )
+		if ( in_array( $type, array( 'authors', 'categories', 'tags' ) ) && self::is_individual_limits_enabled( $type ) && count( $this->$type ) > 0 ) {
 			$echo .= " &#8211; <a id='cpl-{$type}-link' href='#' style='display:none;'>" . sprintf( __( 'Show/hide individual %s', 'custom-post-limits' ), strtolower( $opt_name ) ) . '</a>';
+		}
 
-		if ( $is_archive )
+		if ( $is_archive ) {
 			$echo .= '<br />' . __( 'If not defined, it assumes the value of Archives Limit.', 'custom-post-limits' );
-		elseif ( $opt == 'archives_limit' )
+		} elseif ( 'archives_limit' == $opt ) {
 			$echo .= '<br />' . __( 'This is the default for Day, Month, and Year archives, unless those are defined explicitly below.', 'custom-post-limits' );
+		}
 
-		if ( ! empty( $echo ) )
+		if ( $echo ) {
 			echo "<span class='c2c-input-help'>$echo</span>";
+		}
 
 		return $helptext;
 	}
@@ -403,8 +494,9 @@ JS;
 	public function custom_post_limits( $limit ) {
 		global $wp_query; // Only used for individual (author, category, tag) limits
 
-		if ( is_admin() )
+		if ( is_admin() ) {
 			return $limit;
+		}
 
 		$old_limit = $limit;
 		$options = $this->get_options();
@@ -434,10 +526,10 @@ JS;
 			$this->get_categories();
 			foreach ( $this->categories as $cat ) {
 				$opt = 'categories_' . $cat->cat_ID . '_limit';
-				if ( isset( $options[$opt] ) && $options[$opt] &&
+				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
 					( $query_vars['cat'] == $cat->cat_ID || $query_vars['category_name'] == $cat->slug ||
 						preg_match( "/\/{$cat->slug}\/?$/", $query_vars['category_name'] ) ) ) {
-					$limit = $options[$opt];
+					$limit = $options[ $opt ];
 // TODO: Individual archive limits apply to all pagings; consider doing front-page/non-front-page values for each
 $this->first_page_offset = null;
 					break;
@@ -453,9 +545,9 @@ $this->first_page_offset = null;
 			$this->get_tags();
 			foreach ( $this->tags as $tag ) {
 				$opt = 'tags_' . $tag->term_id . '_limit';
-				if ( isset( $options[$opt] ) && $options[$opt] &&
+				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
 					( $query_vars['tag_id'] == $tag->term_id || $query_vars['tag'] == $tag->slug ) ) {
-					$limit = $options[$opt];
+					$limit = $options[ $opt ];
 // TODO: Individual archive limits apply to all pagings; consider doing front-page/non-front-page values for each
 $this->first_page_offset = null;
 					break;
@@ -471,9 +563,9 @@ $this->first_page_offset = null;
 			$this->get_authors();
 			foreach ( $this->authors as $author ) {
 				$opt = 'authors_' . $author->ID . '_limit';
-				if ( isset( $options[$opt] ) && $options[$opt] &&
+				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
 					( $query_vars['author'] == $author->ID || $query_vars['author_name'] == $author->user_nicename ) ) {
-					$limit = $options[$opt];
+					$limit = $options[ $opt ];
 // TODO: Individual archive limits apply to all pagings; consider doing front-page/non-front-page values for each
 $this->first_page_offset = null;
 					break;
@@ -512,10 +604,12 @@ $this->first_page_offset = null;
 			}
 		}
 
-		if ( ! $limit )
+		if ( ! $limit ) {
 			$limit = $old_limit;
-		elseif ( $limit == '-1' )
-			$limit = '18446744073709551615';	// Hacky magic number, but it's what the MySQL docs suggest!
+		} elseif ( '-1' == $limit ) {
+			// Hacky magic number, but it's what the MySQL docs suggest!
+			$limit = '18446744073709551615';
+		}
 
 		return $limit;
 	}
@@ -532,8 +626,9 @@ $this->first_page_offset = null;
 	public function correct_paged_offset( $limit, $query_obj ) {
 		// Only intercede if on the main query. (Once WP3.3+ only, this can simply be is_main_query())
 		global $wp_the_query;
-		if ( $wp_the_query !== $query_obj )
+		if ( $wp_the_query !== $query_obj ) {
 			return $limit;
+		}
 
 		// Shorthand.
 		$q = $query_obj->query_vars;
@@ -541,13 +636,15 @@ $this->first_page_offset = null;
 			$parts = explode( ' ', $limit );
 			if ( count( $parts ) == 3 ) {
 				$page = absint( $q['paged'] );
-				if ( $page == 0 )
+				if ( $page == 0 ) {
 					$page = 1;
+				}
 				$new_offset = ( $page - 2 ) * $q['posts_per_page'] + $this->first_page_offset;
 //				$limit = implode( ' ', array( $parts[0], $new_offset . ',', $parts[2] ) );
 				$limit = "LIMIT {$parts[2]} OFFSET $new_offset";
 			}
 		}
+
 		return $limit;
 	}
 
@@ -558,8 +655,9 @@ $this->first_page_offset = null;
 	 * @return array Array of authors.  Authors without posts are included.
 	 */
 	public function get_authors() {
-		if ( ! $this->authors )
+		if ( ! $this->authors ) {
 			$this->authors = get_users( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ), 'order' => 'display_name' ) );
+		}
 
 		return $this->authors;
 	}
@@ -571,8 +669,9 @@ $this->first_page_offset = null;
 	 * @return array Array of categories.  Categories without posts are included.
 	 */
 	public function get_categories() {
-		if ( ! $this->categories )
+		if ( ! $this->categories ) {
 			$this->categories = get_categories( array( 'hide_empty' => false ) );
+		}
 
 		return $this->categories;
 	}
@@ -584,8 +683,9 @@ $this->first_page_offset = null;
 	 * @return array Array of tags.  Tags without posts are included.
 	 */
 	public function get_tags() {
-		if ( ! $this->tags )
+		if ( ! $this->tags ) {
 			$this->tags = get_tags( array( 'hide_empty' => false ) );
+		}
 
 		return $this->tags;
 	}

@@ -84,6 +84,7 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
     * Remove 'Domain Path' from plugin header.
 * Change: Use explicit path when requiring plugin framework.
 * Change: Prevent execution of code if file is directly accessed.
+* Change: Minor code reformatting (spacing, bracing, conditional comparison order).
 * Change: Minor documentation reformatting (spacing, punctuation).
 * Change: Re-license as GPLv2 or later (from X11).
 * New: Add 'License' and 'License URI' header tags to readme.txt and plugin file.
