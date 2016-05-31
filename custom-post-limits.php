@@ -113,55 +113,55 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 	 * Initializes the plugin's configuration and localizable text variables.
 	 */
 	public function load_config() {
-		$this->name      = __( 'Custom Post Limits', $this->textdomain );
-		$this->menu_name = __( 'Post Limits', $this->textdomain );
+		$this->name      = __( 'Custom Post Limits', 'custom-post-limits' );
+		$this->menu_name = __( 'Post Limits', 'custom-post-limits' );
 
 		$this->config = array(
 			'archives_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Archives Limit', $this->textdomain ) ),
+					'label' => __( 'Archives Limit', 'custom-post-limits' ) ),
 			'archives_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) ),
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
 			'enable_individual_authors_limit' => array( 'input' => 'checkbox', 'default' => false,
-					'label' => __( 'Enable individual authors limit?', $this->textdomain ),
-					'help' => __( 'Allows you to set limits for specific authors. If enabled, a link will appear after the Authors Limit field.<br /><em>Warning: if you have a lot of authors this may prevent this page from loading</em>.', $this->textdomain ) ),
+					'label' => __( 'Enable individual authors limit?', 'custom-post-limits' ),
+					'help' => __( 'Allows you to set limits for specific authors. If enabled, a link will appear after the Authors Limit field.<br /><em>Warning: if you have a lot of authors this may prevent this page from loading</em>.', 'custom-post-limits' ) ),
 			'authors_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Authors Limit', $this->textdomain ) ),
+					'label' => __( 'Authors Limit', 'custom-post-limits' ) ),
 			'authors_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) ),
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
 			'enable_individual_categories_limit' => array( 'input' => 'checkbox', 'default' => false,
-					'label' => __( 'Enable individual categories limit?', $this->textdomain ),
-					'help' => __( 'Allows you to set limits for specific categories. If enabled, a link will appear after the Categories Limit field.<br /><em>Warning: if you have a lot of categories this may prevent this page from loading</em>.', $this->textdomain ) ),
+					'label' => __( 'Enable individual categories limit?', 'custom-post-limits' ),
+					'help' => __( 'Allows you to set limits for specific categories. If enabled, a link will appear after the Categories Limit field.<br /><em>Warning: if you have a lot of categories this may prevent this page from loading</em>.', 'custom-post-limits' ) ),
 			'categories_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Categories Limit', $this->textdomain ) ),
+					'label' => __( 'Categories Limit', 'custom-post-limits' ) ),
 			'categories_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) ),
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
 			'day_archives_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Day Archives Limits', $this->textdomain ) ),
+					'label' => __( 'Day Archives Limits', 'custom-post-limits' ) ),
 			'day_archives_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) ),
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
 			'front_page_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Front Page Limit', $this->textdomain ) ),
+					'label' => __( 'Front Page Limit', 'custom-post-limits' ) ),
 			'front_page_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) ),
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
 			'month_archives_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Month Archives Limit', $this->textdomain ) ),
+					'label' => __( 'Month Archives Limit', 'custom-post-limits' ) ),
 			'month_archives_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) ),
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
 			'searches_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Searches Limit', $this->textdomain ) ),
+					'label' => __( 'Searches Limit', 'custom-post-limits' ) ),
 			'searches_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) ),
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
 			'enable_individual_tags_limit' => array( 'input' => 'checkbox', 'default' => false,
-					'label' => __( 'Enable individual tags limit?', $this->textdomain ),
-					'help' => __( 'Allows you to set limits for specific tags. If enabled, a link will appear after the Tags Limit field.<br /><em>Warning: if you have a lot of tags this may prevent this page from loading</em>.', $this->textdomain ) ),
+					'label' => __( 'Enable individual tags limit?', 'custom-post-limits' ),
+					'help' => __( 'Allows you to set limits for specific tags. If enabled, a link will appear after the Tags Limit field.<br /><em>Warning: if you have a lot of tags this may prevent this page from loading</em>.', 'custom-post-limits' ) ),
 			'tags_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Tags Limit', $this->textdomain ) ),
+					'label' => __( 'Tags Limit', 'custom-post-limits' ) ),
 			'tags_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) ),
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) ),
 			'year_archives_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( 'Year Archives Limits', $this->textdomain ) ),
+					'label' => __( 'Year Archives Limits', 'custom-post-limits' ) ),
 			'year_archives_paged_limit' => array( 'input' => 'short_text', 'datatype' => 'int',
-					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', $this->textdomain ) )
+					'label' => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ) )
 		);
 	}
 
@@ -198,13 +198,13 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 	public function options_page_description( $localized_heading_text = '' ) {
 		$options = $this->get_options();
 		$current_limit = get_option( 'posts_per_page' );
-		$option_url = '<a href="' . admin_url( 'options-reading.php' ) . '">' . __( 'here', $this->textdomain ) . '</a>';
+		$option_url = '<a href="' . admin_url( 'options-reading.php' ) . '">' . __( 'here', 'custom-post-limits' ) . '</a>';
 
-		parent::options_page_description( __( 'Custom Post Limits Settings', $this->textdomain ) );
-		echo '<p>' . __( 'By default, WordPress provides a single configuration setting to control how many posts should be listed on your blog.  This value applies for the front page listing, archive listings, author listings, category listings, tag listings, and search results.  <strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.', $this->textdomain ) . '</p>';
-		echo '<p>' . __( 'If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown). For instance, you could set your Front Page to list 5 posts, but then list 10 on subsequent pages.', $this->textdomain ) . '</p>';
-		echo '<p>' . __( 'All but the individual archive limits support a "paged (non first page)" sub-setting that allows a different limit to apply for that listing type when not viewing the first page of the listing  (i.e. when on page 2 or later).', $this->textdomain ) . '</p>';
-		echo '<p>' . sprintf( __( 'The default post limit as set in your settings is <strong>%1$d</strong>.  You can change this value %2$s, which is labeled as <em>Blog pages show at most</em>', $this->textdomain ), $current_limit, $option_url ) . '</p>';
+		parent::options_page_description( __( 'Custom Post Limits Settings', 'custom-post-limits' ) );
+		echo '<p>' . __( 'By default, WordPress provides a single configuration setting to control how many posts should be listed on your blog.  This value applies for the front page listing, archive listings, author listings, category listings, tag listings, and search results.  <strong>Custom Post Limits</strong> allows you to override that value for each of those different sections.', 'custom-post-limits' ) . '</p>';
+		echo '<p>' . __( 'If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown). For instance, you could set your Front Page to list 5 posts, but then list 10 on subsequent pages.', 'custom-post-limits' ) . '</p>';
+		echo '<p>' . __( 'All but the individual archive limits support a "paged (non first page)" sub-setting that allows a different limit to apply for that listing type when not viewing the first page of the listing  (i.e. when on page 2 or later).', 'custom-post-limits' ) . '</p>';
+		echo '<p>' . sprintf( __( 'The default post limit as set in your settings is <strong>%1$d</strong>.  You can change this value %2$s, which is labeled as <em>Blog pages show at most</em>', 'custom-post-limits' ), $current_limit, $option_url ) . '</p>';
 	}
 
 	/**
@@ -353,22 +353,22 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 
 		if ( ! $opt_value ) {
 			if ( $is_archive && $options['archives_limit'] )
-				$echo .= sprintf( __( '(Archives Limit of %s is being used)', $this->textdomain ), $options['archives_limit'] );
+				$echo .= sprintf( __( '(Archives Limit of %s is being used)', 'custom-post-limits' ), $options['archives_limit'] );
 			else
-				$echo .= sprintf( __( '(The WordPress default of %d is being used)', $this->textdomain ), $current_limit );
+				$echo .= sprintf( __( '(The WordPress default of %d is being used)', 'custom-post-limits' ), $current_limit );
 		} elseif ( $opt_value == '-1' ) {
-			$echo .= __( '(ALL posts are set to be displayed for this)', $this->textdomain );
+			$echo .= __( '(ALL posts are set to be displayed for this)', 'custom-post-limits' );
 		}
 
 		$type = strtolower( array_shift( explode( ' ', $opt_name ) ) );
 
 		if ( in_array( $type, array( 'authors', 'categories', 'tags' ) ) && self::is_individual_limits_enabled( $type ) && count( $this->$type ) > 0 )
-			$echo .= " &#8211; <a id='cpl-{$type}-link' href='#' style='display:none;'>" . sprintf( __( 'Show/hide individual %s', $this->textdomain ), strtolower( $opt_name ) ) . '</a>';
+			$echo .= " &#8211; <a id='cpl-{$type}-link' href='#' style='display:none;'>" . sprintf( __( 'Show/hide individual %s', 'custom-post-limits' ), strtolower( $opt_name ) ) . '</a>';
 
 		if ( $is_archive )
-			$echo .= '<br />' . __( 'If not defined, it assumes the value of Archives Limit.', $this->textdomain );
+			$echo .= '<br />' . __( 'If not defined, it assumes the value of Archives Limit.', 'custom-post-limits' );
 		elseif ( $opt == 'archives_limit' )
-			$echo .= '<br />' . __( 'This is the default for Day, Month, and Year archives, unless those are defined explicitly below.', $this->textdomain );
+			$echo .= '<br />' . __( 'This is the default for Day, Month, and Year archives, unless those are defined explicitly below.', 'custom-post-limits' );
 
 		if ( ! empty( $echo ) )
 			echo "<span class='c2c-input-help'>$echo</span>";

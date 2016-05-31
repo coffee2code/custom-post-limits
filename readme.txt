@@ -79,6 +79,7 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 * Change: Discontinue use of explicit pass-by-reference for objects.
 * Change: Reformat plugin header.
 * Change: Add support for language packs:
+    * Set textdomain using a string instead of a variable.
     * Remove .pot file and /lang subdirectory.
     * Remove 'Domain Path' from plugin header.
 * Change: Use explicit path when requiring plugin framework.
