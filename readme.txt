@@ -56,6 +56,10 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/custom-post-limits/) 
 
 No.  The plugin filters the posts_per_page setting value (and, when necessary, the LIMIT SQL clause) as used by the primary WordPress post query as appropriate, resulting in retrieval of only the number of posts up to the limit you specified without significant alteration of the primary query itself and without additional queries.  Bottom line: this should perform efficiently.
 
+= Is this plugin unit-tested? =
+
+Yes.
+
 
 == Screenshots ==
 
@@ -95,6 +99,12 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
 * Change: Dropped compatibility with version of WP older than 4.1.
 * Change: Update donate link.
 * Change: Update copyright date (2016).
+* New: Add assets to plugin's Plugin Directory SVN repo.
+    * Add plugin icon.
+    * Add banner image.
+    * Update screenshots.
+    * Add third screenshot.
+    * Remove screenshots from plugin package.
 
 = 3.6 =
 * Update plugin framework to version 034
