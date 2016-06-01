@@ -75,6 +75,7 @@ No.  The plugin filters the posts_per_page setting value (and, when necessary, t
     * Additional related changes in plugin framework (protected constructor, erroring `__clone()` and `__wakeup()`).
 * Bugfix: Explicitly declare `activation()` and `uninstall()` static.
 * Bugfix: For `options_page_description()`, match method signature of parent class.
+* New: Add unit tests.
 * Change: Discontinue use of PHP4-style constructor.
 * Change: Discontinue use of explicit pass-by-reference for objects.
 * Change: Reformat plugin header.
