@@ -448,7 +448,8 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 			$echo .= __( '(ALL posts are set to be displayed for this)', 'custom-post-limits' );
 		}
 
-		$type = strtolower( array_shift( explode( ' ', $opt_name ) ) );
+		$opt_parts = explode( ' ', $opt_name );
+		$type = strtolower( array_shift( $opt_parts ) );
 
 		if ( in_array( $type, array( 'authors', 'categories', 'tags' ) ) && self::is_individual_limits_enabled( $type ) && count( $this->$type ) > 0 ) {
 			$echo .= " &#8211; <a id='cpl-{$type}-link' href='#' style='display:none;'>" . sprintf( __( 'Show/hide individual %s', 'custom-post-limits' ), strtolower( $opt_name ) ) . '</a>';
