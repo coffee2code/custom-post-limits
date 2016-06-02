@@ -456,13 +456,13 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 		}
 
 		if ( $is_archive ) {
-			$echo .= '<br />' . __( 'If not defined, it assumes the value of Archives Limit.', 'custom-post-limits' );
+			$echo .= '<p class="description">' . __( 'If not defined, it assumes the value of Archives Limit.', 'custom-post-limits' ) . "</p>\n";
 		} elseif ( 'archives_limit' == $opt ) {
-			$echo .= '<br />' . __( 'This is the default for Day, Month, and Year archives, unless those are defined explicitly below.', 'custom-post-limits' );
+			$echo .= '<p class="description">' . __( 'This is the default for Day, Month, and Year archives, unless those are defined explicitly below.', 'custom-post-limits' ) . "</p>\n";
 		}
 
 		if ( $echo ) {
-			echo "<span class='c2c-input-help'>$echo</span>";
+			echo "<span class='c2c-input-help description'>$echo</span>";
 		}
 
 		return $helptext;
