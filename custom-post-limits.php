@@ -298,11 +298,11 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 			return true;
 		}
 
-		if ( ! isset( self::$individual_limits[$type] ) || is_null( self::$individual_limits[$type] ) ) {
-			self::$individual_limits[$type] = apply_filters( "c2c_cpl_enable_all_individual_{$type}_limits", $options["enable_individual_{$type}_limit"] );
+		if ( ! isset( self::$individual_limits[ $type ] ) || is_null( self::$individual_limits[ $type ] ) ) {
+			self::$individual_limits[ $type ] = apply_filters( "c2c_cpl_enable_all_individual_{$type}_limits", $options[ "enable_individual_{$type}_limit" ] );
 		}
 
-		return self::$individual_limits[$type];
+		return self::$individual_limits[ $type ];
 	}
 
 	/**
