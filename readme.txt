@@ -77,8 +77,9 @@ Yes.
     * Make constructor protected.
     * Make class final.
     * Additional related changes in plugin framework (protected constructor, erroring `__clone()` and `__wakeup()`).
-* Bugfix: Explicitly declare `activation()` and `uninstall()` static.
-* Bugfix: For `options_page_description()`, match method signature of parent class.
+* Fix: Initialize private instance variable `$first_page_offset` to null in `custom_post_limits()` to avoid pollution from potential previous invocation.
+* Fix: Explicitly declare `activation()` and `uninstall()` static.
+* Fix: For `options_page_description()`, match method signature of parent class.
 * New: Add unit tests.
 * Change: Discontinue use of PHP4-style constructor.
 * Change: Discontinue use of explicit pass-by-reference for objects.

@@ -502,6 +502,7 @@ JS;
 		$old_limit = $limit;
 		$options = $this->get_options();
 		$query_vars = $wp_query->query_vars;
+		$this->first_page_offset = null;
 
 		if ( is_home() ) {
 			if ( is_paged() && ! empty( $options['front_page_paged_limit'] ) ) {
