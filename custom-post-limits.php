@@ -441,40 +441,40 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 
 		if ( ! $opt_value ) {
 			if ( $is_archive && $options['archives_limit'] ) {
-				$echo .= sprintf( __( '(Archives Limit of %s is being used)', 'custom-post-limits' ), $options['archives_limit'] );
+				$echo .= sprintf( __( 'Archives Limit of %s is being used.', 'custom-post-limits' ), $options['archives_limit'] );
 			} elseif ( $is_paged_archive && $options['archives_paged_limit'] ) {
-				$echo .= sprintf( __( '(Archives Paged Limit of %s is being used)', 'custom-post-limits' ), $options['archives_paged_limit'] );
+				$echo .= sprintf( __( 'Archives Paged Limit of %s is being used.', 'custom-post-limits' ), $options['archives_paged_limit'] );
 			} elseif ( $is_paged_archive && $options[ $parts[0] . '_archives_limit' ] ) {
 				switch ( $opt ) {
 					case 'day_archives_paged_limit':
-						$echo .= sprintf( __( '(Day Archives Limit of %s is being used)', 'custom-post-limits' ), $options['day_archives_limit'] );
+						$echo .= sprintf( __( 'Day Archives Limit of %s is being used.', 'custom-post-limits' ), $options['day_archives_limit'] );
 						break;
 					case 'month_archives_paged_limit':
-						$echo .= sprintf( __( '(Month Archives Limit of %s is being used)', 'custom-post-limits' ), $options['month_archives_limit'] );
+						$echo .= sprintf( __( 'Month Archives Limit of %s is being used.', 'custom-post-limits' ), $options['month_archives_limit'] );
 						break;
 					case 'year_archives_paged_limit':
-						$echo .= sprintf( __( '(Year Archives Limit of %s is being used)', 'custom-post-limits' ), $options['year_archives_limit'] );
+						$echo .= sprintf( __( 'Year Archives Limit of %s is being used.', 'custom-post-limits' ), $options['year_archives_limit'] );
 						break;
 				}
 			} elseif ( 'paged' == $parts[1] && $options[ $parts[0] . '_limit' ] ) {
 				switch ( $opt ) {
 					case 'authors_paged_limit':
-						$echo .= sprintf( __( '(Authors Limit of %s is being used)', 'custom-post-limits' ), $options['authors_limit'] );
+						$echo .= sprintf( __( 'Authors Limit of %s is being used.', 'custom-post-limits' ), $options['authors_limit'] );
 						break;
 					case 'categories_paged_limit':
-						$echo .= sprintf( __( '(Categories Limit of %s is being used)', 'custom-post-limits' ), $options['categories_limit'] );
+						$echo .= sprintf( __( 'Categories Limit of %s is being used.', 'custom-post-limits' ), $options['categories_limit'] );
 						break;
 					case 'searches_paged_limit':
-						$echo .= sprintf( __( '(Seaches Limit of %s is being used)', 'custom-post-limits' ), $options['searches_limit'] );
+						$echo .= sprintf( __( 'Seaches Limit of %s is being used.', 'custom-post-limits' ), $options['searches_limit'] );
 						break;
 					case 'tags_paged_limit':
-						$echo .= sprintf( __( '(Tags Limit of %s is being used)', 'custom-post-limits' ), $options['tags_limit'] );
+						$echo .= sprintf( __( 'Tags Limit of %s is being used.', 'custom-post-limits' ), $options['tags_limit'] );
 						break;
 				}
 			} elseif ( 'front_page_paged_limit' == $opt && $options['front_page_limit'] ) {
-				$echo .= sprintf( __( '(Front Page Limit of %s is being used)', 'custom-post-limits' ), $options['front_page_limit'] );
+				$echo .= sprintf( __( 'Front Page Limit of %s is being used.', 'custom-post-limits' ), $options['front_page_limit'] );
 			} else {
-				$echo .= sprintf( __( '(The WordPress default of %d is being used)', 'custom-post-limits' ), $current_limit );
+				$echo .= sprintf( __( 'The WordPress default of %d is being used.', 'custom-post-limits' ), $current_limit );
 			}
 		} elseif ( '-1' == $opt_value ) {
 			$echo .= __( '(<strong>ALL</strong> posts are set to be displayed for this)', 'custom-post-limits' );
