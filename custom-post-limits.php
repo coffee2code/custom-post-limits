@@ -428,7 +428,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 		$current_limit = get_option( 'posts_per_page' );
 		$parts = explode( '_', $opt );
 
-		if ( 'paged' == $parts[1] || 'enable' == $parts[0] || intval( $parts[1] ) > 0 ) {
+		if ( count( $parts ) < 2 || 'paged' == $parts[1] || 'enable' == $parts[0] || intval( $parts[1] ) > 0 ) {
 			return $helptext;
 		}
 
