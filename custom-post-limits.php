@@ -575,26 +575,41 @@ $this->first_page_offset = null;
 			}
 		} elseif ( is_year() ) {
 			$front_limit = $options['year_archives_limit'] ? $options['year_archives_limit'] : $options['archives_limit'];
-			if ( is_paged() && ! empty( $options['year_archives_paged_limit'] ) ) {
-				$limit = $options['year_archives_paged_limit'];
+			// If paged and either 'year_archives_paged_limit' or its fallback
+			// 'month_archives_paged_limit' are defined, then note first page
+			// offset and custom limit.
+			if ( is_paged() && ( ! empty( $options['year_archives_paged_limit'] ) || ! empty( $options['archives_paged_limit'] ) ) ) {
+				$limit = empty( $options['year_archives_paged_limit'] ) ? $options['archives_paged_limit'] : $options['year_archives_paged_limit'];
 				$this->first_page_offset = $front_limit;
-			} else {
+			}
+			// Otherwise, subsequent pages have same limit as first page.
+			else {
 				$limit = $front_limit;
 			}
 		} elseif ( is_month() ) {
 			$front_limit = $options['month_archives_limit'] ? $options['month_archives_limit'] : $options['archives_limit'];
-			if ( is_paged() && ! empty( $options['month_archives_paged_limit'] ) ) {
-				$limit = $options['month_archives_paged_limit'];
+			// If paged and either 'month_archives_paged_limit' or its fallback
+			// 'month_archives_paged_limit' are defined, then note first page
+			// offset and custom limit.
+			if ( is_paged() && ( ! empty( $options['month_archives_paged_limit'] ) || ! empty( $options['archives_paged_limit'] ) ) ) {
+				$limit = empty( $options['month_archives_paged_limit'] ) ? $options['archives_paged_limit'] : $options['month_archives_paged_limit'];
 				$this->first_page_offset = $front_limit;
-			} else {
+			}
+			// Otherwise, subsequent pages have same limit as first page.
+			else {
 				$limit = $front_limit;
 			}
 		} elseif ( is_day() ) {
 			$front_limit = $options['day_archives_limit'] ? $options['day_archives_limit'] : $options['archives_limit'];
-			if ( is_paged() && ! empty( $options['day_archives_paged_limit'] ) ) {
-				$limit = $options['day_archives_paged_limit'];
+			// If paged and either 'day_archives_paged_limit' or its fallback
+			// 'month_archives_paged_limit' are defined, then note first page
+			// offset and custom limit.
+			if ( is_paged() && ( ! empty( $options['day_archives_paged_limit'] ) || ! empty( $options['archives_paged_limit'] ) ) ) {
+				$limit = empty( $options['day_archives_paged_limit'] ) ? $options['archives_paged_limit'] : $options['day_archives_paged_limit'];
 				$this->first_page_offset = $front_limit;
-			} else {
+			}
+			// Otherwise, subsequent pages have same limit as first page.
+			else {
 				$limit = $front_limit;
 			}
 		} elseif ( is_archive() ) {

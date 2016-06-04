@@ -70,6 +70,7 @@ Yes.
 == Changelog ==
 
 = 4.0 () =
+* Change: Treat 'archives_paged_limit', if specified, as fallback for paged limits for day, month, and year archives.
 * Change: Update plugin framework to 043.
 * Change: Improve singleton implementation.
     * Add `get_instance()` static method for returning/creating singleton instance.

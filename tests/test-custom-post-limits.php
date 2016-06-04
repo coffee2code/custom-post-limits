@@ -179,6 +179,26 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( get_post( $post_ids[ 6-$offset ] ), get_post( $q->posts[0] ) );
 	}
 
+	public function test_archives_paged_limit_applies_when_day_archives_paged_without_day_archives_paged_limit() {
+		$offset = 2;
+		$limit  = 4;
+		$this->set_option( array( 'day_archives_limit' => $offset, 'archives_paged_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		$year  = get_the_date( 'Y', $post_ids[0] );
+		$month = get_the_date( 'm', $post_ids[0] );
+		$day   = get_the_date( 'd', $post_ids[0] );
+
+		$this->go_to( home_url() . "?year=$year&monthnum=$month&day=$day&paged=2" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_archive() );
+		$this->assertTrue( $q->is_day() );
+		$this->assertTrue( $q->is_paged() );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, -($limit+$offset), $limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ 6-$offset ] ), get_post( $q->posts[0] ) );
+	}
+
 	/* Front page */
 
 	public function test_front_page_limit() {
@@ -267,6 +287,25 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( get_post( $post_ids[ 6-$offset ] ), get_post( $q->posts[0] ) );
 	}
 
+	public function test_archives_paged_limit_applies_when_month_archives_paged_without_month_archives_paged_limit() {
+		$offset = 2;
+		$limit  = 4;
+		$this->set_option( array( 'month_archives_limit' => $offset, 'archives_paged_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		$year  = get_the_date( 'Y', $post_ids[0] );
+		$month = get_the_date( 'm', $post_ids[0] );
+
+		$this->go_to( home_url() . "?year=$year&monthnum=$month&paged=2" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_archive() );
+		$this->assertTrue( $q->is_month() );
+		$this->assertTrue( $q->is_paged() );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, -($limit+$offset), $limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ 6-$offset ] ), get_post( $q->posts[0] ) );
+	}
+
 	/* Searches */
 
 	public function test_searches_limit() {
@@ -340,6 +379,24 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->set_option( array( 'year_archives_limit' => $offset, 'year_archives_paged_limit' => $limit ) );
 		$post_ids = $this->factory->post->create_many( 7 );
 		$year = get_the_date( 'Y', $post_ids[0] );
+
+		$this->go_to( home_url() . "?year=$year&paged=2" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_archive() );
+		$this->assertTrue( $q->is_year() );
+		$this->assertTrue( $q->is_paged() );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, -($limit+$offset), $limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ 6-$offset ] ), get_post( $q->posts[0] ) );
+	}
+
+	public function test_archives_paged_limit_applies_when_year_archives_paged_without_year_archives_paged_limit() {
+		$offset = 2;
+		$limit  = 4;
+		$this->set_option( array( 'year_archives_limit' => $offset, 'archives_paged_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		$year  = get_the_date( 'Y', $post_ids[0] );
 
 		$this->go_to( home_url() . "?year=$year&paged=2" );
 		$q = $GLOBALS['wp_query'];
