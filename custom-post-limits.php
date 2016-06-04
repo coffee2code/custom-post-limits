@@ -428,24 +428,40 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 		$current_limit = get_option( 'posts_per_page' );
 		$parts = explode( '_', $opt );
 
-		if ( 'paged' == $parts[1] || 'enable' == $parts[0] || ( isset( $parts[2] ) && 'paged' == $parts[2] ) || intval( $parts[1] ) > 0 ) {
+		if ( 'paged' == $parts[1] || 'enable' == $parts[0] || intval( $parts[1] ) > 0 ) {
 			return $helptext;
 		}
 
 		$opt_name = implode(' ', array_map( 'ucfirst', $parts ) );
 		$opt_value = $options[ $opt ];
 		$is_archive = in_array( $opt, array( 'day_archives_limit', 'month_archives_limit', 'year_archives_limit' ) );
+		$is_paged_archive = in_array( $opt, array( 'day_archives_paged_limit', 'month_archives_paged_limit', 'year_archives_paged_limit' ) );
 
 		$echo = '';
 
 		if ( ! $opt_value ) {
 			if ( $is_archive && $options['archives_limit'] ) {
 				$echo .= sprintf( __( '(Archives Limit of %s is being used)', 'custom-post-limits' ), $options['archives_limit'] );
+			} elseif ( $is_paged_archive && $options['archives_paged_limit'] ) {
+				$echo .= sprintf( __( '(Archives Paged Limit of %s is being used)', 'custom-post-limits' ), $options['archives_paged_limit'] );
+			} elseif ( $is_paged_archive && $options[ $parts[0] . '_archives_limit' ] ) {
+				switch ( $opt ) {
+					case 'day_archives_paged_limit':
+						$echo .= sprintf( __( '(Day Archives Limit of %s is being used)', 'custom-post-limits' ), $options['day_archives_limit'] );
+						break;
+					case 'month_archives_paged_limit':
+						$echo .= sprintf( __( '(Month Archives Limit of %s is being used)', 'custom-post-limits' ), $options['month_archives_limit'] );
+						break;
+					case 'year_archives_paged_limit':
+						$echo .= sprintf( __( '(Year Archives Limit of %s is being used)', 'custom-post-limits' ), $options['year_archives_limit'] );
+						break;
+				}
+				$echo .= sprintf( __( '(Archives Paged Limit of %s is being used)', 'custom-post-limits' ), $options['archives_paged_limit'] );
 			} else {
 				$echo .= sprintf( __( '(The WordPress default of %d is being used)', 'custom-post-limits' ), $current_limit );
 			}
 		} elseif ( '-1' == $opt_value ) {
-			$echo .= __( '(ALL posts are set to be displayed for this)', 'custom-post-limits' );
+			$echo .= __( '(<strong>ALL</strong> posts are set to be displayed for this)', 'custom-post-limits' );
 		}
 
 		$opt_parts = explode( ' ', $opt_name );
