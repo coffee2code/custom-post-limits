@@ -428,7 +428,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 		$current_limit = get_option( 'posts_per_page' );
 		$parts = explode( '_', $opt );
 
-		if ( count( $parts ) < 2 || 'paged' == $parts[1] || 'enable' == $parts[0] || intval( $parts[1] ) > 0 ) {
+		if ( count( $parts ) < 2 || 'enable' == $parts[0] || intval( $parts[1] ) > 0 ) {
 			return $helptext;
 		}
 
@@ -456,6 +456,23 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 						$echo .= sprintf( __( '(Year Archives Limit of %s is being used)', 'custom-post-limits' ), $options['year_archives_limit'] );
 						break;
 				}
+			} elseif ( 'paged' == $parts[1] && $options[ $parts[0] . '_limit' ] ) {
+				switch ( $opt ) {
+					case 'authors_paged_limit':
+						$echo .= sprintf( __( '(Authors Limit of %s is being used)', 'custom-post-limits' ), $options['authors_limit'] );
+						break;
+					case 'categories_paged_limit':
+						$echo .= sprintf( __( '(Categories Limit of %s is being used)', 'custom-post-limits' ), $options['categories_limit'] );
+						break;
+					case 'searches_paged_limit':
+						$echo .= sprintf( __( '(Seaches Limit of %s is being used)', 'custom-post-limits' ), $options['searches_limit'] );
+						break;
+					case 'tags_paged_limit':
+						$echo .= sprintf( __( '(Tags Limit of %s is being used)', 'custom-post-limits' ), $options['tags_limit'] );
+						break;
+				}
+			} elseif ( 'front_page_paged_limit' == $opt && $options['front_page_limit'] ) {
+				$echo .= sprintf( __( '(Front Page Limit of %s is being used)', 'custom-post-limits' ), $options['front_page_limit'] );
 			} else {
 				$echo .= sprintf( __( '(The WordPress default of %d is being used)', 'custom-post-limits' ), $current_limit );
 			}
