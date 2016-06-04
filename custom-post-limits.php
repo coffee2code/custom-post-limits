@@ -456,7 +456,6 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
 						$echo .= sprintf( __( '(Year Archives Limit of %s is being used)', 'custom-post-limits' ), $options['year_archives_limit'] );
 						break;
 				}
-				$echo .= sprintf( __( '(Archives Paged Limit of %s is being used)', 'custom-post-limits' ), $options['archives_paged_limit'] );
 			} else {
 				$echo .= sprintf( __( '(The WordPress default of %d is being used)', 'custom-post-limits' ), $current_limit );
 			}
