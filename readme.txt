@@ -13,7 +13,7 @@ Independently control the number of posts listed on the front page, author/categ
 
 Control the number of posts that appear on the front page, search results, and author, category, tag, and date archives, independent of each other, including specific archives.
 
-By default, WordPress provides a single configuration setting to control how many posts should be listed in each section of your blog.  This value applies for the front page listing, author listings, archive listings, category listings, tag listings, and search results.  This plugin allows you to override that value for each of those different sections.
+By default, WordPress provides a single configuration setting to control how many posts should be listed in each section of your blog. This value applies for the front page listing, author listings, archive listings, category listings, tag listings, and search results. This plugin allows you to override that value for each of those different sections.
 
 Specifically, this plugin allows you to define limits for:
 
@@ -37,7 +37,7 @@ Specifically, this plugin allows you to define limits for:
 * Year archives (the archive listings of posts for any year)
 * Year archives non-first-page (when paging through year archives listings, number of posts listed when not on the first page)
 
-If the limit field is empty or 0 for a particular section type, then the default post limit will apply.  If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown).  The Archives Limit value is also treated as the default limit for Day, Month, and Year archives, unless those are explicitly defined.
+If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown). The Archives Limit value is also treated as the default limit for Day, Month, and Year archives, unless those are explicitly defined.
 
 Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/custom-post-limits/) | [Plugin Directory Page](https://wordpress.org/plugins/custom-post-limits/) | [Author Homepage](http://coffee2code.com)
 
@@ -47,14 +47,14 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/custom-post-limits/) 
 1. Whether installing or updating, whether this plugin or any other, it is always advisable to back-up your data before starting
 1. Unzip `custom-post-limits.zip` inside the `/wp-content/plugins/` directory (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Click the plugin's `Settings` link next to its `Deactivate` link (still on the Plugins page), or click on the `Settings` -> `Post Limits` link, to go to the plugin's admin settings page.  Optionally customize the limits.
+1. Click the plugin's `Settings` link next to its `Deactivate` link (still on the Plugins page), or click on the `Settings` -> `Post Limits` link, to go to the plugin's admin settings page. Optionally customize the limits.
 
 
 == Frequently Asked Questions ==
 
 = Does this plugin introduce additional database queries (or excessively burden the primary query) to achieve its ends? =
 
-No.  The plugin filters the posts_per_page setting value (and, when necessary, the LIMIT SQL clause) as used by the primary WordPress post query as appropriate, resulting in retrieval of only the number of posts up to the limit you specified without significant alteration of the primary query itself and without additional queries.  Bottom line: this should perform efficiently.
+No. The plugin filters the posts_per_page setting value (and, when necessary, the LIMIT SQL clause) as used by the primary WordPress post query as appropriate, resulting in retrieval of only the number of posts up to the limit you specified without significant alteration of the primary query itself and without additional queries. Bottom line: this should perform efficiently.
 
 = Is this plugin unit-tested? =
 
