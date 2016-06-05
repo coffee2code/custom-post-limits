@@ -2,7 +2,7 @@
 /**
  * @package C2C_Plugins
  * @author  Scott Reilly
- * @version 043
+ * @version 044
  */
 /*
 Basis for other plugins.
@@ -31,9 +31,9 @@ Compatible with WordPress 3.6+ through 4.5+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_CustomPostLimits_Plugin_043' ) ) :
+if ( ! class_exists( 'c2c_CustomPostLimits_Plugin_044' ) ) :
 
-abstract class c2c_CustomPostLimits_Plugin_043 {
+abstract class c2c_CustomPostLimits_Plugin_044 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -65,7 +65,7 @@ abstract class c2c_CustomPostLimits_Plugin_043 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '043';
+		return '044';
 	}
 
 	/**
@@ -351,8 +351,20 @@ abstract class c2c_CustomPostLimits_Plugin_043 {
 	 * @return array
 	 */
 	public function reset_options() {
+		$this->reset_caches();
 		$this->options = $this->get_options( false );
 		return $this->options;
+	}
+
+	/**
+	 * Resets caches and data memoization.
+	 *
+	 * @since 044
+	 */
+	public function reset_caches() {
+		$this->options         = array();
+		$this->option_names    = array();
+		$this->options_from_db = '';
 	}
 
 	/**
@@ -470,6 +482,7 @@ abstract class c2c_CustomPostLimits_Plugin_043 {
 						array();
 				}
 			}
+			$this->reset_caches();
 		}
 	}
 

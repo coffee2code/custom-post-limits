@@ -52,7 +52,7 @@ if ( ! class_exists( 'c2c_CustomPostLimits' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_043 {
+final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 
 	/**
 	 * The one true instance.

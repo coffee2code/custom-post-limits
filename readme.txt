@@ -71,8 +71,8 @@ Yes.
 
 = 4.0 () =
 * Change: Treat 'archives_paged_limit', if specified, as secondary fallback for paged limits for day, month, and year archives.
-* Change: On settings page, show help text indicating the value source or default for the paged archive limits.
-* Change: Update plugin framework to 043.
+* Change: On settings page, show help text indicating the value source or default for all (now to include paged) limits.
+* Change: Update plugin framework to 044.
 * Change: Improve singleton implementation.
     * Add `get_instance()` static method for returning/creating singleton instance.
     * Make static variable 'instance' private.
