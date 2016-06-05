@@ -27,31 +27,13 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 
 	protected function set_option( $settings = array() ) {
-		$defaults = array(
-			'archives_limit'                     => '',
-			'archives_paged_limit'               => '',
-			'enable_individual_authors_limit'    => false,
-			'authors_limit'                      => '',
-			'authors_paged_limit'                => '',
-			'enable_individual_categories_limit' => false,
-			'categories_limit'                   => '',
-			'categories_paged_limit'             => '',
-			'day_archives_limit'                 => '',
-			'day_archives_paged_limit'           => '',
-			'front_page_limit'                   => '',
-			'front_page_paged_limit'             => '',
-			'month_archives_limit'               => '',
-			'month_archives_paged_limit'         => '',
-			'searches_limit'                     => '',
-			'searches_paged_limit'               => '',
-			'enable_individual_tags_limit'       => false,
-			'tags_limit'                         => '',
-			'tags_paged_limit'                   => '',
-			'year_archives_limit'                => '',
-			'year_archives_paged_limit'          => '',
-		);
-		$settings = wp_parse_args( $settings, $defaults );
-		c2c_CustomPostLimits::get_instance()->update_option( $settings, true );
+		$options = c2c_CustomPostLimits::get_instance()->get_options();
+
+		foreach ( $settings as $setting => $val ) {
+			$options[ $setting ] = $val;
+		}
+
+		c2c_CustomPostLimits::get_instance()->update_option( $options, true );
 	}
 
 
