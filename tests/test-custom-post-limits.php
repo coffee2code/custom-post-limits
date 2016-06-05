@@ -404,13 +404,17 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	}
 
 	public function test_uninstall_deletes_option() {
-		$option = 'c2c_custom_post_limits';
-		c2c_CustomPostLimits::get_instance()->get_options();
+		$option_name = c2c_CustomPostLimits::get_instance()->admin_options_name;
+		$options     = c2c_CustomPostLimits::get_instance()->get_options();
 
-		$this->assertNotFalse( get_option( $option ) );
+		// Explicitly set an option to ensure options get saved to the database.
+		$this->set_option( array( 'archives_limit' => -1 ) );
+
+		$this->assertNotEmpty( $options );
+		$this->assertNotFalse( get_option( $option_name ) );
 
 		c2c_CustomPostLimits::uninstall();
 
-		$this->assertFalse( get_option( $option ) );
+		$this->assertFalse( get_option( $option_name ) );
 	}
 }
