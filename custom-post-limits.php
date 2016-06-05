@@ -162,7 +162,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			'day_archives_limit' => array(
 				'input'    => 'short_text',
 				'datatype' => 'int',
-				'label'    => __( 'Day Archives Limits', 'custom-post-limits' ),
+				'label'    => __( 'Day Archives Limit', 'custom-post-limits' ),
 			),
 			'day_archives_paged_limit' => array(
 				'input'    => 'short_text',
@@ -218,7 +218,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			'year_archives_limit' => array(
 				'input'    => 'short_text',
 				'datatype' => 'int',
-				'label'    => __( 'Year Archives Limits', 'custom-post-limits' ),
+				'label'    => __( 'Year Archives Limit', 'custom-post-limits' ),
 			),
 			'year_archives_paged_limit' => array(
 				'input'    => 'short_text',
