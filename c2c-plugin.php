@@ -455,6 +455,30 @@ abstract class c2c_CustomPostLimits_Plugin_044 {
 	abstract protected function load_config();
 
 	/**
+	 * Adds a new option to the plugin's configuration.
+	 *
+	 * Intended to be used for dynamically adding a new option after the config
+	 * is initially created via load_config(), but it can be called earlier.
+	 *
+	 * @since 044
+	 *
+	 * @param string $option_name The option name.
+	 * @param array  $args        The configuration for the setting.
+	 * @return array The fully initialized option.
+	 */
+	public function add_config( $option_name, $args ) {
+		$this->config[ $option_name ] = $args;
+
+		// This function may be running after the config array has already been
+		// processed by the plugin, thus this new option won't be automatically
+		// verified, which includes setting defaults for setting attributes that
+		// weren't explicitly specified.
+		$this->verify_options( array( $option_name ) );
+
+		return $this->config[ $option_name ];
+	}
+
+	/**
 	 * Verify that the necessary configuration files were set in the inheriting class.
 	 */
 	public function verify_config() {
