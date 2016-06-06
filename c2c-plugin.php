@@ -469,21 +469,37 @@ abstract class c2c_CustomPostLimits_Plugin_044 {
 		if ( empty( $this->config ) ) {
 			$this->show_admin = false;
 		} else {
-			// Initialize any option attributes that weren't specified by the plugin
-			foreach ( $this->get_option_names( true ) as $opt ) {
-				foreach ( $this->config_attributes as $attrib => $default) {
-					if ( ! isset( $this->config[ $opt ][ $attrib ] ) ) {
-						$this->config[ $opt ][ $attrib ] = $default;
-					}
-				}
-				if ( 'array' === $this->config[ $opt ]['datatype'] && ! is_array( $this->config[ $opt ]['default'] ) ) {
-					$this->config[ $opt ]['default'] = $this->config[ $opt ]['default'] ?
-						array( $this->config[ $opt ]['default'] ) :
-						array();
+			$this->verify_options();
+		}
+	}
+
+	/**
+	 * Initializes any option attributes that weren't specified by the plugin.
+	 *
+	 * @since 044
+	 *
+	 * @param array $options Array of all the option names to verify. Leave empty
+	 *                       to verify them all. Default empty array.
+	 */
+	public function verify_options( $options = array() ) {
+		// If no options specified, assume them all.
+		if ( ! $options ) {
+			$options = $this->get_option_names( true );
+		}
+
+		foreach ( $options as $opt ) {
+			foreach ( $this->config_attributes as $attrib => $default) {
+				if ( ! isset( $this->config[ $opt ][ $attrib ] ) ) {
+					$this->config[ $opt ][ $attrib ] = $default;
 				}
 			}
-			$this->reset_caches();
+			if ( 'array' === $this->config[ $opt ]['datatype'] && ! is_array( $this->config[ $opt ]['default'] ) ) {
+				$this->config[ $opt ]['default'] = $this->config[ $opt ]['default'] ?
+					array( $this->config[ $opt ]['default'] ) :
+					array();
+			}
 		}
+		$this->reset_caches();
 	}
 
 	/**
