@@ -88,6 +88,9 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		parent::__construct( '4.0', 'custom-post-limits', 'c2c', __FILE__, array() );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
+		// Handle custom post types.
+		add_action( 'registered_post_type',                            array( $this, 'registered_post_type' ), 10, 2 );
+
 		return self::$instance = $this;
 	}
 
@@ -268,6 +271,44 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			add_action( 'pre_option_posts_per_page',                       array( $this, 'custom_post_limits' ) );
 			// Possibly modify the offset within the LIMIT clause
 			add_filter( 'post_limits',                                     array( $this, 'correct_paged_offset' ), 10, 2 );
+		}
+	}
+
+	/**
+	 * Returns the name for the limit setting associated with a given post type.
+	 *
+	 * Note: Does not verify if the post type is valid or that the setting exists.
+	 * It merely returns what the setting should be for a given post type value.
+	 *
+	 * @since 4.0
+	 *
+	 * @param string $post_type The post type.
+	 * @return string
+	 */
+	public static function get_custom_post_type_limit_setting_name( $post_type ) {
+		return 'custom_post_type_' . $post_type . '_limit';
+	}
+
+	/**
+	 * Recognizes post type registration so that the post limits setting for the
+	 * psot type gets created.
+	 *
+	 * @since 4.0
+	 *
+	 * @param string $post_type The post type.
+	 * @param array  $args      The post type configuration array.
+	 */
+	public function registered_post_type( $post_type, $args ) {
+		$setting = self::get_custom_post_type_limit_setting_name( $post_type );
+
+		if ( $args->has_archive && ! isset( $this->config[ $setting ] ) ) {
+			$post_type_label = $args->labels->name !== 'Posts' ? $args->label : ucwords( str_replace( '-', ' ', $post_type ) );
+
+			$this->add_option( $setting, array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => sprintf( __( '%s Custom Post Type Limit', 'custom-post-limits' ), $post_type_label ),
+			) );
 		}
 	}
 
@@ -712,6 +753,12 @@ $this->first_page_offset = null;
 			// Otherwise, subsequent pages have same limit as first page.
 			else {
 				$limit = $front_limit;
+			}
+		} elseif ( is_post_type_archive() ) {
+			$post_type_setting = self::get_custom_post_type_limit_setting_name( get_query_var( 'post_type' ) );
+
+			if ( isset( $options[ $post_type_setting ] ) ) {
+				$limit = $options[ $post_type_setting ];
 			}
 		} elseif ( is_archive() ) {
 			if ( is_paged() && ! empty( $options['archives_paged_limit'] ) ) {

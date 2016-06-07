@@ -4,9 +4,12 @@ defined( 'ABSPATH' ) or die();
 
 class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
+	protected static $post_type = 'test-custom-post-limit';
+
 	public function setUp() {
 		parent::setUp();
-		$this->set_option();
+
+		c2c_CustomPostLimits::get_instance()->reset_options();
 
 		update_option( 'posts_per_page', 5 );
 	}
@@ -386,6 +389,41 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( $limit, count( $q->posts ) );
 		$this->assertEquals( array_slice( $post_ids, -(2*$limit), $limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
 		$this->assertEquals( get_post( $post_ids[ 6-$limit ] ), get_post( $q->posts[0] ) );
+	}
+
+	/* Custom post type */
+
+	public function test_get_post_type() {
+		global $wp_rewrite;
+		$limit = 2;
+		register_post_type( 'guide', array( 'name' => 'Guide', 'public' => true, 'has_archive' => true ) );
+		$wp_rewrite->flush_rules();
+		$post_type_setting = c2c_CustomPostLimits::get_custom_post_type_limit_setting_name( 'guide' );
+		$this->set_option( array( $post_type_setting => $limit, $post_type_setting => $limit, 'archives_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7, array( 'post_type' => 'guide' ) );
+
+		$this->go_to( home_url() . "?post_type=guide" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_post_type_archive() );
+		$this->assertEquals( $limit, count( $q->posts ) );
+	}
+
+	public function test_post_type_limit_works_for_subsequent_post_types() {
+		global $wp_rewrite;
+		$limit = 3;
+		register_post_type( 'guide', array( 'name' => 'Guide', 'public' => true, 'has_archive' => true ) );
+		register_post_type( 'sample', array( 'name' => 'Sample', 'public' => true, 'has_archive' => true ) );
+		$wp_rewrite->flush_rules();
+		$post_type_setting = c2c_CustomPostLimits::get_custom_post_type_limit_setting_name( 'sample' );
+		$this->set_option( array( $post_type_setting => $limit, $post_type_setting => $limit, 'archives_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7, array( 'post_type' => 'sample' ) );
+
+		$this->go_to( home_url() . "?post_type=sample" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_post_type_archive() );
+		$this->assertEquals( $limit, count( $q->posts ) );
 	}
 
 	/* Other */

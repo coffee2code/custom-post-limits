@@ -70,6 +70,7 @@ Yes.
 == Changelog ==
 
 = 4.0 () =
+* New: Add support for defining custom limits for custom post type archives.
 * Change: Treat 'archives_paged_limit', if specified, as secondary fallback for paged limits for day, month, and year archives.
 * Change: On settings page, show help text indicating the value source or default for all (now to include paged) limits.
 * Change: Update plugin framework to 044.
