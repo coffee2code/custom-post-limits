@@ -466,7 +466,7 @@ abstract class c2c_CustomPostLimits_Plugin_044 {
 	 * @param array  $args        The configuration for the setting.
 	 * @return array The fully initialized option.
 	 */
-	public function add_config( $option_name, $args ) {
+	public function add_option( $option_name, $args ) {
 		$this->config[ $option_name ] = $args;
 
 		// This function may be running after the config array has already been

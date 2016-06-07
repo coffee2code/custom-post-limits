@@ -116,116 +116,134 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		$this->name      = __( 'Custom Post Limits', 'custom-post-limits' );
 		$this->menu_name = __( 'Post Limits', 'custom-post-limits' );
 
-		$this->config = array(
-			'archives_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Archives Limit', 'custom-post-limits' ),
-			),
-			'archives_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-			'enable_individual_authors_limit' => array(
-				'input'    => 'checkbox',
-				'default'  => false,
-				'label'    => __( 'Enable individual authors limit?', 'custom-post-limits' ),
-				'help'     => __( 'Allows you to set limits for specific authors. If enabled, a link will appear after the Authors Limit field.<br /><em>Warning: if you have a lot of authors this may prevent this page from loading</em>.', 'custom-post-limits' ),
-			),
-			'authors_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Authors Limit', 'custom-post-limits' ),
-			),
-			'authors_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-			'enable_individual_categories_limit' => array(
-				'input'    => 'checkbox',
-				'default'  => false,
-				'label'    => __( 'Enable individual categories limit?', 'custom-post-limits' ),
-				'help'     => __( 'Allows you to set limits for specific categories. If enabled, a link will appear after the Categories Limit field.<br /><em>Warning: if you have a lot of categories this may prevent this page from loading</em>.', 'custom-post-limits' ),
-			),
-			'categories_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Categories Limit', 'custom-post-limits' ),
-			),
-			'categories_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-			'day_archives_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Day Archives Limit', 'custom-post-limits' ),
-			),
-			'day_archives_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-			'front_page_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Front Page Limit', 'custom-post-limits' ),
-			),
-			'front_page_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-			'month_archives_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Month Archives Limit', 'custom-post-limits' ),
-			),
-			'month_archives_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-			'searches_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Searches Limit', 'custom-post-limits' ),
-			),
-			'searches_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-			'enable_individual_tags_limit' => array(
-				'input'    => 'checkbox',
-				'default'  => false,
-				'label'    => __( 'Enable individual tags limit?', 'custom-post-limits' ),
-				'help'     => __( 'Allows you to set limits for specific tags. If enabled, a link will appear after the Tags Limit field.<br /><em>Warning: if you have a lot of tags this may prevent this page from loading</em>.', 'custom-post-limits' ),
-			),
-			'tags_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Tags Limit', 'custom-post-limits' ),
-			),
-			'tags_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-			'year_archives_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( 'Year Archives Limit', 'custom-post-limits' ),
-			),
-			'year_archives_paged_limit' => array(
-				'input'    => 'short_text',
-				'datatype' => 'int',
-				'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
-			),
-		);
+		$this->add_option( 'archives_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Archives Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'archives_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'enable_individual_authors_limit', array(
+			'input'    => 'checkbox',
+			'default'  => false,
+			'label'    => __( 'Enable individual authors limit?', 'custom-post-limits' ),
+			'help'     => __( 'Allows you to set limits for specific authors. If enabled, a link will appear after the Authors Limit field.<br /><em>Warning: if you have a lot of authors this may prevent this page from loading</em>.', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'authors_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Authors Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'authors_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'enable_individual_categories_limit', array(
+			'input'    => 'checkbox',
+			'default'  => false,
+			'label'    => __( 'Enable individual categories limit?', 'custom-post-limits' ),
+			'help'     => __( 'Allows you to set limits for specific categories. If enabled, a link will appear after the Categories Limit field.<br /><em>Warning: if you have a lot of categories this may prevent this page from loading</em>.', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'categories_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Categories Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'categories_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'day_archives_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Day Archives Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'day_archives_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'front_page_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Front Page Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'front_page_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'month_archives_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Month Archives Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'month_archives_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'searches_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Searches Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'searches_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'enable_individual_tags_limit', array(
+			'input'    => 'checkbox',
+			'default'  => false,
+			'label'    => __( 'Enable individual tags limit?', 'custom-post-limits' ),
+			'help'     => __( 'Allows you to set limits for specific tags. If enabled, a link will appear after the Tags Limit field.<br /><em>Warning: if you have a lot of tags this may prevent this page from loading</em>.', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'tags_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Tags Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'tags_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'year_archives_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( 'Year Archives Limit', 'custom-post-limits' ),
+		) );
+
+		$this->add_option( 'year_archives_paged_limit', array(
+			'input'    => 'short_text',
+			'datatype' => 'int',
+			'label'    => __( ' &nbsp; &nbsp; &#8212; <em>paged (non first page)</em>', 'custom-post-limits' ),
+		) );
 	}
 
 	/**
