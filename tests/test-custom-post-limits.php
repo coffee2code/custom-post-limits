@@ -105,6 +105,40 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( get_post( $post_ids[ 6-$offset ] ), get_post( $q->posts[0] ) );
 	}
 
+	/* Authors */
+
+	public function test_authors_limit() {
+		$limit  = 3;
+		$this->set_option( array( 'authors_limit' => $limit ) );
+		$user_id = $this->factory->user->create();
+		$post_ids = $this->factory->post->create_many( 7, array( 'post_author' => $user_id ) );
+
+		$this->go_to( home_url() . "?author=$user_id" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_author( $user_id ) );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, -$limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ 6 ] ), get_post( $q->posts[0] ) );
+	}
+
+	public function test_authors_paged_limit() {
+		$offset = 2;
+		$limit  = 4;
+		$this->set_option( array( 'authors_limit' => $offset, 'authors_paged_limit' => $limit ) );
+		$user_id = $this->factory->user->create();
+		$post_ids = $this->factory->post->create_many( 7, array( 'post_author' => $user_id ) );
+
+		$this->go_to( home_url() . "?author=$user_id&paged=2&orderby=ID&order=ASC" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_author( $user_id ) );
+		$this->assertTrue( $q->is_paged() );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, $offset, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ $offset ] ), get_post( $q->posts[0] ) );
+	}
+
 	/* Day */
 
 	public function test_day_archives_limit() {
