@@ -380,6 +380,7 @@ abstract class c2c_CustomPostLimits_Plugin_044 {
 			// unscrupulous addition of fields by the user)
 			$options = $this->get_options();
 			$option_names = $this->get_option_names();
+			$option_names = (array) apply_filters( $this->get_hook( 'sanitized_option_names' ), $option_names, $inputs );
 			foreach ( $option_names as $opt ) {
 				if ( !isset( $inputs[ $opt ] ) ) {
 					if ( $this->config[ $opt ]['input'] == 'checkbox' ) {
