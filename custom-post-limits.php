@@ -89,7 +89,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		// Handle custom post types.
-		add_action( 'registered_post_type',                            array( $this, 'registered_post_type' ), 10, 2 );
+		add_action( 'registered_post_type', array( $this, 'registered_post_type' ), 10, 2 );
 
 		return self::$instance = $this;
 	}
