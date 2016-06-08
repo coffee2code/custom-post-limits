@@ -397,6 +397,46 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( get_post( $post_ids[ $offset ] ), get_post( $q->posts[0] ) );
 	}
 
+	/* Tags */
+
+	public function test_tags_limit() {
+		$limit = 3;
+		$tag   = 'family';
+		$this->set_option( array( 'tags_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		foreach ( $post_ids as $pid ) {
+			wp_set_post_tags( $pid, $tag );
+		}
+
+		$this->go_to( home_url() . "?tag=$tag" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_tag( $tag ) );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, 0, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[0] ), get_post( $q->posts[0] ) );
+	}
+
+	public function test_tags_paged_limit() {
+		$offset = 2;
+		$limit  = 4;
+		$tag    = 'family';
+		$this->set_option( array( 'tags_limit' => $offset, 'tags_paged_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		foreach ( $post_ids as $pid ) {
+			wp_set_post_tags( $pid, $tag );
+		}
+
+		$this->go_to( home_url() . "?tag=$tag&paged=2" );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_tag( $tag ) );
+		$this->assertTrue( $q->is_paged() );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, $offset, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ $offset ] ), get_post( $q->posts[0] ) );
+	}
+
 	/* Year */
 
 	public function test_year_archives_limit() {
