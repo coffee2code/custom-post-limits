@@ -493,7 +493,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 
 		if ( 'categories' == $type && self::is_individual_limits_enabled( 'categories' ) ) {
 			foreach ( (array) $this->categories as $cat ) {
-				$idx = $type . '_' . $cat->cat_ID . '_limit';
+				$idx = self::get_individual_limit_setting_name( 'categories', $cat->cat_ID );
 				$index = $this->admin_options_name . "[$idx]";
 				$value = isset( $options[ $idx ] ) ? $options[ $idx ] : '';
 				echo $before . get_cat_name( $cat->cat_ID ) . '</th>';
@@ -501,7 +501,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			}
 		} elseif ( 'tags' == $type && self::is_individual_limits_enabled( 'tags' ) ) {
 			foreach ( (array) $this->tags as $tag ) {
-				$idx = $type . '_' . $tag->term_id . '_limit';
+				$idx = self::get_individual_limit_setting_name( 'tags', $term->term_id );
 				$index = $this->admin_options_name . "[$idx]";
 				$value = isset( $options[ $index ] ) ? $options[ $index ] : '';
 				echo $before . $tag->name . '</th>';
@@ -509,7 +509,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			}
 		} elseif ( 'authors' == $type && self::is_individual_limits_enabled( 'authors' ) ) {
 			foreach ( (array) $this->authors as $author ) {
-				$idx = $type . '_' . $author->ID . '_limit';
+				$idx = self::get_individual_limit_setting_name( 'authors', $author->ID );
 				$index = $this->admin_options_name . "[$idx]";
 				$value = isset( $options[ $index ] ) ? $options[ $index ] : '';
 				echo $before . $author->display_name . '</th>';
