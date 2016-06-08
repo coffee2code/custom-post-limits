@@ -72,6 +72,7 @@ Yes.
 = 4.0 () =
 * New: Add support for defining custom limits for custom post type archives.
 * New: Add `get_individual_limit_setting_name()` as a helper function to determine the individual limit setting name for authors, categories, custom post types, and tags.
+* New: Add `has_individual_limits()` to indicate if a setting type has individual limits.
 * Change: Refactor `custom_post_limits()` handling for author, category, and tag individual limits.
 * Change: Treat 'archives_paged_limit', if specified, as secondary fallback for paged limits for day, month, and year archives.
 * Change: On settings page, show help text indicating the value source or default for all (now to include paged) limits.

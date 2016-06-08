@@ -807,6 +807,35 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( $limit, count( $q->posts ) );
 	}
 
+	/* has_individual_limits() */
+
+	public function test_has_individual_limits_for_valid_types() {
+		$types = array(
+			'authors',
+			'categories',
+			'tags',
+		);
+
+		foreach ( $types as $type ) {
+			$this->assertTrue( c2c_CustomPostLimits::has_individual_limits( $type ) );
+		}
+	}
+
+	public function test_has_individual_limits_for_invalid_types() {
+		$types = array(
+			'author',
+			'category',
+			'nonsense',
+			'tag',
+			0,
+			'',
+		);
+
+		foreach ( $types as $type ) {
+			$this->assertFalse( c2c_CustomPostLimits::has_individual_limits( $type ) );
+		}
+	}
+
 	/* Other */
 
 	public function test_negative_one_limit_returns_all_posts() {

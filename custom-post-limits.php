@@ -311,15 +311,10 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			return '';
 		}
 
-		switch ( $type ) {
-			case 'authors':
-			case 'categories':
-			case 'custom_post_type':
-			case 'tags':
-				$prefix = $type;
-				break;
-			default:
-				$prefix = '';
+		if ( self::has_individual_limits( $type ) || 'custom_post_type' === $type ) {
+			$prefix = $type;
+		} else {
+			$prefix = '';
 		}
 
 		return $prefix ? "{$prefix}_{$value}_limit" : '';
@@ -385,6 +380,10 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	public function is_individual_limits_enabled( $type ) {
 		$options = $this->get_options();
 
+		if ( ! self::has_individual_limits( $type ) ) {
+			return false;
+		}
+
 		if ( ! empty( self::$individual_limits['all'] ) ) {
 			self::$individual_limits['all'] = apply_filters( 'c2c_cpl_enable_all_individual_limits', false );
 		}
@@ -398,6 +397,21 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		}
 
 		return self::$individual_limits[ $type ];
+	}
+
+	/**
+	 * Indicates if the given option type supports individual limits.
+	 *
+	 * Note: This does not determine if the individual limits are enabled or that
+	 * any have any explicit limits defined.
+	 *
+	 * @since 4.0
+	 *
+	 * @param string $type The option type. One of authors, categories, tags.
+	 * @return bool  True if the option type supports individual limits, false otherwise.
+	 */
+	public static function has_individual_limits( $type ) {
+		return $type && in_array( $type, array( 'authors', 'categories', 'tags' ) );
 	}
 
 	/**
@@ -448,10 +462,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	public function permit_individual_option_names( $option_names, $inputs ) {
 		foreach ( array_keys( $inputs ) as $input ) {
 			$parts = explode( '_', $input, 3 );
-			if ( 3 === count( $parts )
-				&& in_array( $parts[0], array( 'authors', 'categories', 'tags' ) )
-				&& 'limit' === $parts[2]
-			) {
+			if ( 3 === count( $parts ) && self::has_individual_limits( $parts[0] ) && 'limit' === $parts[2] ) {
 				$option_names[] = $input;
 			}
 		}
@@ -602,7 +613,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		$opt_parts = explode( ' ', $opt_name );
 		$type = strtolower( reset( $opt_parts ) );
 
-		if ( in_array( $type, array( 'authors', 'categories', 'tags' ) ) && self::is_individual_limits_enabled( $type ) && count( $this->$type ) > 0 ) {
+		if ( self::has_individual_limits( $type ) && self::is_individual_limits_enabled( $type ) && count( $this->$type ) > 0 ) {
 			$echo .= " &#8211; <a id='cpl-{$type}-link' href='#' style='display:none;'>" . sprintf( __( 'Show/hide individual %s', 'custom-post-limits' ), strtolower( $opt_name ) ) . '</a>';
 		}
 
