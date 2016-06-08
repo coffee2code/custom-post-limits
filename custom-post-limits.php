@@ -275,18 +275,32 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	}
 
 	/**
-	 * Returns the name for the limit setting associated with a given post type.
+	 * Returns the name for the limit setting of a given individual item associated
+	 * with a given type.
 	 *
-	 * Note: Does not verify if the post type is valid or that the setting exists.
-	 * It merely returns what the setting should be for a given post type value.
+	 * Note: Does not verify if the given item is valid for given type or that
+	 * the setting exists. It merely returns what the setting should be for the
+	 * given type and value combination.
 	 *
 	 * @since 4.0
 	 *
-	 * @param string $post_type The post type.
+	 * @param string $type The type of setting. One of: authors, categories, custom post type, tags.
+	 * @param string $item The id for the item, or in the case for a custom post type, the slug.
 	 * @return string
 	 */
-	public static function get_custom_post_type_limit_setting_name( $post_type ) {
-		return 'custom_post_type_' . $post_type . '_limit';
+	public static function get_individual_limit_setting_name( $type, $value ) {
+		switch ( $type ) {
+			case 'authors':
+			case 'categories':
+			case 'custom_post_type':
+			case 'tags':
+				$prefix = $type;
+				break;
+			default:
+				$prefix = '';
+		}
+
+		return $prefix ? "{$prefix}_{$value}_limit" : '';
 	}
 
 	/**
@@ -299,7 +313,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	 * @param array  $args      The post type configuration array.
 	 */
 	public function registered_post_type( $post_type, $args ) {
-		$setting = self::get_custom_post_type_limit_setting_name( $post_type );
+		$setting = self::get_individual_limit_setting_name( 'custom_post_type', $post_type );
 
 		if ( $args->has_archive && ! isset( $this->config[ $setting ] ) ) {
 			$post_type_label = $args->labels->name !== 'Posts' ? $args->label : ucwords( str_replace( '-', ' ', $post_type ) );
@@ -378,21 +392,21 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		if ( ( ! $type || in_array( 'authors', (array) $type ) ) && self::is_individual_limits_enabled( 'authors' ) ) {
 			$this->get_authors();
 			foreach ( (array) $this->authors as $author ) {
-				$options[ 'authors_' . $author->ID . '_limit' ] = '';
+				$options[ self::get_individual_limit_setting_name( 'authors', $author->ID ) ] = '';
 			}
 		}
 
 		if ( ( ! $type || in_array( 'categories', (array) $type ) ) && self::is_individual_limits_enabled( 'categories' ) ) {
 			$this->get_categories();
 			foreach ( (array) $this->categories as $cat ) {
-				$options[ 'categories_' . $cat->cat_ID . '_limit' ] = '';
+				$options[ self::get_individual_limit_setting_name( 'categories', $cat->cat_ID ) ] = '';
 			}
 		}
 
 		if ( ( ! $type || in_array( 'tags', (array) $type ) ) && self::is_individual_limits_enabled( 'tags' ) ) {
 			$this->get_tags();
 			foreach ( (array) $this->tags as $tag ) {
-				$options[ 'tags_' . $tag->term_id . '_limit' ] = '';
+				$options[ self::get_individual_limit_setting_name( 'tags', $tag->term_id ) ] = '';
 			}
 		}
 
@@ -618,7 +632,7 @@ JS;
 			}
 			$this->get_categories();
 			foreach ( $this->categories as $cat ) {
-				$opt = 'categories_' . $cat->cat_ID . '_limit';
+				$opt = self::get_individual_limit_setting_name( 'categories', $cat->cat_ID );
 				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
 					( $query_vars['cat'] == $cat->cat_ID || $query_vars['category_name'] == $cat->slug ||
 						preg_match( "/\/{$cat->slug}\/?$/", $query_vars['category_name'] ) ) ) {
@@ -637,7 +651,7 @@ $this->first_page_offset = null;
 			}
 			$this->get_tags();
 			foreach ( $this->tags as $tag ) {
-				$opt = 'tags_' . $tag->term_id . '_limit';
+				$opt = self::get_individual_limit_setting_name( 'tags', $tag->term_id );
 				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
 					( $query_vars['tag_id'] == $tag->term_id || $query_vars['tag'] == $tag->slug ) ) {
 					$limit = $options[ $opt ];
@@ -655,7 +669,7 @@ $this->first_page_offset = null;
 			}
 			$this->get_authors();
 			foreach ( $this->authors as $author ) {
-				$opt = 'authors_' . $author->ID . '_limit';
+				$opt = self::get_individual_limit_setting_name( 'authors', $author->ID );
 				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
 					( $query_vars['author'] == $author->ID || $query_vars['author_name'] == $author->user_nicename ) ) {
 					$limit = $options[ $opt ];
@@ -755,7 +769,7 @@ $this->first_page_offset = null;
 				$limit = $front_limit;
 			}
 		} elseif ( is_post_type_archive() ) {
-			$post_type_setting = self::get_custom_post_type_limit_setting_name( get_query_var( 'post_type' ) );
+			$post_type_setting = self::get_individual_limit_setting_name( 'custom_post_type', get_query_var( 'post_type' ) );
 
 			if ( isset( $options[ $post_type_setting ] ) ) {
 				$limit = $options[ $post_type_setting ];
