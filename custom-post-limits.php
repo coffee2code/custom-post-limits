@@ -644,15 +644,12 @@ JS;
 	 * @return int The limit value for the current posts query.
 	 */
 	public function custom_post_limits( $limit ) {
-		global $wp_query; // Only used for individual (author, category, tag) limits
-
 		if ( is_admin() ) {
 			return $limit;
 		}
 
 		$old_limit = $limit;
 		$options = $this->get_options();
-		$query_vars = $wp_query->query_vars;
 		$this->first_page_offset = null;
 
 		if ( is_home() ) {
@@ -676,16 +673,21 @@ JS;
 			} else {
 				$limit = $options['categories_limit'];
 			}
-			$this->get_categories();
-			foreach ( $this->categories as $cat ) {
-				$opt = self::get_individual_limit_setting_name( 'categories', $cat->cat_ID );
-				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
-					( $query_vars['cat'] == $cat->cat_ID || $query_vars['category_name'] == $cat->slug ||
-						preg_match( "/\/{$cat->slug}\/?$/", $query_vars['category_name'] ) ) ) {
+
+			if ( $this->is_individual_limits_enabled( 'categories' ) ) {
+				if ( ! $cat_id = get_query_var( 'cat' ) ) {
+					if ( $cat_name = get_query_var( 'category_name' ) ) {
+						if ( $cat = get_category_by_slug( $cat_name ) ) {
+							$cat_id = $cat->term_id;
+						}
+					}
+				}
+
+				$opt = self::get_individual_limit_setting_name( 'categories', $cat_id );
+				if ( $opt && ! empty( $options[ $opt ] ) ) {
 					$limit = $options[ $opt ];
 // TODO: Individual archive limits apply to all pagings; consider doing front-page/non-front-page values for each
 $this->first_page_offset = null;
-					break;
 				}
 			}
 		} elseif ( is_tag() ) {
@@ -695,15 +697,21 @@ $this->first_page_offset = null;
 			} else {
 				$limit = $options['tags_limit'];
 			}
-			$this->get_tags();
-			foreach ( $this->tags as $tag ) {
-				$opt = self::get_individual_limit_setting_name( 'tags', $tag->term_id );
-				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
-					( $query_vars['tag_id'] == $tag->term_id || $query_vars['tag'] == $tag->slug ) ) {
+
+			if ( $this->is_individual_limits_enabled( 'tags' ) ) {
+				if ( ! $tag_id = get_query_var( 'tag_id' ) ) {
+					if ( $tag_name = get_query_var( 'tag' ) ) {
+						if ( $tag = get_term_by( 'slug', $tag_name, 'post_tag' ) ) {
+							$tag_id = $tag->term_id;
+						}
+					}
+				}
+
+				$opt = self::get_individual_limit_setting_name( 'tags', $tag_id );
+				if ( $opt && ! empty( $options[ $opt ] ) ) {
 					$limit = $options[ $opt ];
 // TODO: Individual archive limits apply to all pagings; consider doing front-page/non-front-page values for each
 $this->first_page_offset = null;
-					break;
 				}
 			}
 		} elseif ( is_author() ) {
@@ -713,15 +721,21 @@ $this->first_page_offset = null;
 			} else {
 				$limit = $options['authors_limit'];
 			}
-			$this->get_authors();
-			foreach ( $this->authors as $author ) {
-				$opt = self::get_individual_limit_setting_name( 'authors', $author->ID );
-				if ( isset( $options[ $opt ] ) && $options[ $opt ] &&
-					( $query_vars['author'] == $author->ID || $query_vars['author_name'] == $author->user_nicename ) ) {
+
+			if ( $this->is_individual_limits_enabled( 'authors' ) ) {
+				if ( ! $author_id = get_query_var( 'author' ) ) {
+					if ( $author_name = get_query_var( 'author_name' ) ) {
+						if ( $author = get_user_by( 'slug', $author_name ) ) {
+							$author_id = $author->ID;
+						}
+					}
+				}
+
+				$opt = self::get_individual_limit_setting_name( 'authors', $author_id );
+				if ( $opt && ! empty( $options[ $opt ] ) ) {
 					$limit = $options[ $opt ];
 // TODO: Individual archive limits apply to all pagings; consider doing front-page/non-front-page values for each
 $this->first_page_offset = null;
-					break;
 				}
 			}
 		} elseif ( is_year() ) {
