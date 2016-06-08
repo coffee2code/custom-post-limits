@@ -738,19 +738,23 @@ HTML;
 	 * @return array Array of option names.
 	 */
 	protected function get_option_names( $include_non_options = false ) {
-		if ( ! $include_non_options && ! empty( $this->option_names ) ) {
-			return $this->option_names;
-		}
+		$option_names = array();
+
 		if ( $include_non_options ) {
-			return array_keys( $this->config );
-		}
-		$this->option_names = array();
-		foreach ( array_keys( $this->config ) as $opt ) {
-			if ( isset( $this->config[ $opt ]['input'] ) && $this->config[ $opt ]['input'] != '' && $this->config[ $opt ]['input'] != 'none' && $this->is_option_valid( $opt ) ) {
-				$this->option_names[] = $opt;
+			$option_names = array_keys( $this->config );
+		} else {
+			if ( ! $this->option_names ) {
+				$this->option_names = array();
+				foreach ( array_keys( $this->config ) as $opt ) {
+					if ( isset( $this->config[ $opt ]['input'] ) && $this->config[ $opt ]['input'] != '' && $this->config[ $opt ]['input'] != 'none' && $this->is_option_valid( $opt ) ) {
+						$this->option_names[] = $opt;
+					}
+				}
 			}
+			$option_names = $this->option_names;
 		}
-		return $this->option_names;
+
+		return $option_names;
 	}
 
 	/**
