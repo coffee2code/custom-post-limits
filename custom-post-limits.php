@@ -290,6 +290,10 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	 * @return string
 	 */
 	public static function get_individual_limit_setting_name( $type, $value ) {
+		if ( ! $value ) {
+			return '';
+		}
+
 		switch ( $type ) {
 			case 'authors':
 			case 'categories':
