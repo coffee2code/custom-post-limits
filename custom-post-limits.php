@@ -278,6 +278,21 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	}
 
 	/**
+	 * Resets caches and memoized data.
+	 *
+	 * @since 4.0
+	 */
+	public function reset_caches() {
+		parent::reset_caches();
+
+		$this->authors           = '';
+		$this->categories        = '';
+		$this->tags              = '';
+		$this->first_page_offset = null;
+		self::$individual_limits = array( 'all' => null, 'authors' => null, 'categories' => null, 'tags' => null );
+	}
+
+	/**
 	 * Returns the name for the limit setting of a given individual item associated
 	 * with a given type.
 	 *
