@@ -379,13 +379,13 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	 *
 	 * @since 3.6
 	 *
-	 * @param string $type One of: author, category, or tag
+	 * @param string $type One of: authors, categories, or tags.
 	 * @return bool  True if the individual limits are enabled for the given archive type; false if not
 	 */
 	public function is_individual_limits_enabled( $type ) {
 		$options = $this->get_options();
 
-		if ( ! isset( self::$individual_limits['all'] ) || is_null( self::$individual_limits['all'] ) ) {
+		if ( ! empty( self::$individual_limits['all'] ) ) {
 			self::$individual_limits['all'] = apply_filters( 'c2c_cpl_enable_all_individual_limits', false );
 		}
 
@@ -393,7 +393,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			return true;
 		}
 
-		if ( ! isset( self::$individual_limits[ $type ] ) || is_null( self::$individual_limits[ $type ] ) ) {
+		if ( empty( self::$individual_limits[ $type ] ) ) {
 			self::$individual_limits[ $type ] = apply_filters( "c2c_cpl_enable_all_individual_{$type}_limits", $options[ "enable_individual_{$type}_limit" ] );
 		}
 
