@@ -273,6 +273,8 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		add_filter( $this->get_hook( 'options' ),                          array( $this, 'load_individual_options' ) );
 		// Hook post-updating of plugin option in order to save individually listed items.
 		add_action( 'pre_update_option_' . $this->admin_options_name,      array( $this, 'save_individual_options' ), 10, 2 );
+		// Hook option names retrieval to insert settings for individual items.
+		add_filter( $this->get_hook( 'sanitized_option_names' ),           array( $this, 'permit_individual_option_names' ), 10, 2 );
 	}
 
 	/**
@@ -416,6 +418,30 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		}
 
 		return array_merge( $options, $primary_options );
+	}
+
+	/**
+	 * Prevents individual option setting names from being sanitized since they
+	 * aren't all explicitly registerd as settings.
+	 *
+	 * @since 4.0
+	 *
+	 * @param array $option_names The registered option names.
+	 * @param array $inputs       The options and their values attempting to get saved.
+	 * @return array
+	 */
+	public function permit_individual_option_names( $option_names, $inputs ) {
+		foreach ( array_keys( $inputs ) as $input ) {
+			$parts = explode( '_', $input, 3 );
+			if ( 3 === count( $parts )
+				&& in_array( $parts[0], array( 'authors', 'categories', 'tags' ) )
+				&& 'limit' === $parts[2]
+			) {
+				$option_names[] = $input;
+			}
+		}
+
+		return $option_names;
 	}
 
 	/**
