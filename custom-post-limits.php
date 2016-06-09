@@ -302,7 +302,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	 *
 	 * @since 4.0
 	 *
-	 * @param string $type The type of setting. One of: authors, categories, custom post type, tags.
+	 * @param string $type The type of setting. One of: authors, categories, customposttypes, tags.
 	 * @param string $item The id for the item, or in the case for a custom post type, the slug.
 	 * @return string
 	 */
@@ -311,7 +311,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			return '';
 		}
 
-		if ( self::has_individual_limits( $type ) || 'custom_post_type' === $type ) {
+		if ( self::has_individual_limits( $type ) ) {
 			$prefix = $type;
 		} else {
 			$prefix = '';
@@ -330,7 +330,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	 * @param array  $args      The post type configuration array.
 	 */
 	public function registered_post_type( $post_type, $args ) {
-		$setting = self::get_individual_limit_setting_name( 'custom_post_type', $post_type );
+		$setting = self::get_individual_limit_setting_name( 'customposttypes', $post_type );
 
 		if ( $args->has_archive && ! isset( $this->config[ $setting ] ) ) {
 			$post_type_label = $args->labels->name !== 'Posts' ? $args->label : ucwords( str_replace( '-', ' ', $post_type ) );
@@ -374,7 +374,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	 *
 	 * @since 3.6
 	 *
-	 * @param string $type One of: authors, categories, or tags.
+	 * @param string $type One of: authors, categories, customposttypes, or tags.
 	 * @return bool  True if the individual limits are enabled for the given archive type; false if not
 	 */
 	public function is_individual_limits_enabled( $type ) {
@@ -407,11 +407,11 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	 *
 	 * @since 4.0
 	 *
-	 * @param string $type The option type. One of authors, categories, tags.
+	 * @param string $type The option type. One of authors, categories, customposttypes, tags.
 	 * @return bool  True if the option type supports individual limits, false otherwise.
 	 */
 	public static function has_individual_limits( $type ) {
-		return $type && in_array( $type, array( 'authors', 'categories', 'tags' ) );
+		return $type && in_array( $type, array( 'authors', 'categories', 'customposttypes', 'tags' ) );
 	}
 
 	/**
@@ -840,7 +840,7 @@ $this->first_page_offset = null;
 				$limit = $front_limit;
 			}
 		} elseif ( is_post_type_archive() ) {
-			$post_type_setting = self::get_individual_limit_setting_name( 'custom_post_type', get_query_var( 'post_type' ) );
+			$post_type_setting = self::get_individual_limit_setting_name( 'customposttypes', get_query_var( 'post_type' ) );
 
 			if ( isset( $options[ $post_type_setting ] ) ) {
 				$limit = $options[ $post_type_setting ];

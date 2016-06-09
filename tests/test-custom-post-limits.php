@@ -779,7 +779,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$limit = 2;
 		register_post_type( 'guide', array( 'name' => 'Guide', 'public' => true, 'has_archive' => true ) );
 		$wp_rewrite->flush_rules();
-		$post_type_setting = c2c_CustomPostLimits::get_individual_limit_setting_name( 'custom_post_type', 'guide' );
+		$post_type_setting = c2c_CustomPostLimits::get_individual_limit_setting_name( 'customposttypes', 'guide' );
 		$this->set_option( array( $post_type_setting => $limit, $post_type_setting => $limit, 'archives_limit' => $limit ) );
 		$post_ids = $this->factory->post->create_many( 7, array( 'post_type' => 'guide' ) );
 
@@ -796,7 +796,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		register_post_type( 'guide', array( 'name' => 'Guide', 'public' => true, 'has_archive' => true ) );
 		register_post_type( 'sample', array( 'name' => 'Sample', 'public' => true, 'has_archive' => true ) );
 		$wp_rewrite->flush_rules();
-		$post_type_setting = c2c_CustomPostLimits::get_individual_limit_setting_name( 'custom_post_type', 'sample' );
+		$post_type_setting = c2c_CustomPostLimits::get_individual_limit_setting_name( 'customposttypes', 'sample' );
 		$this->set_option( array( $post_type_setting => $limit, $post_type_setting => $limit, 'archives_limit' => $limit ) );
 		$post_ids = $this->factory->post->create_many( 7, array( 'post_type' => 'sample' ) );
 
@@ -813,6 +813,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$types = array(
 			'authors',
 			'categories',
+			'customposttypes',
 			'tags',
 		);
 
@@ -825,6 +826,8 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$types = array(
 			'author',
 			'category',
+			'custom_post_types',
+			'customposttype',
 			'nonsense',
 			'tag',
 			0,
