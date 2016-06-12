@@ -472,6 +472,11 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			$parts = explode( '_', $input, 3 );
 			if ( 3 === count( $parts ) && self::has_individual_limits( $parts[0] ) && 'limit' === $parts[2] ) {
 				$option_names[] = $input;
+
+				$this->add_option( $input, array(
+					'input'    => 'short_text',
+					'datatype' => 'int',
+				) );
 			}
 		}
 
