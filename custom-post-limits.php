@@ -506,7 +506,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			}
 		} elseif ( 'tags' == $type && self::is_individual_limits_enabled( 'tags' ) ) {
 			foreach ( (array) $this->tags as $tag ) {
-				$idx = self::get_individual_limit_setting_name( 'tags', $term->term_id );
+				$idx = self::get_individual_limit_setting_name( 'tags', $tag->term_id );
 				$index = $this->admin_options_name . "[$idx]";
 				$value = isset( $options[ $index ] ) ? $options[ $index ] : '';
 				echo $before . $tag->name . '</th>';
