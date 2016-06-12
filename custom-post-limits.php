@@ -380,6 +380,11 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 	public function is_individual_limits_enabled( $type ) {
 		$options = $this->get_options();
 
+		// Custom post types never have individual limits enabled.
+		if ( 'customposttypes' === $type ) {
+			return false;
+		}
+
 		if ( ! self::has_individual_limits( $type ) ) {
 			return false;
 		}
