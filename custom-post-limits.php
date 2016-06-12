@@ -516,7 +516,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			foreach ( (array) $this->tags as $tag ) {
 				$idx = self::get_individual_limit_setting_name( 'tags', $tag->term_id );
 				$index = $this->admin_options_name . "[$idx]";
-				$value = isset( $options[ $index ] ) ? $options[ $index ] : '';
+				$value = isset( $options[ $idx ] ) ? $options[ $idx ] : '';
 				echo $before . $tag->name . '</th>';
 				echo "<td><input type='text' class='c2c_short_text small-text' name='$index' value='$value' /></td></tr>";
 			}
@@ -524,7 +524,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 			foreach ( (array) $this->authors as $author ) {
 				$idx = self::get_individual_limit_setting_name( 'authors', $author->ID );
 				$index = $this->admin_options_name . "[$idx]";
-				$value = isset( $options[ $index ] ) ? $options[ $index ] : '';
+				$value = isset( $options[ $idx ] ) ? $options[ $idx ] : '';
 				echo $before . $author->display_name . '</th>';
 				echo "<td><input type='text' class='c2c_short_text small-text' name='$index' value='$value' /></td></tr>";
 			}
