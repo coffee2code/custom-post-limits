@@ -807,6 +807,22 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( $limit, count( $q->posts ) );
 	}
 
+	public function test_public_post_types_gets_option_initialized() {
+		register_post_type( 'guide1', array( 'name' => 'Guide1', 'public' => true, 'has_archive' => true ) );
+
+		$options = c2c_CustomPostLimits::get_instance()->get_options();
+
+		$this->assertTrue( isset( $options['customposttypes_guide1_limit'] ) );
+	}
+
+	public function test_private_post_types_dont_get_option_initialized() {
+		register_post_type( 'guide2', array( 'name' => 'Guide2', 'public' => false, 'has_archive' => false ) );
+
+		$options = c2c_CustomPostLimits::get_instance()->get_options();
+
+		$this->assertFalse( isset( $options['customposttypes_guide2_limit'] ) );
+	}
+
 	/* has_individual_limits() */
 
 	public function test_has_individual_limits_for_valid_types() {
