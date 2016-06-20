@@ -210,7 +210,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_set_post_categories( $pid, array( $cat_id ) );
 		}
 
-		$this->go_to( home_url() . "?category_name=$cat" );
+		$this->go_to( home_url() . "?category_name=$cat&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_category( $cat ) );
@@ -255,7 +255,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_set_post_categories( $pid, array( $cat_id ) );
 		}
 
-		$this->go_to( home_url() . "?cat=$cat_id" );
+		$this->go_to( home_url() . "?cat=$cat_id&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_category( $cat ) );
@@ -279,7 +279,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_set_post_categories( $pid, array( $cat_id ) );
 		}
 
-		$this->go_to( home_url() . "?category_name=$cat" );
+		$this->go_to( home_url() . "?category_name=$cat&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_category( $cat ) );
@@ -329,7 +329,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_set_post_categories( $pid, array( $cat_id ) );
 		}
 
-		$this->go_to( home_url() . "?category_name=$cat" );
+		$this->go_to( home_url() . "?category_name=$cat&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_category( $cat ) );
@@ -531,7 +531,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->set_option( array( 'searches_limit' => $limit ) );
 		$post_ids = $this->factory->post->create_many( 7 );
 
-		$this->go_to( home_url() . "?s=content" );
+		$this->go_to( home_url() . "?s=content&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_search() );
@@ -546,7 +546,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->set_option( array( 'searches_limit' => $offset, 'searches_paged_limit' => $limit ) );
 		$post_ids = $this->factory->post->create_many( 7 );
 
-		$this->go_to( home_url() . "?s=content&paged=2" );
+		$this->go_to( home_url() . "?s=content&paged=2&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_search() );
@@ -567,7 +567,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_add_post_tags( $pid, $tag );
 		}
 
-		$this->go_to( home_url() . "?tag=$tag" );
+		$this->go_to( home_url() . "?tag=$tag&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_tag( $tag ) );
@@ -587,7 +587,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_add_post_tags( $pid, $tag );
 		}
 
-		$this->go_to( home_url() . "?tag=$tag&paged=2" );
+		$this->go_to( home_url() . "?tag=$tag&paged=2&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_tag( $tag ) );
@@ -611,7 +611,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_add_post_tags( $pid, $tag );
 		}
 
-		$this->go_to( home_url() . "?tag_id=$tag_id" );
+		$this->go_to( home_url() . "?tag_id=$tag_id&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_tag( $tag ) );
@@ -635,7 +635,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_add_post_tags( $pid, $tag );
 		}
 
-		$this->go_to( home_url() . "?tag=$tag" );
+		$this->go_to( home_url() . "?tag=$tag&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_tag( $tag_id ) );
@@ -665,7 +665,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_add_post_tags( $pid, $tag );
 		}
 
-		$this->go_to( home_url() . "?tag_id=$tag_id&paged=2" );
+		$this->go_to( home_url() . "?tag_id=$tag_id&paged=2&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_tag( $tag ) );
@@ -691,7 +691,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			wp_add_post_tags( $pid, $tag );
 		}
 
-		$this->go_to( home_url() . "?tag=$tag" );
+		$this->go_to( home_url() . "?tag=$tag&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_tag( $tag ) );
