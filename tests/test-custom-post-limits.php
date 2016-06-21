@@ -197,6 +197,44 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( get_post( $post_ids[ 6 ] ), get_post( $q->posts[0] ) );
 	}
 
+	public function test_authors_limit_with_multiple_authors() {
+		$limit  = 3;
+		$this->set_option( array( 'authors_limit' => $limit ) );
+		$user_ids = array();
+		$user_ids[] = $this->factory->user->create();
+		$user_ids[] = $this->factory->user->create();
+		$post_ids = $this->factory->post->create_many( 7, array( 'post_author' => $user_ids[0] ) );
+
+		$this->go_to( home_url() . "?author=" . $user_ids[0] );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_author() );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, -$limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ 6 ] ), get_post( $q->posts[0] ) );
+	}
+
+	public function test_multiple_authors_specified_uses_authors_limit_and_not_individual_limit() {
+		$limit = 3;
+		$user_ids = array();
+		$user_ids[] = $this->factory->user->create();
+		$user_ids[] = $this->factory->user->create();
+		$this->set_option( array(
+			'authors_limit' => $limit,
+			'enable_individual_authors_limit' => true,
+			c2c_CustomPostLimits::get_individual_limit_setting_name( 'authors', $user_ids[0] ) => 5,
+			c2c_CustomPostLimits::get_individual_limit_setting_name( 'authors', $user_ids[1] ) => 6,
+		) );
+		$post_ids = $this->factory->post->create_many( 7, array( 'post_author' => $user_ids[0] ) );
+
+		$this->go_to( home_url() . "?author=" . implode( ',', $user_ids ) );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_author() );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, -$limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ 6 ] ), get_post( $q->posts[0] ) );
+	}
 
 	/* Categories */
 
@@ -339,6 +377,56 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( get_post( $post_ids[0] ), get_post( $q->posts[0] ) );
 	}
 
+	public function test_multiple_categories_specified_uses_categories_limit() {
+		$limit  = 3;
+		$cats   = array( 'cars', 'motocycles' );
+		$cat_ids = array();
+		foreach ( $cats as $cat ) {
+			$cat_ids[] = $this->factory->category->create( array( 'slug' => $cat ) );
+		}
+		$this->set_option( array( 'categories_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		foreach ( $post_ids as $pid ) {
+			wp_set_post_categories( $pid, $cat_ids );
+		}
+
+		$this->go_to( home_url() . "?orderby=ID&order=ASC&cat=" . implode( ',', $cat_ids ) );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_category() );
+		$this->assertFalse( c2c_CustomPostLimits::get_instance()->is_individual_limits_enabled( 'categories' ) );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, 0, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[0] ), get_post( $q->posts[0] ) );
+	}
+
+	public function test_multiple_categories_specified_uses_categories_limit_and_not_individual_limit() {
+		$limit  = 3;
+		$cats   = array( 'cars', 'motocycles' );
+		$cat_ids = array();
+		foreach ( $cats as $cat ) {
+			$cat_ids[] = $this->factory->category->create( array( 'slug' => $cat ) );
+		}
+		$this->set_option( array(
+			'categories_limit' => $limit,
+			'enable_individual_categories_limit' => true,
+			c2c_CustomPostLimits::get_individual_limit_setting_name( 'categories', $cat_ids[0] ) => 5,
+			c2c_CustomPostLimits::get_individual_limit_setting_name( 'categories', $cat_ids[1] ) => 6,
+		) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		foreach ( $post_ids as $pid ) {
+			wp_set_post_categories( $pid, $cat_ids );
+		}
+
+		$this->go_to( home_url() . "?orderby=ID&order=ASC&cat=" . implode( ',', $cat_ids ) );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_category() );
+		$this->assertTrue( c2c_CustomPostLimits::get_instance()->is_individual_limits_enabled( 'categories' ) );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, 0, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[0] ), get_post( $q->posts[0] ) );
+	}
 
 	/* Day */
 
@@ -701,6 +789,53 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( get_post( $post_ids[0] ), get_post( $q->posts[0] ) );
 	}
 
+	public function test_tags_limit_with_multiple_tags() {
+		$limit = 3;
+		$tags  = array( 'family', 'work' );
+		$this->set_option( array( 'tags_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		foreach ( $post_ids as $pid ) {
+			wp_add_post_tags( $pid, $tags );
+		}
+
+		$this->go_to( home_url() . "?orderby=ID&order=ASC&tag=" . implode( ',', $tags ) );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_tag() );
+		$this->assertFalse( c2c_CustomPostLimits::get_instance()->is_individual_limits_enabled( 'tags' ) );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, 0, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[0] ), get_post( $q->posts[0] ) );
+	}
+
+	public function test_multiple_tags_specified_uses_tags_limit_and_not_individual_limit() {
+		$limit   = 3;
+		$tags    = array( 'family', 'work' );
+		$tag_ids = array();
+		foreach( $tags as $tag ) {
+			$tag_ids[] = self::factory()->tag->create( array( 'slug' => $tag ) );
+		}
+		$this->set_option( array(
+			'tags_limit' => $limit,
+			'enable_individual_tags_limit' => true,
+			c2c_CustomPostLimits::get_individual_limit_setting_name( 'tags', $tag_ids[0] ) => 5,
+			c2c_CustomPostLimits::get_individual_limit_setting_name( 'tags', $tag_ids[1] ) => 6,
+		) );
+		$post_ids = $this->factory->post->create_many( 7 );
+		foreach ( $post_ids as $pid ) {
+			wp_add_post_tags( $pid, $tags[0] );
+			wp_add_post_tags( $pid, $tags[1] );
+		}
+
+		$this->go_to( home_url() . "?orderby=ID&order=ASC&tag=" . implode( ',', $tags ) );
+		$q = $GLOBALS['wp_query'];
+
+		$this->assertTrue( $q->is_tag() );
+		$this->assertTrue( c2c_CustomPostLimits::get_instance()->is_individual_limits_enabled( 'tags' ) );
+		$this->assertEquals( $limit, count( $q->posts ) );
+		$this->assertEquals( array_slice( $post_ids, 0, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[0] ), get_post( $q->posts[0] ) );
+	}
 
 	/* Year */
 
