@@ -25,7 +25,12 @@
  * TODO
  * - Extract post limit determination logic from custom_post_limits() into get_custom_limit( $type, $specific = null)
  *   (where specific can be a number to indicate a particular cat/tag/author or 'paged')
- * - Add support for custom post types
+ * - Document in readme the order of precedence for limit fallbacks.
+ * - For Author, Category, and Tag individual limits, either show the fields via show/hide if they are within a
+ *   reasonable amount, or don't show at all and warn user that they have too many. The checkboxes are still needed
+ *   so keep them. Add filters so that even if not shown, individual limits can be added programatically. This
+ *   removes the potential for the user to cause the page to timeout. Could also consider another set of hooks
+ *   to indicate the maximum number of items to safely display, so they could up it if they want.
  */
 
 /*
@@ -273,7 +278,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_044 {
 		add_filter( $this->get_hook( 'options' ),                          array( $this, 'load_individual_options' ) );
 		// Hook post-updating of plugin option in order to save individually listed items.
 		add_action( 'pre_update_option_' . $this->admin_options_name,      array( $this, 'save_individual_options' ), 10, 2 );
-		// Hook option names retrieval to insert settings for individual items.
+		// Hook sanitized option names retrieval to insert settings for individual items.
 		add_filter( $this->get_hook( 'sanitized_option_names' ),           array( $this, 'permit_individual_option_names' ), 10, 2 );
 	}
 

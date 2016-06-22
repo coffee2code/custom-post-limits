@@ -69,7 +69,17 @@ Yes.
 
 == Changelog ==
 
-= 4.0 () =
+= 4.0 (2016-06-22) =
+Highlights:
+
+This release revives active development of the plugin after many years and includes many, many changes. Backwards compatilibility has been maintained; it just handles things better and introduces a number of new features. Some notable changes:
+
+* Introduced support for defining custom limits for custom post type archives.
+* Now treat 'archives_paged_limit', if specified, as secondary fallback for paged limits for day, month, and year archives.
+* Added fairly comprehensive unit tests.
+
+Details:
+
 * New: Add support for defining custom limits for custom post type archives.
 * New: Add `get_individual_limit_setting_name()` as a helper function to determine the individual limit setting name for authors, categories, custom post types, and tags.
 * New: Add `has_individual_limits()` to indicate if a setting type has individual limits.
@@ -77,6 +87,7 @@ Yes.
 * Change: Treat 'archives_paged_limit', if specified, as secondary fallback for paged limits for day, month, and year archives.
 * Change: On settings page, show help text indicating the value source or default for all (now to include paged) limits.
 * Change: Update plugin framework to 044.
+* Change: Rearrange when certain hooks are registered.
 * Change: Refactor `is_individual_limits_enabled()` slightly.
 * Change: Improve singleton implementation.
     * Add `get_instance()` static method for returning/creating singleton instance.
@@ -223,6 +234,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 4.0 =
+Recommended major update: added support to set limits for custom post types; 'archives_paged_limit' is now a fallback for paged date archives; compatibility is now WP 4.1-4.5; added unit tests; lots of backend improvements.
 
 = 3.6 =
 Recommended update: disabled support for individual archive limits by default (configurable) to help sites with lots of authors/categories/tags; noted compatibility through WP 3.3+; updated plugin framework; and more.
