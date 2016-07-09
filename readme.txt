@@ -69,6 +69,10 @@ Yes.
 
 == Changelog ==
 
+= () =
+* Change: Update plugin framework to 045.
+    * Ensure `reset_options()` resets values saved in the database.
+
 = 4.0 (2016-06-22) =
 Highlights:
 

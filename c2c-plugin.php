@@ -31,9 +31,9 @@ Compatible with WordPress 3.6+ through 4.5+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_CustomPostLimits_Plugin_044' ) ) :
+if ( ! class_exists( 'c2c_CustomPostLimits_Plugin_045' ) ) :
 
-abstract class c2c_CustomPostLimits_Plugin_044 {
+abstract class c2c_CustomPostLimits_Plugin_045 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -65,7 +65,7 @@ abstract class c2c_CustomPostLimits_Plugin_044 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '044';
+		return '045';
 	}
 
 	/**
@@ -352,7 +352,18 @@ abstract class c2c_CustomPostLimits_Plugin_044 {
 	 */
 	public function reset_options() {
 		$this->reset_caches();
+
+		// If a setting has been saved to the database.
+		if ( $option = get_option( $this->admin_options_name ) ) {
+			// Unset the options (so that in get_options() the defaults are used).
+			foreach ( $this->get_option_names() as $opt ) {
+				unset( $options[ $opt ] );
+			}
+			update_option( $this->admin_options_name, $options );
+		}
+
 		$this->options = $this->get_options( false );
+
 		return $this->options;
 	}
 
