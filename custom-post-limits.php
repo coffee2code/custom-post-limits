@@ -10,7 +10,7 @@
  * Text Domain: custom-post-limits
  * Description: Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
  *
- * Compatible with WordPress 4.1 through 4.5+.
+ * Compatible with WordPress 4.1 through 4.6+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
