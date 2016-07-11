@@ -1014,7 +1014,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	}
 
 	public function test_uninstall_deletes_option() {
-		$option_name = c2c_CustomPostLimits::get_instance()->admin_options_name;
+		$option_name = c2c_CustomPostLimits::SETTING_NAME;
 		$options     = c2c_CustomPostLimits::get_instance()->get_options();
 
 		// Explicitly set an option to ensure options get saved to the database.

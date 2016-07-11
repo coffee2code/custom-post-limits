@@ -72,6 +72,7 @@ Yes.
 == Changelog ==
 
 = () =
+* New: Add class constant `SETTING_NAME` (to store setting name) and use it in `uninstall()`.
 * Change: Update plugin framework to 045.
     * Ensure `reset_options()` resets values saved in the database.
 * Change: Note compatibility through WP 4.6+.

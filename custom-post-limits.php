@@ -60,6 +60,13 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_045 {
 
 	/**
+	 * Name of plugin's setting.
+	 *
+	 * @var string
+	 */
+	const SETTING_NAME = 'c2c_custom_post_limits';
+
+	/**
 	 * The one true instance.
 	 *
 	 * @var c2c_CustomPostLimits
@@ -114,7 +121,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_045 {
 	 * @since 3.5
 	 */
 	public static function uninstall() {
-		delete_option( 'c2c_custom_post_limits' );
+		delete_option( self::SETTING_NAME );
 	}
 
 	/**
