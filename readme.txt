@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.1
 Tested up to: 4.6
-Stable tag: 4.0
+Stable tag: 4.0.1
 
 Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
 
@@ -47,7 +47,7 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/custom-post-limits/) 
 == Installation ==
 
 1. Whether installing or updating, whether this plugin or any other, it is always advisable to back-up your data before starting
-1. Unzip `custom-post-limits.zip` inside the `/wp-content/plugins/` directory (or install via the built-in WordPress plugin installer)
+1. Install via the built-in WordPress plugin installer. Or download and unzip `custom-post-limits.zip` inside the plugins directory for your site (typically `/wp-content/plugins/`).
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. Click the plugin's `Settings` link next to its `Deactivate` link (still on the Plugins page), or click on the `Settings` -> `Post Limits` link, to go to the plugin's admin settings page. Optionally customize the limits.
 
@@ -71,7 +71,7 @@ Yes.
 
 == Changelog ==
 
-= () =
+= 4.0.1 (2016-07-11) =
 * New: Add class constant `SETTING_NAME` (to store setting name) and use it in `uninstall()`.
 * Change: Update plugin framework to 045.
     * Ensure `reset_options()` resets values saved in the database.
@@ -243,6 +243,9 @@ Details:
 
 
 == Upgrade Notice ==
+
+= 4.0.1 =
+Minor update: noted compatibility through WP 4.6+; updated plugin framework.
 
 = 4.0 =
 Recommended major update: added support to set limits for custom post types; 'archives_paged_limit' is now a fallback for paged date archives; compatibility is now WP 4.1-4.5; added unit tests; lots of backend improvements.

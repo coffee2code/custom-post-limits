@@ -60,7 +60,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	}
 
 	public function test_version() {
-		$this->assertEquals( '4.0', c2c_CustomPostLimits::get_instance()->version() );
+		$this->assertEquals( '4.0.1', c2c_CustomPostLimits::get_instance()->version() );
 	}
 
 	public function test_instance_object_is_returned() {
