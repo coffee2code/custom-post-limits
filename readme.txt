@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.1
 Tested up to: 4.7
-Stable tag: 4.0.1
+Stable tag: 4.0.2
 
 Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
 
@@ -71,7 +71,7 @@ Yes.
 
 == Changelog ==
 
-= 4.0.2 () =
+= 4.0.2 (2017-01-02) =
 * Bugfix: Fix error in a unit test due to variable being used before being set.
 * Change: Enable more error ourput for unit tests.
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
@@ -250,6 +250,9 @@ Details:
 
 
 == Upgrade Notice ==
+
+= 4.0.2 =
+Trivial update: updated unit test bootstrap file, noted compatibility through WP 4.7+, and updated copyright date
 
 = 4.0.1 =
 Minor update: noted compatibility through WP 4.6+; updated plugin framework.
