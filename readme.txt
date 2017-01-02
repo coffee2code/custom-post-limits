@@ -72,6 +72,7 @@ Yes.
 == Changelog ==
 
 = 4.0.2 () =
+* Change: Enable more error ourput for unit tests.
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
 * Change: Note compatibility through WP 4.7+.
 * Change: Update copyright date (2017).
