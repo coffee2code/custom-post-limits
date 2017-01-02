@@ -180,13 +180,13 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 	public function test_individual_authors_limit_ignored_if_not_enabled() {
 		$limit  = 3;
+		$user_id = $this->factory->user->create();
+		$post_ids = $this->factory->post->create_many( 7, array( 'post_author' => $user_id ) );
 		$this->set_option( array(
 			'authors_limit' => $limit,
 			'enable_individual_authors_limit' => false,
 			c2c_CustomPostLimits::get_individual_limit_setting_name( 'authors', $user_id ) => 6,
 		) );
-		$user_id = $this->factory->user->create();
-		$post_ids = $this->factory->post->create_many( 7, array( 'post_author' => $user_id ) );
 
 		$this->go_to( home_url() . "?author=$user_id" );
 		$q = $GLOBALS['wp_query'];
