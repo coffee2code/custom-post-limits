@@ -71,6 +71,9 @@ Yes.
 
 == Changelog ==
 
+= 4.0.2 () =
+* Change: Update copyright date (2017).
+
 = 4.0.1 (2016-07-11) =
 * New: Add class constant `SETTING_NAME` (to store setting name) and use it in `uninstall()`.
 * Change: Update plugin framework to 045.
