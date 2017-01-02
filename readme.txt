@@ -5,7 +5,7 @@ Tags: posts, archives, listing, limit, query, front page, categories, tags, coff
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.1
-Tested up to: 4.6
+Tested up to: 4.7
 Stable tag: 4.0.1
 
 Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
@@ -72,6 +72,7 @@ Yes.
 == Changelog ==
 
 = 4.0.2 () =
+* Change: Note compatibility through WP 4.7+.
 * Change: Update copyright date (2017).
 
 = 4.0.1 (2016-07-11) =
