@@ -71,6 +71,9 @@ Yes.
 
 == Changelog ==
 
+= () =
+* Change: Update copyright date (2018)
+
 = 4.0.2 (2017-01-02) =
 * Bugfix: Fix error in a unit test due to variable being used before being set.
 * Change: Enable more error ourput for unit tests.
