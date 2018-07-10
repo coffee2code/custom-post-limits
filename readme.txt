@@ -72,10 +72,12 @@ Yes.
 == Changelog ==
 
 = () =
+* Unit tests:
+    * Bugfix: Fix factory syntax errors for a handful of tests
+    * Change: Minor whitespace tweaks to bootstrap
 * Change: Add GitHub link to readme
 * Change: Note compatibility through WP 4.9+
 * Change: Drop compatibility with versions of WP older than 4.7
-* Change: Minor whitespace tweaks to unit test bootstrap
 * Change: Update copyright date (2018)
 
 = 4.0.2 (2017-01-02) =

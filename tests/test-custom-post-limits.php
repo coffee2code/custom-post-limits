@@ -688,7 +688,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	public function test_individual_tags_limit_via_tag_id() {
 		$limit = 3;
 		$tag   = 'family';
-		$tag_id = self::factory()->tag->create( array( 'slug' => $tag ) );
+		$tag_id = $this->factory->tag->create( array( 'slug' => $tag ) );
 		$this->set_option( array(
 			'tags_limit' => 6,
 			'enable_individual_tags_limit' => true,
@@ -712,7 +712,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	public function test_individual_tags_limit_via_tag() {
 		$limit  = 3;
 		$tag    = 'family';
-		$tag_id = self::factory()->tag->create( array( 'slug' => $tag ) );
+		$tag_id = $this->factory->tag->create( array( 'slug' => $tag ) );
 		$this->set_option( array(
 			'tags_limit' => 6,
 			'enable_individual_tags_limit' => true,
@@ -741,7 +741,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	public function test_individual_tags_paged_limit() {
 		$limit = 3;
 		$tag   = 'family';
-		$tag_id = self::factory()->tag->create( array( 'slug' => $tag ) );
+		$tag_id = $this->factory->tag->create( array( 'slug' => $tag ) );
 		$this->set_option( array(
 			'tags_limit' => 6,
 			'tags_paged_limit' => 2,
@@ -768,7 +768,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	public function test_individual_tags_limit_ignored_if_not_enabled() {
 		$limit  = 3;
 		$tag    = 'family';
-		$tag_id = self::factory()->tag->create( array( 'slug' => $tag ) );
+		$tag_id = $this->factory->tag->create( array( 'slug' => $tag ) );
 		$this->set_option( array(
 			'tags_limit' => $limit,
 			'enable_individual_tags_limit' => false,
@@ -813,7 +813,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$tags    = array( 'family', 'work' );
 		$tag_ids = array();
 		foreach( $tags as $tag ) {
-			$tag_ids[] = self::factory()->tag->create( array( 'slug' => $tag ) );
+			$tag_ids[] = $this->factory->tag->create( array( 'slug' => $tag ) );
 		}
 		$this->set_option( array(
 			'tags_limit' => $limit,
