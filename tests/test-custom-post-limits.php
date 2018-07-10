@@ -1016,8 +1016,12 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( 40, count( $q->posts ) );
 	}
 
+	/*
+	 * Setting handling
+	 */
+
 	public function test_does_not_immediately_store_default_settings_in_db() {
-		$option_name = c2c_CustomPostLimits::get_instance()->admin_options_name;
+		$option_name = c2c_CustomPostLimits::SETTING_NAME;
 		// Get the options just to see if they may get saved.
 		$options     = c2c_CustomPostLimits::get_instance()->get_options();
 
@@ -1038,4 +1042,5 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( get_option( $option_name ) );
 	}
+
 }

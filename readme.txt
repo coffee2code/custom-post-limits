@@ -89,6 +89,7 @@ Yes.
 * Unit tests:
     * Change: Improve test initialization
     * Bugfix: Fix factory syntax errors for a handful of tests
+    * Change: Minor code tweaks
     * Change: Minor whitespace tweaks to bootstrap
 * New: Add README.md
 * Change: Add GitHub link to readme
