@@ -72,6 +72,20 @@ Yes.
 == Changelog ==
 
 = () =
+* Change: Update plugin framework to 048
+    * 048:
+    * When resetting options, delete the option rather than setting it with default values
+    * Prevent double "Settings reset" admin notice upon settings reset
+    * 047:
+    * Don't save default setting values to database on install
+    * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
+    * Note compatibility through WP 4.9+
+    * Drop compatibility with version of WP older than 4.7
+    * Update copyright date (2018)
+    * 046:
+    * Fix `reset_options()` to reference instance variable `$options`
+    * Note compatibility through WP 4.7+
+    * Update copyright date (2017)
 * Unit tests:
     * Bugfix: Fix factory syntax errors for a handful of tests
     * Change: Minor whitespace tweaks to bootstrap
