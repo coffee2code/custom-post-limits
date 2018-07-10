@@ -6,12 +6,23 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 	protected static $post_type = 'test-custom-post-limit';
 
+	public static function setUpBeforeClass() {
+		c2c_CustomPostLimits::get_instance()->install();
+	}
+
 	public function setUp() {
 		parent::setUp();
 
 		c2c_CustomPostLimits::get_instance()->reset_options();
 
 		update_option( 'posts_per_page', 5 );
+	}
+
+	public function tearDown() {
+		parent::tearDown();
+
+		// Reset options
+		c2c_CustomPostLimits::get_instance()->reset_options();
 	}
 
 

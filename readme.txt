@@ -87,6 +87,7 @@ Yes.
     * Note compatibility through WP 4.7+
     * Update copyright date (2017)
 * Unit tests:
+    * Change: Improve test initialization
     * Bugfix: Fix factory syntax errors for a handful of tests
     * Change: Minor whitespace tweaks to bootstrap
 * New: Add README.md
