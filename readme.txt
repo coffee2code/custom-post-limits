@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: posts, archives, listing, limit, query, front page, categories, tags, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 4.1
-Tested up to: 4.7
+Requires at least: 4.7
+Tested up to: 4.9
 Stable tag: 4.0.2
 
 Independently control the number of posts listed on the front page, author/category/tag archives, search results, etc.
@@ -72,6 +72,8 @@ Yes.
 == Changelog ==
 
 = () =
+* Change: Note compatibility through WP 4.9+
+* Change: Drop compatibility with versions of WP older than 4.7
 * Change: Update copyright date (2018)
 
 = 4.0.2 (2017-01-02) =
