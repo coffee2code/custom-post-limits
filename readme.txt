@@ -8,14 +8,14 @@ Requires at least: 4.7
 Tested up to: 4.9
 Stable tag: 4.0.2
 
-Independently control the number of posts listed on the front page, author/category/custom taxonomy/tag archives, search results, etc.
+Independently control the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
 
 
 == Description ==
 
-Control the number of posts that appear on the front page, search results, and author, category, tag, custom taxonomy, and date archives, independent of each other, including specific archives.
+Control the number of posts that appear on the front page, search results, and author, category, tag, custom post type, custom taxonomy, and date archives, independent of each other, including specific archives.
 
-By default, WordPress provides a single configuration setting to control how many posts should be listed in each section of your blog. This value applies for the front page listing, author listings, archive listings, category listings, tag listings, custom taxonomy listings, and search results. This plugin allows you to override that value for each of those different sections.
+By default, WordPress provides a single configuration setting to control how many posts should be listed in each section of your blog. This value applies for the front page listing, author listings, archive listings, category listings, tag listings, custom post type listings, custom taxonomy listings, and search results. This plugin allows you to override that value for each of those different sections.
 
 Specifically, this plugin allows you to define limits for:
 
@@ -25,6 +25,7 @@ Specifically, this plugin allows you to define limits for:
 * Categories archives (the archive listings of posts for any category)
 * Categories archives non-first-page (when paging through categories archives listings, number of posts listed when not on the first page)
 * Category archive (the archive listings of posts for any specific category)
+* Custom post type archives (the archive listings of posts for any specific custom post type)
 * Custom taxonomy (the archive listings of posts for any specific custom taxonomy)
 * Day archives (the archive listings of posts for any day)
 * Day archives non-first-page (when paging through day archives listings, number of posts listed when not on the first page)
@@ -88,6 +89,7 @@ Yes.
     * Fix `reset_options()` to reference instance variable `$options`
     * Note compatibility through WP 4.7+
     * Update copyright date (2017)
+* Change: Add missing mentions of custom post type support to readme.txt
 * Unit tests:
     * Change: Improve test initialization
     * Bugfix: Fix factory syntax errors for a handful of tests
