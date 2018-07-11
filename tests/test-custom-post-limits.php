@@ -50,6 +50,25 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		c2c_CustomPostLimits::get_instance()->update_option( $options, true );
 	}
 
+	protected function register_taxonomy_writer() {
+		global $wp_rewrite;
+
+		register_taxonomy( 'writers', array( 'post' ), array(
+			'hierarchical'          => false,
+			'show_ui'               => true,
+			'show_admin_column'     => true,
+			'query_var'             => true,
+			'update_count_callback' => '_update_post_term_count',
+			'slug'                  => 'elements',
+		) );
+
+		wp_insert_term( 'alice', 'writers' );
+		wp_insert_term( 'bob',   'writers' );
+		wp_insert_term( 'cher',  'writers' );
+
+		$wp_rewrite->flush_rules();
+	}
+
 
 	//
 	//
@@ -967,6 +986,69 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$options = c2c_CustomPostLimits::get_instance()->get_options();
 
 		$this->assertFalse( isset( $options['customposttypes_guide2_limit'] ) );
+	}
+
+	/* Custom taxonomy */
+
+	public function test_get_custom_taxonomy() {
+		$this->register_taxonomy_writer();
+
+		$limit = 3;
+		$custom_tax_setting = c2c_CustomPostLimits::get_individual_limit_setting_name( 'customtaxonomies', 'writers' );
+		$this->set_option( array( $custom_tax_setting => $limit, 'archives_limit' => 4 ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+
+		$alice_posts = array( $post_ids[1], $post_ids[3], $post_ids[4], $post_ids[5] );
+
+		foreach ( $alice_posts as $p ) {
+			wp_set_object_terms( $p, 'alice', 'writers' );
+		}
+
+		$url = add_query_arg(
+			array(
+				'writers' => 'alice',
+			), '/'
+		);
+		$this->go_to( $url );
+
+		$wp_query = $GLOBALS['wp_query'];
+		$this->assertTrue( $wp_query->is_tax( 'writers') );
+		$this->assertEquals( $limit, count( $wp_query->posts ) );
+		$this->assertEqualSets( array_slice( $alice_posts, 0, $limit ), wp_list_pluck( $wp_query->posts, 'ID' ) );
+	}
+
+	public function test_custom_taxonomy_limit_works_does_not_affect_another_taxonomy() {
+		$this->register_taxonomy_writer();
+
+		$limit = 2;
+		$custom_tax_setting = c2c_CustomPostLimits::get_individual_limit_setting_name( 'customtaxonomies', 'sample' );
+		$this->set_option( array( $custom_tax_setting => 3, 'archives_limit' => $limit ) );
+		$post_ids = $this->factory->post->create_many( 7 );
+
+		$alice_posts = array_slice( $post_ids, 0, 6 );
+
+		foreach ( $post_ids as $p ) {
+			wp_set_object_terms( $p, 'alice', 'writers' );
+		}
+
+		$url = add_query_arg(
+			array(
+				'writers' => 'alice',
+			), '/'
+		);
+		$this->go_to( $url );
+
+		$wp_query = $GLOBALS['wp_query'];
+		$this->assertTrue( $wp_query->is_tax( 'writers') );
+		$this->assertEquals( 5, count( $wp_query->posts ) );
+	}
+
+	public function test_custom_taxonomy_gets_option_initialized() {
+		$this->register_taxonomy_writer();
+
+		$options = c2c_CustomPostLimits::get_instance()->get_options();
+
+		$this->assertTrue( isset( $options['customtaxonomies_writers_limit'] ) );
 	}
 
 	/* has_individual_limits() */

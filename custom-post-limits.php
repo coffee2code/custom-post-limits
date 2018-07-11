@@ -103,6 +103,9 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_048 {
 		// Handle custom post types.
 		add_action( 'registered_post_type', array( $this, 'registered_post_type' ), 10, 2 );
 
+		// Handle custom taxonomies.
+		add_action( 'registered_taxonomy',  array( $this, 'registered_taxonomy' ),  10, 3 );
+
 		return self::$instance = $this;
 	}
 
@@ -356,6 +359,33 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_048 {
 	}
 
 	/**
+	 * Fires after a taxonomy is registered.
+	 *
+	 * @since 4.1
+	 *
+	 * @param string       $taxonomy    Taxonomy slug.
+	 * @param array|string $object_type Object type or array of object types.
+	 * @param array        $args        Array of taxonomy registration arguments.
+	 */
+	public function registered_taxonomy( $taxonomy, $object_type, $args ) {
+		// Skip core taxonomies, which are handled specially.
+		if ( in_array( $taxonomy, array( 'category', 'post_format', 'post_tag' ) ) ) {
+			return;
+		}
+
+		$setting = self::get_individual_limit_setting_name( 'customtaxonomies', $taxonomy );
+		if ( $args['publicly_queryable'] && ! isset( $this->config[ $setting ] ) ) {
+			$taxonomy_label = $args['labels']->name !== 'Posts' ? $args['label'] : ucwords( str_replace( '-', ' ', $post_type ) );
+
+			$this->add_option( $setting, array(
+				'input'    => 'short_text',
+				'datatype' => 'int',
+				'label'    => sprintf( __( 'Custom Taxonomy Limit: %s', 'custom-post-limits' ), $taxonomy_label ),
+			) );
+		}
+	}
+
+	/**
 	 * Outputs the text above the setting form.
 	 *
 	 * @param string $localized_heading_text Optional. Localized page heading text.
@@ -386,14 +416,14 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_048 {
 	 *
 	 * @since 3.6
 	 *
-	 * @param string $type One of: authors, categories, customposttypes, or tags.
+	 * @param string $type One of: authors, categories, customposttypes, customtaxonomies, or tags.
 	 * @return bool  True if the individual limits are enabled for the given archive type; false if not
 	 */
 	public function is_individual_limits_enabled( $type ) {
 		$options = $this->get_options();
 
-		// Custom post types never have individual limits enabled.
-		if ( 'customposttypes' === $type ) {
+		// Custom post types and custom taxonomies never have individual limits enabled.
+		if ( in_array( $type, array ( 'customposttypes', 'customtaxonomies' ) ) ) {
 			return false;
 		}
 
@@ -428,7 +458,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_048 {
 	 * @return bool  True if the option type supports individual limits, false otherwise.
 	 */
 	public static function has_individual_limits( $type ) {
-		return $type && in_array( $type, array( 'authors', 'categories', 'customposttypes', 'tags' ) );
+		return $type && in_array( $type, array( 'authors', 'categories', 'customposttypes', 'customtaxonomies', 'tags' ) );
 	}
 
 	/**
@@ -749,6 +779,11 @@ $this->first_page_offset = null;
 // TODO: Individual archive limits apply to all pagings; consider doing front-page/non-front-page values for each
 $this->first_page_offset = null;
 				}
+			}
+		} elseif ( is_tax() ) {
+			$custom_taxonomy_setting = self::get_individual_limit_setting_name( 'customtaxonomies', get_queried_object()->taxonomy );
+			if ( isset( $options[ $custom_taxonomy_setting ] ) ) {
+				$limit = $options[ $custom_taxonomy_setting ];
 			}
 		} elseif ( is_author() ) {
 			if ( is_paged() && ! empty( $options['authors_paged_limit'] ) ) {
