@@ -353,7 +353,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_048 {
 			$this->add_option( $setting, array(
 				'input'    => 'short_text',
 				'datatype' => 'int',
-				'label'    => sprintf( __( '%s Custom Post Type Limit', 'custom-post-limits' ), $post_type_label ),
+				'label'    => sprintf( __( 'Custom Post Type Limit: %s', 'custom-post-limits' ), $post_type_label ),
 			) );
 		}
 	}
