@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 4.0.2
+Stable tag: 4.1
 
 Independently control the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
 
@@ -73,7 +73,7 @@ Yes.
 
 == Changelog ==
 
-= () =
+= 4.1 (2018-07-10) =
 * New: Add support for defining custom limits for custom taxonomies
 * Change: Update plugin framework to 048
     * 048:
@@ -281,6 +281,9 @@ Details:
 
 
 == Upgrade Notice ==
+
+= 4.1 =
+Recommended update: added support for setting limits for custom taxonomies; updated plugin framework to v048; compatibility is now WP 4.7-4.9; added README.md; more.
 
 = 4.0.2 =
 Trivial update: updated unit test bootstrap file, noted compatibility through WP 4.7+, and updated copyright date
