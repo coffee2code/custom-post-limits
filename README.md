@@ -1,6 +1,6 @@
 # Custom Post Limits
 
-A plugin for WordPress that allows independent control of the number of posts listed on the front page, author/category/tag archives, search results, etc.
+A plugin for WordPress that allows independent control of the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
 
 This plugin is available in the WordPress Plugin Directory: https://wordpress.org/plugins/custom-post-limits/
 

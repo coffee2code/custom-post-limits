@@ -90,7 +90,7 @@ Yes.
     * Note compatibility through WP 4.7+
     * Update copyright date (2017)
 * Change: Modify label text for custom post type fields to put post type name at end of label
-* Change: Add missing mentions of custom post type support to readme.txt
+* Change: Add missing mentions of custom post type support to readme.txt and README.md
 * Unit tests:
     * Change: Improve test initialization
     * Bugfix: Fix factory syntax errors for a handful of tests
