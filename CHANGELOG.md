@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Update License URI to be HTTPS
 
 ## 4.1 _(2018-07-10)_
 * New: Add support for defining custom limits for custom taxonomies
