@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.1
-Stable tag: 4.1
+Stable tag: 4.2
 
 Independently control the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
 
@@ -110,6 +110,26 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 
 == Changelog ==
 
+= 4.2 (2019-04-14) =
+* Change: Initialize plugin on `plugins_loaded` action instead of on load
+* Change: Update plugin framework to 049
+    * 049:
+    * Correct last arg in call to `add_settings_field()` to be an array
+    * Wrap help text for settings in `label` instead of `p`
+    * Only use `label` for help text for checkboxes, otherwise use `p`
+    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
+    * Note compatibility through WP 5.1+
+    * Update copyright date (2019)
+* Change: Cast return value of both hooks as booleans
+* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* New: Add inline documentation for hooks
+* New: Unit tests: Add unit test for defaults for settings
+* Change: Add 'Hooks' section to readme.txt with documentation for hooks
+* Change: Note compatibility through WP 5.1+
+* Change: Update copyright date (2019)
+* Change: Update License URI to be HTTPS
+* Change: Split paragraph in README.md's "Support" section into two
+
 = 4.1 (2018-07-10) =
 * New: Add support for defining custom limits for custom taxonomies
 * Change: Update plugin framework to 048
@@ -146,73 +166,13 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 * Change: Note compatibility through WP 4.7+.
 * Change: Update copyright date (2017).
 
-= 4.0.1 (2016-07-11) =
-* New: Add class constant `SETTING_NAME` (to store setting name) and use it in `uninstall()`.
-* Change: Update plugin framework to 045.
-    * Ensure `reset_options()` resets values saved in the database.
-* Change: Note compatibility through WP 4.6+.
-* New: Add 'License' and 'License URI' header tags to readme.
-
-= 4.0 (2016-06-22) =
-Highlights:
-
-This release revives active development of the plugin after many years and includes many, many changes. Backwards compatilibility has been maintained; it just handles things better and introduces a number of new features. Some notable changes:
-
-* Introduced support for defining custom limits for custom post type archives.
-* Now treat 'archives_paged_limit', if specified, as secondary fallback for paged limits for day, month, and year archives.
-* Added fairly comprehensive unit tests.
-
-Details:
-
-* New: Add support for defining custom limits for custom post type archives.
-* New: Add `get_individual_limit_setting_name()` as a helper function to determine the individual limit setting name for authors, categories, custom post types, and tags.
-* New: Add `has_individual_limits()` to indicate if a setting type has individual limits.
-* Change: Refactor `custom_post_limits()` handling for author, category, and tag individual limits.
-* Change: Treat 'archives_paged_limit', if specified, as secondary fallback for paged limits for day, month, and year archives.
-* Change: On settings page, show help text indicating the value source or default for all (now to include paged) limits.
-* Change: Update plugin framework to 044.
-* Change: Rearrange when certain hooks are registered.
-* Change: Refactor `is_individual_limits_enabled()` slightly.
-* Change: Improve singleton implementation.
-    * Add `get_instance()` static method for returning/creating singleton instance.
-    * Make static variable 'instance' private.
-    * Make constructor protected.
-    * Make class final.
-    * Additional related changes in plugin framework (protected constructor, erroring `__clone()` and `__wakeup()`).
-* Fix: Initialize private instance variable `$first_page_offset` to null in `custom_post_limits()` to avoid pollution from potential previous invocation.
-* Fix: Explicitly declare `activation()` and `uninstall()` static.
-* Fix: For `options_page_description()`, match method signature of parent class.
-* New: Add unit tests.
-* Change: Discontinue use of PHP4-style constructor.
-* Change: Discontinue use of explicit pass-by-reference for objects.
-* Change: Reformat plugin header.
-* Change: Add support for language packs:
-    * Set textdomain using a string instead of a variable.
-    * Remove .pot file and /lang subdirectory.
-    * Remove 'Domain Path' from plugin header.
-* Change: Use explicit path when requiring plugin framework.
-* Change: Prevent execution of code if file is directly accessed.
-* Change: Minor code reformatting (spacing, bracing, conditional comparison order).
-* Change: Minor documentation reformatting (spacing, punctuation).
-* Change: Re-license as GPLv2 or later (from X11).
-* New: Add 'License' and 'License URI' header tags to readme.txt and plugin file.
-* New: Add LICENSE file.
-* New: Add empty index.php to prevent files from being listed if web server has enabled directory listings.
-* Change: Note compatibility through WP 4.5+.
-* Change: Drop compatibility with version of WP older than 4.1.
-* Change: Update donate link.
-* Change: Update copyright date (2016).
-* New: Add assets to plugin's Plugin Directory SVN repo.
-    * Add plugin icon.
-    * Add banner image.
-    * Update screenshots.
-    * Add third screenshot.
-    * Remove screenshots from plugin package.
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/custom-post-limits/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 4.2 =
+Minor update: tweaked plugin initialization, updated plugin framework to v049, noted compatibility through WP 5.1+, created CHANGELOG.md to store historical changelog outside of readme.txt, and updated copyright date (2019)
 
 = 4.1 =
 Recommended update: added support for setting limits for custom taxonomies; updated plugin framework to v048; compatibility is now WP 4.7-4.9; added README.md; more.
