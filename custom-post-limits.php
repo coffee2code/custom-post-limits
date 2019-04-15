@@ -445,7 +445,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 			 * @param bool $enabled Enable individual limits for all archive types?
 			 *                      Default false.
 			 */
-			self::$individual_limits['all'] = apply_filters( 'c2c_cpl_enable_all_individual_limits', false );
+			self::$individual_limits['all'] = (bool) apply_filters( 'c2c_cpl_enable_all_individual_limits', false );
 		}
 
 		if ( self::$individual_limits['all'] ) {
@@ -470,7 +470,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 			 * @param bool $enabled Enable individual limits for given archive type?
 			 *                      Default false.
 			 */
-			self::$individual_limits[ $type ] = apply_filters( "c2c_cpl_enable_all_individual_{$type}_limits", $options[ "enable_individual_{$type}_limit" ] );
+			self::$individual_limits[ $type ] = (bool) apply_filters( "c2c_cpl_enable_all_individual_{$type}_limits", $options[ "enable_individual_{$type}_limit" ] );
 		}
 
 		return self::$individual_limits[ $type ];
