@@ -71,6 +71,43 @@ Yes.
 2. A screenshot of the plugin's admin settings page (with individual categories limits expanded) (bottom half of page). (Note: Screenshot hasn't been updated to include fields for defining limits for custom taxonomies.)
 
 
+== Hooks ==
+
+The plugin exposes a number of filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
+
+**c2c_cpl_enable_all_individual_limits (filter)**
+
+The 'c2c_cpl_enable_all_individual_limits' hook allows you to filter if individual limits are enabled for all archive types.
+
+The ability to set individual limits (e.g. for per-author or per-category archives) isn't simply enabled by default because it can have a negative performance impact depending on the number of items. Especially for a something most sites are unlikely to need.
+
+Arguments:
+
+* $enabled (boolean): Enable individual limits for all archive types? Default false.
+
+Example:
+
+`
+// Enable individual limits for all archives for Custom Post Limits plugin.
+add_filter( 'c2c_cpl_enable_all_individual_limits', '__return_true' );
+`
+
+**c2c_cpl_enable_all_individual_{$type}_limits (filter)**
+
+The 'c2c_cpl_enable_all_individual_{$type}_limits' hook allows you to filter if individual limits are enabled for a specific archive type. The dynamic portion of the hook name, `$type`, refers to the type of archive with constituent individual archives. Can be 'authors', 'categories', or 'tags'.
+
+Arguments:
+
+* $enabled (boolean): Enable individual limits for given archive type? Default false.
+
+Example:
+
+`
+// Enable individual limits for author archives for Custom Post Limits plugin.
+add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
+`
+
+
 == Changelog ==
 
 = 4.1 (2018-07-10) =
