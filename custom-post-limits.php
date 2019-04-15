@@ -432,6 +432,19 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 		}
 
 		if ( ! empty( self::$individual_limits['all'] ) ) {
+			/**
+			 * Filters if inidividual limits are enabled for all archive types.
+			 *
+			 * The ability to set individual limits (e.g. for per-author or per-category
+			 * archives) isn't simply enabled by default because it can have a negative
+			 * performance impact depending on the number of items. Especially for a
+			 * something most sites are unlikely to need.
+			 *
+			 * @since 3.6
+			 *
+			 * @param bool $enabled Enable individual limits for all archive types?
+			 *                      Default false.
+			 */
 			self::$individual_limits['all'] = apply_filters( 'c2c_cpl_enable_all_individual_limits', false );
 		}
 
@@ -440,6 +453,23 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 		}
 
 		if ( empty( self::$individual_limits[ $type ] ) ) {
+			/**
+			 * Filters if individual limits are enabled for a specific archive type.
+			 *
+			 * The dynamic portion of the hook name, `$type`, refers to the type of
+			 * archive with constituent individual archives. Can be 'authors',
+			 * 'categories', or 'tags'.
+			 *
+			 * The ability to set individual limits (e.g. for per-author or per-category
+			 * archives) isn't simply enabled by default because it can have a negative
+			 * performance impact depending on the number of items. Especially for a
+			 * something most sites are unlikely to need.
+			 *
+			 * @since 3.6
+			 *
+			 * @param bool $enabled Enable individual limits for given archive type?
+			 *                      Default false.
+			 */
 			self::$individual_limits[ $type ] = apply_filters( "c2c_cpl_enable_all_individual_{$type}_limits", $options[ "enable_individual_{$type}_limit" ] );
 		}
 
