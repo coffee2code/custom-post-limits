@@ -32,6 +32,32 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	 *
 	 */
 
+	public static function get_settings_and_defaults() {
+		return array(
+			array( 'archives_limit' ),
+			array( 'archives_paged_limit' ),
+			array( 'enable_individual_authors_limit' ),
+			array( 'authors_limit' ),
+			array( 'authors_paged_limit' ),
+			array( 'enable_individual_categories_limit' ),
+			array( 'categories_limit' ),
+			array( 'categories_paged_limit' ),
+			array( 'day_archives_limit' ),
+			array( 'day_archives_paged_limit' ),
+			array( 'front_page_limit' ),
+			array( 'front_page_paged_limit' ),
+			array( 'month_archives_limit' ),
+			array( 'month_archives_paged_limit' ),
+			array( 'searches_limit' ),
+			array( 'searches_paged_limit' ),
+			array( 'enable_individual_tags_limit' ),
+			array( 'tags_limit' ),
+			array( 'tags_paged_limit' ),
+			array( 'year_archives_limit' ),
+			array( 'year_archives_paged_limit' ),
+		);
+	}
+
 
 	//
 	//
@@ -95,6 +121,15 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 	public function test_instance_object_is_returned() {
 		$this->assertTrue( is_a( c2c_CustomPostLimits::get_instance(), 'c2c_CustomPostLimits' ) );
+	}
+
+	/**
+	 * @dataProvider get_settings_and_defaults
+	 */
+	public function test_default_settings( $setting ) {
+		$options = c2c_CustomPostLimits::get_instance()->get_options();
+
+		$this->assertEmpty( $options[ $setting ] );
 	}
 
 	public function test_default_posts_per_page() {
