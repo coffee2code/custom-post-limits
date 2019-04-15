@@ -1002,6 +1002,6 @@ $this->first_page_offset = null;
 
 } // end c2c_CustomPostLimits
 
-c2c_CustomPostLimits::get_instance();
+add_action( 'plugins_loaded', array( 'c2c_AddAdminJavaScript', 'get_instance' ) );
 
 endif; // end if !class_exists()
