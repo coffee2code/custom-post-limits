@@ -810,7 +810,7 @@ $this->first_page_offset = null;
 $this->first_page_offset = null;
 				}
 			}
-		} elseif ( is_tax() ) {
+		} elseif ( is_tax() && isset( get_queried_object()->taxonomy ) ) {
 			$custom_taxonomy_setting = self::get_individual_limit_setting_name( 'customtaxonomies', get_queried_object()->taxonomy );
 			if ( isset( $options[ $custom_taxonomy_setting ] ) ) {
 				$limit = $options[ $custom_taxonomy_setting ];
