@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.3
-Stable tag: 4.2
+Stable tag: 4.2.1
 
 Independently control the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
 
@@ -110,6 +110,12 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 
 == Changelog ==
 
+= 4.2.1 (2019-12-02) =
+* Fix: Minor fix to avoid a PHP notice.
+* Change: Update unit test install script and bootstrap to use latest WP unit test repo
+* Change: Note compatibility through WP 5.3+
+* Change: Update copyright date (2020)
+
 = 4.2 (2019-04-14) =
 * Change: Initialize plugin on `plugins_loaded` action instead of on load
 * Change: Update plugin framework to 049
@@ -159,17 +165,13 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 * Change: Drop compatibility with versions of WP older than 4.7
 * Change: Update copyright date (2018)
 
-= 4.0.2 (2017-01-02) =
-* Bugfix: Fix error in a unit test due to variable being used before being set.
-* Change: Enable more error ourput for unit tests.
-* Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
-* Change: Note compatibility through WP 4.7+.
-* Change: Update copyright date (2017).
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/custom-post-limits/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 4.2.1 =
+Trivial update: modernized unit tests, noted compatibility through WP 5.3+, and updated copyright date (2020)
 
 = 4.2 =
 Minor update: tweaked plugin initialization, updated plugin framework to v049, noted compatibility through WP 5.1+, created CHANGELOG.md to store historical changelog outside of readme.txt, and updated copyright date (2019)

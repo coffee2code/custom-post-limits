@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Custom Post Limits
- * Version:     4.2
+ * Version:     4.2.1
  * Plugin URI:  http://coffee2code.com/wp-plugins/custom-post-limits/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,7 +18,7 @@
  *
  * @package Custom_Post_Limits
  * @author  Scott Reilly
- * @version 4.2
+ * @version 4.2.1
  */
 
 /*
@@ -97,7 +97,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 	 * Constructor.
 	 */
 	protected function __construct() {
-		parent::__construct( '4.2', 'custom-post-limits', 'c2c', __FILE__, array() );
+		parent::__construct( '4.2.1', 'custom-post-limits', 'c2c', __FILE__, array() );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 
 		// Handle custom post types.
