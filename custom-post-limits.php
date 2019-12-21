@@ -73,9 +73,9 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 	 */
 	private static $instance;
 
-	private $authors           = '';
-	private $categories        = '';
-	private $tags              = '';
+	private $authors           = array();
+	private $categories        = array();
+	private $tags              = array();
 	private $first_page_offset = null;
 
 	private static $individual_limits = array( 'all' => null, 'authors' => null, 'categories' => null, 'tags' => null );
@@ -300,9 +300,9 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 	public function reset_caches() {
 		parent::reset_caches();
 
-		$this->authors           = '';
-		$this->categories        = '';
-		$this->tags              = '';
+		$this->authors           = array();
+		$this->categories        = array();
+		$this->tags              = array();
 		$this->first_page_offset = null;
 		self::$individual_limits = array( 'all' => null, 'authors' => null, 'categories' => null, 'tags' => null );
 	}
