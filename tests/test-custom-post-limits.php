@@ -123,6 +123,10 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_a( c2c_CustomPostLimits::get_instance(), 'c2c_CustomPostLimits' ) );
 	}
 
+	public function test_hooks_plugins_loaded() {
+		$this->assertEquals( 10, has_action( 'plugins_loaded', array( 'c2c_CustomPostLimits', 'get_instance' ) ) );
+	}
+
 	/**
 	 * @dataProvider get_settings_and_defaults
 	 */

@@ -7,7 +7,9 @@
 * Change: Don't make unnecessary consecutive calls to the same function
 * Change: Explicitly cast return values of `get_authors()`, `get_categories()`, and `get_tags()` as arrays
 * Change: Initialize class variables expected to be arrays as arrays
-* New: Unit tests: Add tests for `display_individual_option()`
+* Unit tests:
+    * New: Add tests for `display_individual_option()`
+    * New: Add test that plugin initializes itself on `plugins_loaded`
 
 ## 4.2.1 _(2019-12-02)_
 * Fix: Minor fix to avoid a PHP notice. Props Canic.
