@@ -504,21 +504,21 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 
 		if ( ( ! $type || in_array( 'authors', (array) $type ) ) && self::is_individual_limits_enabled( 'authors' ) ) {
 			$this->get_authors();
-			foreach ( (array) $this->get_authors() as $author ) {
+			foreach ( $this->get_authors() as $author ) {
 				$options[ self::get_individual_limit_setting_name( 'authors', $author->ID ) ] = '';
 			}
 		}
 
 		if ( ( ! $type || in_array( 'categories', (array) $type ) ) && self::is_individual_limits_enabled( 'categories' ) ) {
 			$this->get_categories();
-			foreach ( (array) $this->get_categories() as $cat ) {
+			foreach ( $this->get_categories() as $cat ) {
 				$options[ self::get_individual_limit_setting_name( 'categories', $cat->cat_ID ) ] = '';
 			}
 		}
 
 		if ( ( ! $type || in_array( 'tags', (array) $type ) ) && self::is_individual_limits_enabled( 'tags' ) ) {
 			$this->get_tags();
-			foreach ( (array) $this->get_tags() as $tag ) {
+			foreach ( $this->get_tags() as $tag ) {
 				$options[ self::get_individual_limit_setting_name( 'tags', $tag->term_id ) ] = '';
 			}
 		}
@@ -999,7 +999,7 @@ $this->first_page_offset = null;
 			$this->authors = get_users( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ), 'order' => 'display_name' ) );
 		}
 
-		return $this->authors;
+		return (array) $this->authors;
 	}
 
 	/**
@@ -1013,7 +1013,7 @@ $this->first_page_offset = null;
 			$this->categories = get_categories( array( 'hide_empty' => false ) );
 		}
 
-		return $this->categories;
+		return (array) $this->categories;
 	}
 
 	/**
@@ -1027,7 +1027,7 @@ $this->first_page_offset = null;
 			$this->tags = get_tags( array( 'hide_empty' => false ) );
 		}
 
-		return $this->tags;
+		return (array) $this->tags;
 	}
 
 } // end c2c_CustomPostLimits

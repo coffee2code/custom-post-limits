@@ -3,6 +3,7 @@
 ## _(in-progress)_
 * Fix: Don't assume variables initialized as strings have since become arrays
 * Fix: Use accessor functions rather than directly accessing class variables
+* Change: Explicitly cast return values of `get_authors()`, `get_categories()`, and `get_tags()` as arrays
 
 ## 4.2.1 _(2019-12-02)_
 * Fix: Minor fix to avoid a PHP notice. Props Canic.
