@@ -1134,6 +1134,44 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * display_individual_option()
+	 */
+
+	public function test_display_individual_option_with_empty_type() {
+		$this->expectOutputRegex(
+			'/^$/',
+			c2c_CustomPostLimits::get_instance()->display_individual_option( 'tags_1' )
+		);
+	}
+
+	public function test_display_individual_option_with_type_but_individual_limits_not_enabled() {
+		$this->test_tags_limit();
+		$this->expectOutputRegex(
+			'/^$/',
+			c2c_CustomPostLimits::get_instance()->display_individual_option( 'tags_1' )
+		);
+	}
+
+	public function test_display_individual_option_with_type_and_individual_limits_enabled() {
+		$this->test_individual_tags_limit_via_tag();
+		$limit = 3; // From test_individual_tags_limit_via_tag()
+		$tag = get_term_by( 'slug', 'family', 'post_tag' );
+		$this->assertTrue( c2c_CustomPostLimits::get_instance()->is_individual_limits_enabled( 'tags' ) );
+
+		$expected = sprintf(
+			"<tr valign='top' class='cpl-tags'><th scope='row'> &nbsp; &nbsp; &#8212; %s</th><td><input type='text' class='c2c_short_text small-text' name='c2c_custom_post_limits[tags_%d_limit]' value='%s' /></td></tr>",
+			$tag->name,
+			$tag->term_id,
+			$limit
+		);
+
+		$this->expectOutputRegex(
+			'|' . preg_quote( $expected) . '|',
+			c2c_CustomPostLimits::get_instance()->display_individual_option( 'tags_' . $tag->term_id )
+		);
+	}
+
+	/*
 	 * Setting handling
 	 */
 

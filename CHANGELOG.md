@@ -6,6 +6,7 @@
 * Fix: Use accessor functions rather than directly accessing class variables
 * Change: Don't make unnecessary consecutive calls to the same function
 * Change: Explicitly cast return values of `get_authors()`, `get_categories()`, and `get_tags()` as arrays
+* New: Unit tests: Add tests for `display_individual_option()`
 
 ## 4.2.1 _(2019-12-02)_
 * Fix: Minor fix to avoid a PHP notice. Props Canic.
