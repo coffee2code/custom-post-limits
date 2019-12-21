@@ -734,7 +734,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 		$opt_parts = explode( ' ', $opt_name );
 		$type = strtolower( reset( $opt_parts ) );
 
-		if ( self::has_individual_limits( $type ) && $this->is_individual_limits_enabled( $type ) && count( $this->$type ) > 0 ) {
+		if ( self::has_individual_limits( $type ) && $this->is_individual_limits_enabled( $type ) && ( false === strpos( $opt, '_paged_limit' ) ) && count( $this->$type ) > 0 ) {
 			$echo .= " &#8211; <a id='cpl-{$type}-link' href='#' style='display:none;'>" . sprintf( __( 'Show/hide individual %s', 'custom-post-limits' ), strtolower( $opt_name ) ) . '</a>';
 		}
 

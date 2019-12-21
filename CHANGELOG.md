@@ -4,6 +4,7 @@
 * Fix: Don't assume variables initialized as strings have since become arrays
 * Fix: Don't call non-static method `is_individual_limits_enabled()` statically
 * Fix: Use accessor functions rather than directly accessing class variables
+* Fix: Don't add a show/hide link for paged limits
 * Change: Don't make unnecessary consecutive calls to the same function
 * Change: Explicitly cast return values of `get_authors()`, `get_categories()`, and `get_tags()` as arrays
 * Change: Initialize class variables expected to be arrays as arrays
