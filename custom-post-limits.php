@@ -567,9 +567,9 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 		$id      = $parts[1];
 
 		if ( ( 'paged' == $id ) ||
-			 ( 'categories' == $type && count( $this->categories ) < 1 ) ||
-			 ( 'tags' == $type && count( $this->tags ) < 1 ) ||
-			 ( 'authors' == $type && count( $this->authors ) < 1 )
+			 ( 'categories' == $type && empty( $this->categories ) ) ||
+			 ( 'tags'       == $type && empty( $this->tags ) ) ||
+			 ( 'authors'    == $type && empty( $this->authors ) )
 		) {
 				return;
 		}

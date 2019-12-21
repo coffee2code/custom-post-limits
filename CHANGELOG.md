@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Fix: Don't assume variables initialized as strings have since become arrays
+
 ## 4.2.1 _(2019-12-02)_
 * Fix: Minor fix to avoid a PHP notice. Props Canic.
 * Change: Update unit test install script and bootstrap to use latest WP unit test repo
