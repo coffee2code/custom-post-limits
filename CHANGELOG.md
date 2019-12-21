@@ -10,6 +10,7 @@
 * Unit tests:
     * New: Add tests for `display_individual_option()`
     * New: Add test that plugin initializes itself on `plugins_loaded`
+* New: Add inline documentation for class variables
 
 ## 4.2.1 _(2019-12-02)_
 * Fix: Minor fix to avoid a PHP notice. Props Canic.

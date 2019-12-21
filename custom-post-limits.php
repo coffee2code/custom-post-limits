@@ -73,11 +73,50 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 	 */
 	private static $instance;
 
+	/**
+	 * Memoized array of authors.
+	 *
+	 * @since 2.0
+	 * @access private
+	 * @var array
+	 */
 	private $authors           = array();
+
+	/**
+	 * Memoized array of categories.
+	 *
+	 * @since 2.0
+	 * @access private
+	 * @var array
+	 */
 	private $categories        = array();
+
+	/**
+	 * Memoized array of tags.
+	 *
+	 * @since 2.0
+	 * @access private
+	 * @var array
+	 */
 	private $tags              = array();
+
+	/**
+	 * The paging offset of the first page (which can be a different value than all
+	 * subsequent pages).
+	 *
+	 * @since 3.5
+	 * @access private
+	 * @var int|null
+	 */
 	private $first_page_offset = null;
 
+	/**
+	 * Array of individual limits.
+	 *
+	 * @since 3.6
+	 * @access private
+	 * @var array
+	 */
 	private static $individual_limits = array( 'all' => null, 'authors' => null, 'categories' => null, 'tags' => null );
 
 	/**
