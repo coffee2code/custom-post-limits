@@ -504,21 +504,21 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 
 		if ( ( ! $type || in_array( 'authors', (array) $type ) ) && self::is_individual_limits_enabled( 'authors' ) ) {
 			$this->get_authors();
-			foreach ( (array) $this->authors as $author ) {
+			foreach ( (array) $this->get_authors() as $author ) {
 				$options[ self::get_individual_limit_setting_name( 'authors', $author->ID ) ] = '';
 			}
 		}
 
 		if ( ( ! $type || in_array( 'categories', (array) $type ) ) && self::is_individual_limits_enabled( 'categories' ) ) {
 			$this->get_categories();
-			foreach ( (array) $this->categories as $cat ) {
+			foreach ( (array) $this->get_categories() as $cat ) {
 				$options[ self::get_individual_limit_setting_name( 'categories', $cat->cat_ID ) ] = '';
 			}
 		}
 
 		if ( ( ! $type || in_array( 'tags', (array) $type ) ) && self::is_individual_limits_enabled( 'tags' ) ) {
 			$this->get_tags();
-			foreach ( (array) $this->tags as $tag ) {
+			foreach ( (array) $this->get_tags() as $tag ) {
 				$options[ self::get_individual_limit_setting_name( 'tags', $tag->term_id ) ] = '';
 			}
 		}
@@ -567,9 +567,9 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 		$id      = $parts[1];
 
 		if ( ( 'paged' == $id ) ||
-			 ( 'categories' == $type && empty( $this->categories ) ) ||
-			 ( 'tags'       == $type && empty( $this->tags ) ) ||
-			 ( 'authors'    == $type && empty( $this->authors ) )
+			 ( 'categories' == $type && ! $this->get_categories() ) ||
+			 ( 'tags'       == $type && ! $this->get_tags() ) ||
+			 ( 'authors'    == $type && ! $this->get_authors() )
 		) {
 				return;
 		}
