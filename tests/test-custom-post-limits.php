@@ -1176,6 +1176,29 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * get_tags()
+	 */
+
+	public function test_get_tags_with_no_tags() {
+		$value = c2c_CustomPostLimits::get_instance()->get_tags();
+		$this->assertEmpty( $value );
+		$this->assertTrue( is_array( $value ) );
+	}
+
+	public function test_get_tags_with_tags() {
+		$tag   = 'family';
+		$tag_ids = array(
+			$this->factory->tag->create( array( 'slug' => $tag . '1' ) ),
+			$this->factory->tag->create( array( 'slug' => $tag . '2' ) ),
+		);
+
+		$value = c2c_CustomPostLimits::get_instance()->get_tags();
+
+		$this->assertNotEmpty( $value );
+		$this->assertEquals( $value, get_tags( array( 'hide_empty' => false ) ) );
+	}
+
+	/*
 	 * Setting handling
 	 */
 

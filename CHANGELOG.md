@@ -9,6 +9,7 @@
 * Change: Initialize class variables expected to be arrays as arrays
 * Unit tests:
     * New: Add tests for `display_individual_option()`
+    * New: Add tests for `get_tags()`
     * New: Add test that plugin initializes itself on `plugins_loaded`
 * New: Add inline documentation for class variables
 
