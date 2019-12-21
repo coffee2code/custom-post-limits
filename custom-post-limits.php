@@ -503,21 +503,18 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 		$options = array();
 
 		if ( ( ! $type || in_array( 'authors', (array) $type ) ) && self::is_individual_limits_enabled( 'authors' ) ) {
-			$this->get_authors();
 			foreach ( $this->get_authors() as $author ) {
 				$options[ self::get_individual_limit_setting_name( 'authors', $author->ID ) ] = '';
 			}
 		}
 
 		if ( ( ! $type || in_array( 'categories', (array) $type ) ) && self::is_individual_limits_enabled( 'categories' ) ) {
-			$this->get_categories();
 			foreach ( $this->get_categories() as $cat ) {
 				$options[ self::get_individual_limit_setting_name( 'categories', $cat->cat_ID ) ] = '';
 			}
 		}
 
 		if ( ( ! $type || in_array( 'tags', (array) $type ) ) && self::is_individual_limits_enabled( 'tags' ) ) {
-			$this->get_tags();
 			foreach ( $this->get_tags() as $tag ) {
 				$options[ self::get_individual_limit_setting_name( 'tags', $tag->term_id ) ] = '';
 			}
