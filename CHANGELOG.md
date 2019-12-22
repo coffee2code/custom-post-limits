@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 4.2.2 _(2019-12-21)_
+
+### Highlights:
+
+This release fixes a number of minor bugs.
+
+### Details:
+
 * Fix: Don't assume variables initialized as strings have since become arrays
 * Fix: Don't call non-static method `is_individual_limits_enabled()` statically
 * Fix: Use accessor functions rather than directly accessing class variables

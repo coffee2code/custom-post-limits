@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.3
-Stable tag: 4.2.1
+Stable tag: 4.2.2
 
 Independently control the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
 
@@ -110,6 +110,26 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 
 == Changelog ==
 
+= 4.2.2 (2019-12-21) =
+Highlights:
+
+This release fixes a number of minor bugs.
+
+Details:
+
+* Fix: Don't assume variables initialized as strings have since become arrays
+* Fix: Don't call non-static method `is_individual_limits_enabled()` statically
+* Fix: Use accessor functions rather than directly accessing class variables
+* Fix: Don't add a show/hide link for paged limits
+* Change: Don't make unnecessary consecutive calls to the same function
+* Change: Explicitly cast return values of `get_authors()`, `get_categories()`, and `get_tags()` as arrays
+* Change: Initialize class variables expected to be arrays as arrays
+* Unit tests:
+    * New: Add tests for `display_individual_option()`
+    * New: Add tests for `get_tags()`
+    * New: Add test that plugin initializes itself on `plugins_loaded`
+* New: Add inline documentation for class variables
+
 = 4.2.1 (2019-12-02) =
 * Fix: Minor fix to avoid a PHP notice.
 * Change: Update unit test install script and bootstrap to use latest WP unit test repo
@@ -136,39 +156,13 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 * Change: Update License URI to be HTTPS
 * Change: Split paragraph in README.md's "Support" section into two
 
-= 4.1 (2018-07-10) =
-* New: Add support for defining custom limits for custom taxonomies
-* Change: Update plugin framework to 048
-    * 048:
-    * When resetting options, delete the option rather than setting it with default values
-    * Prevent double "Settings reset" admin notice upon settings reset
-    * 047:
-    * Don't save default setting values to database on install
-    * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
-    * Note compatibility through WP 4.9+
-    * Drop compatibility with version of WP older than 4.7
-    * Update copyright date (2018)
-    * 046:
-    * Fix `reset_options()` to reference instance variable `$options`
-    * Note compatibility through WP 4.7+
-    * Update copyright date (2017)
-* Change: Modify label text for custom post type fields to put post type name at end of label
-* Change: Add missing mentions of custom post type support to readme.txt and README.md
-* Unit tests:
-    * Change: Improve test initialization
-    * Bugfix: Fix factory syntax errors for a handful of tests
-    * Change: Minor code tweaks
-    * Change: Minor whitespace tweaks to bootstrap
-* New: Add README.md
-* Change: Add GitHub link to readme
-* Change: Note compatibility through WP 4.9+
-* Change: Drop compatibility with versions of WP older than 4.7
-* Change: Update copyright date (2018)
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/custom-post-limits/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 4.2.2 =
+Recommended bugfix update: This release fixes a number of minor bugs.
 
 = 4.2.1 =
 Trivial update: modernized unit tests, noted compatibility through WP 5.3+, and updated copyright date (2020)
