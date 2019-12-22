@@ -85,7 +85,7 @@
 
 ## 4.0 _(2016-06-22)_
 
-## Highlights:
+### Highlights:
 
 This release revives active development of the plugin after many years and includes many, many changes. Backwards compatilibility has been maintained; it just handles things better and introduces a number of new features. Some notable changes:
 
@@ -93,7 +93,7 @@ This release revives active development of the plugin after many years and inclu
 * Now treat 'archives_paged_limit', if specified, as secondary fallback for paged limits for day, month, and year archives.
 * Added fairly comprehensive unit tests.
 
-## Details:
+### Details:
 
 * New: Add support for defining custom limits for custom post type archives.
 * New: Add `get_individual_limit_setting_name()` as a helper function to determine the individual limit setting name for authors, categories, custom post types, and tags.
