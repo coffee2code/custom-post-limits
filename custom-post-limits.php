@@ -1030,42 +1030,52 @@ $this->first_page_offset = null;
 	 * Returns either the buffered array of all authors, or obtains the authors
 	 * and buffers the value.
 	 *
-	 * @return array Array of authors.  Authors without posts are included.
+	 * @return array|true Array of authors; authors without posts are included.
+	 *                    True if individual limits for categories are disabled.
 	 */
 	public function get_authors() {
 		if ( ! $this->authors ) {
-			$this->authors = get_users( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ), 'order' => 'display_name' ) );
+			$this->authors = $this->is_individual_limits_enabled( 'authors' )
+				? get_users( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ), 'order' => 'display_name' ) )
+				: true;
 		}
 
-		return (array) $this->authors;
+		return $this->authors;
 	}
 
 	/**
 	 * Returns either the buffered array of all categories, or obtains the
 	 * categories and buffers the value.
 	 *
-	 * @return array Array of categories.  Categories without posts are included.
+	 * @return array|true Array of categories; categories without posts are
+	 *                    included. True if individual limits for categories
+	 *                    are disabled.
 	 */
 	public function get_categories() {
 		if ( ! $this->categories ) {
-			$this->categories = get_categories( array( 'hide_empty' => false ) );
+			$this->categories = $this->is_individual_limits_enabled( 'categories' )
+				? get_categories( array( 'hide_empty' => false ) )
+				: true;
 		}
 
-		return (array) $this->categories;
+		return $this->categories;
 	}
 
 	/**
 	 * Returns either the buffered array of all tags, or obtains the tags and
 	 * buffers the value.
 	 *
-	 * @return array Array of tags.  Tags without posts are included.
+	 * @return array|true Array of tags; tags without posts are included. True
+	 *                     if individual limits for tags are disabled.
 	 */
 	public function get_tags() {
 		if ( ! $this->tags ) {
-			$this->tags = get_tags( array( 'hide_empty' => false ) );
+			$this->tags = $this->is_individual_limits_enabled( 'tags' )
+				? get_tags( array( 'hide_empty' => false ) )
+				: true;
 		}
 
-		return (array) $this->tags;
+		return $this->tags;
 	}
 
 } // end c2c_CustomPostLimits

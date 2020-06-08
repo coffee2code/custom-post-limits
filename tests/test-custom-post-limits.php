@@ -1176,17 +1176,138 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * get_authors()
+	 */
+
+	public function test_get_authors_with_no_authors_and_individual_authors_enabled() {
+		$this->set_option( array(
+			'authors_limit' => 5,
+			'enable_individual_authors_limit' => true,
+		) );
+
+		$value = c2c_CustomPostLimits::get_instance()->get_authors();
+
+		$this->assertNotEmpty( $value );
+		$this->assertTrue( is_array( $value ) );
+		$this->assertEquals( 1, count( $value ) );
+		$this->assertEquals( 'admin', $value[0]->user_nicename );
+	}
+
+	public function test_get_authors_with_no_authors_and_individual_authors_not_enabled() {
+		$value = c2c_CustomPostLimits::get_instance()->get_authors();
+
+		$this->assertIsBool( $value );
+		$this->assertTrue( $value );
+	}
+
+	public function test_get_authors_with_authors_and_individual_authors_enabled() {
+		$this->set_option( array(
+			'authors_limit' => 5,
+			'enable_individual_authors_limit' => true,
+		) );
+		$user_id1 = $this->factory->user->create();
+		$post_id1 = $this->factory->post->create( array( 'post_author' => $user_id1 ) );
+		$user_id2 = $this->factory->user->create();
+		$post_id2 = $this->factory->post->create( array( 'post_author' => $user_id2 ) );
+
+		$value = c2c_CustomPostLimits::get_instance()->get_authors();
+
+		$this->assertNotEmpty( $value );
+		$this->assertTrue( is_array( $value ) );
+		$this->assertEquals( 3, count( $value ) );
+		$this->assertEquals( $value, get_users( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ), 'order' => 'display_name' ) ) );
+	}
+
+	public function test_get_authors_with_authors_and_individual_authors_not_enabled() {
+		$cat_id1 = $this->factory->category->create( array( 'slug' => 'color' ) );
+		$cat_id2 = $this->factory->category->create( array( 'slug' => 'texture' ) );
+
+		$value = c2c_CustomPostLimits::get_instance()->get_authors();
+
+		$this->assertIsBool( $value );
+		$this->assertTrue( $value );
+	}
+
+	/*
+	 * get_categories()
+	 */
+
+	public function test_get_categories_with_no_categories_and_individual_categories_enabled() {
+		$this->set_option( array(
+			'categories_limit' => 5,
+			'enable_individual_categories_limit' => true,
+		) );
+
+		$value = c2c_CustomPostLimits::get_instance()->get_categories();
+
+		$this->assertNotEmpty( $value );
+		$this->assertTrue( is_array( $value ) );
+		$this->assertEquals( 1, count( $value ) );
+		$this->assertEquals( 'Uncategorized', $value[0]->cat_name );
+	}
+
+	public function test_get_categories_with_no_categories_and_individual_categories_not_enabled() {
+		$value = c2c_CustomPostLimits::get_instance()->get_categories();
+
+		$this->assertIsBool( $value );
+		$this->assertTrue( $value );
+	}
+
+	public function test_get_categories_with_categories_and_individual_categories_enabled() {
+		$this->set_option( array(
+			'categories_limit' => 5,
+			'enable_individual_categories_limit' => true,
+		) );
+		$cat_id1 = $this->factory->category->create( array( 'slug' => 'color' ) );
+		$cat_id2 = $this->factory->category->create( array( 'slug' => 'texture' ) );
+
+		$value = c2c_CustomPostLimits::get_instance()->get_categories();
+
+		$this->assertNotEmpty( $value );
+		$this->assertTrue( is_array( $value ) );
+		$this->assertEquals( 3, count( $value ) );
+		$this->assertEquals( $value, get_categories( array( 'hide_empty' => false ) ) );
+	}
+
+	public function test_get_categories_with_categories_and_individual_categories_not_enabled() {
+		$cat_id1 = $this->factory->category->create( array( 'slug' => 'color' ) );
+		$cat_id2 = $this->factory->category->create( array( 'slug' => 'texture' ) );
+
+		$value = c2c_CustomPostLimits::get_instance()->get_categories();
+
+		$this->assertIsBool( $value );
+		$this->assertTrue( $value );
+	}
+
+	/*
 	 * get_tags()
 	 */
 
-	public function test_get_tags_with_no_tags() {
+	public function test_get_tags_with_no_tags_and_individual_tags_enabled() {
+		$this->set_option( array(
+			'tags_limit' => 5,
+			'enable_individual_tags_limit' => true,
+		) );
+
 		$value = c2c_CustomPostLimits::get_instance()->get_tags();
+
 		$this->assertEmpty( $value );
 		$this->assertTrue( is_array( $value ) );
 	}
 
-	public function test_get_tags_with_tags() {
-		$tag   = 'family';
+	public function test_get_tags_with_no_tags_and_individual_tags_not_enabled() {
+		$value = c2c_CustomPostLimits::get_instance()->get_tags();
+
+		$this->assertIsBool( $value );
+		$this->assertTrue( $value );
+	}
+
+	public function test_get_tags_with_tags_and_individual_tags_enabled() {
+		$this->set_option( array(
+			'tags_limit' => 5,
+			'enable_individual_tags_limit' => true,
+		) );
+		$tag     = 'family';
 		$tag_ids = array(
 			$this->factory->tag->create( array( 'slug' => $tag . '1' ) ),
 			$this->factory->tag->create( array( 'slug' => $tag . '2' ) ),
@@ -1196,6 +1317,19 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 		$this->assertNotEmpty( $value );
 		$this->assertEquals( $value, get_tags( array( 'hide_empty' => false ) ) );
+	}
+
+	public function test_get_tags_with_tags_and_individual_tags_not_enabled() {
+		$tag     = 'family';
+		$tag_ids = array(
+			$this->factory->tag->create( array( 'slug' => $tag . '1' ) ),
+			$this->factory->tag->create( array( 'slug' => $tag . '2' ) ),
+		);
+
+		$value = c2c_CustomPostLimits::get_instance()->get_tags();
+
+		$this->assertIsBool( $value );
+		$this->assertTrue( $value );
 	}
 
 	/*

@@ -1,5 +1,11 @@
 # Changelog
 
+## _(in-progress)_
+* Fix: Prevent plugin settings page timeouts for sites with lots of authors, categories, and/or tags. Fixes #2.
+    * Change: Prevent `get_authors()`, `get_categories()`, and `get_tags()` from calling potentially resource-intensive functions when individual limits aren't enabled
+* Unit tests:
+    * New: Add tests for `get_authors()`, `get_categories()`
+
 ## 4.2.2 _(2019-12-21)_
 
 ### Highlights:
