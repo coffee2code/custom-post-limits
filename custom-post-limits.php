@@ -323,6 +323,8 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 			add_action( 'pre_option_posts_per_page',                       array( $this, 'custom_post_limits' ) );
 			// Possibly modify the offset within the LIMIT clause
 			add_filter( 'post_limits',                                     array( $this, 'correct_paged_offset' ), 10, 2 );
+			// Possibly adjust query's determined number of pages.
+			add_filter( 'the_posts',                                       array( $this, 'adjust_max_num_pages' ), 5, 2 );
 		}
 
 		// Hook option retrieval to instantiate settings for individual items.
@@ -774,10 +776,17 @@ JS;
 	/**
 	 * Returns a potentially overridden limit value for the currently queried posts.
 	 *
+	 * The `$forced_paged` argument is intended for internal use so function behaves
+	 * as if the current request was paged.
+	 *
+	 * @since 4.3 Added `$forced_paged` argumentn.
+	 *
 	 * @param int  $limit The default limit value for the current posts query.
+	 * @param bool $forced_paged Optional. Calculate the post limits as if query
+	 *                           was paged. For internal use. Default false.
 	 * @return int The limit value for the current posts query.
 	 */
-	public function custom_post_limits( $limit ) {
+	public function custom_post_limits( $limit, $force_paged = false ) {
 		if ( is_admin() ) {
 			return $limit;
 		}
@@ -786,22 +795,24 @@ JS;
 		$options = $this->get_options();
 		$this->first_page_offset = null;
 
+		$is_paged = $force_paged || is_paged();
+
 		if ( is_home() ) {
-			if ( is_paged() && ! empty( $options['front_page_paged_limit'] ) ) {
+			if ( $is_paged && ! empty( $options['front_page_paged_limit'] ) ) {
 				$limit = $options['front_page_paged_limit'];
 				$this->first_page_offset = $options['front_page_limit'];
 			} else {
 				$limit = $options['front_page_limit'];
 			}
 		} elseif ( is_search() ) {
-			if ( is_paged() && ! empty( $options['searches_paged_limit'] ) ) {
+			if ( $is_paged && ! empty( $options['searches_paged_limit'] ) ) {
 				$limit = $options['searches_paged_limit'];
 				$this->first_page_offset = $options['searches_limit'];
 			} else {
 				$limit = $options['searches_limit'];
 			}
 		} elseif ( is_category() ) {
-			if ( is_paged() && ! empty( $options['categories_paged_limit'] ) ) {
+			if ( $is_paged && ! empty( $options['categories_paged_limit'] ) ) {
 				$limit = $options['categories_paged_limit'];
 				$this->first_page_offset = $options['categories_limit'];
 			} else {
@@ -825,7 +836,7 @@ $this->first_page_offset = null;
 				}
 			}
 		} elseif ( is_tag() ) {
-			if ( is_paged() && ! empty( $options['tags_paged_limit'] ) ) {
+			if ( $is_paged && ! empty( $options['tags_paged_limit'] ) ) {
 				$limit = $options['tags_paged_limit'];
 				$this->first_page_offset = $options['tags_limit'];
 			} else {
@@ -854,7 +865,7 @@ $this->first_page_offset = null;
 				$limit = $options[ $custom_taxonomy_setting ];
 			}
 		} elseif ( is_author() ) {
-			if ( is_paged() && ! empty( $options['authors_paged_limit'] ) ) {
+			if ( $is_paged && ! empty( $options['authors_paged_limit'] ) ) {
 				$limit = $options['authors_paged_limit'];
 				$this->first_page_offset = $options['authors_limit'];
 			} else {
@@ -888,7 +899,7 @@ $this->first_page_offset = null;
 			// * year_archives_limit
 			// * archives_limit
 			$front_limit = $options['year_archives_limit'] ? $options['year_archives_limit'] : $options['archives_limit'];
-			if ( is_paged() ) {
+			if ( $is_paged ) {
 				if ( $options['year_archives_paged_limit'] ) {
 					$limit = $options['year_archives_paged_limit'];
 				} elseif ( $options['year_archives_limit'] ) {
@@ -918,7 +929,7 @@ $this->first_page_offset = null;
 			// * month_archives_limit
 			// * archives_limit
 			$front_limit = $options['month_archives_limit'] ? $options['month_archives_limit'] : $options['archives_limit'];
-			if ( is_paged() ) {
+			if ( $is_paged ) {
 				if ( $options['month_archives_paged_limit'] ) {
 					$limit = $options['month_archives_paged_limit'];
 				} elseif ( $options['month_archives_limit'] ) {
@@ -948,7 +959,7 @@ $this->first_page_offset = null;
 			// * day_archives_limit
 			// * archives_limit
 			$front_limit = $options['day_archives_limit'] ? $options['day_archives_limit'] : $options['archives_limit'];
-			if ( is_paged() ) {
+			if ( $is_paged ) {
 				if ( $options['day_archives_paged_limit'] ) {
 					$limit = $options['day_archives_paged_limit'];
 				} elseif ( $options['day_archives_limit'] ) {
@@ -974,7 +985,7 @@ $this->first_page_offset = null;
 				$limit = $options[ $post_type_setting ];
 			}
 		} elseif ( is_archive() ) {
-			if ( is_paged() && ! empty( $options['archives_paged_limit'] ) ) {
+			if ( $is_paged && ! empty( $options['archives_paged_limit'] ) ) {
 				$limit = $options['archives_paged_limit'];
 				$this->first_page_offset = $options['archives_limit'];
 			} else {
@@ -1024,6 +1035,54 @@ $this->first_page_offset = null;
 		}
 
 		return $limit;
+	}
+
+	/**
+	 * Overrides the query's determination of max_num_pages if queried view has
+	 * different first page and non-first page limits.
+	 *
+	 * @since 4.3
+	 *
+	 * @param WP_Posts[] $posts    Queried posts.
+	 * @param WP_Query   $wp_query Query object.
+	 */
+	public function adjust_max_num_pages( $posts, $wp_query ) {
+		$new_max_num_pages = null;
+
+		// Bail if not the main query or no posts have been found.
+		if ( ! $wp_query->is_main_query() || ! $wp_query->found_posts ) {
+			return $posts;
+		}
+
+		// Store actual first_page_offset value since the call to custom_post_limits()
+		// could change its value, which shouldn't matter since this happens after it
+		// is legitimately needed, but don't risk it.
+		$orig_first_page_offset = $this->first_page_offset;
+
+		// Get the limits by forcing a paged context.
+		$non_first_page_limit = $this->custom_post_limits( -2, true );
+
+		// Save the first page limit.
+		$first_page_limit = $this->first_page_offset;
+
+		// Restore original first page offset.
+		$this->first_page_offset = $orig_first_page_offset;
+
+		// Bail if query context doesn't involve custom limits.
+		if ( -2 === $non_first_page_limit ) {
+			return $posts;
+		}
+
+		// Calculate number of pages.
+		$total_posts = (int) $wp_query->found_posts;
+		$non_first_page_posts = $total_posts - $first_page_limit;
+		$paged_pages = $non_first_page_posts > 0 ? ceil( $non_first_page_posts / $non_first_page_limit ) : 0;
+		$new_max_num_pages = 1 + $paged_pages;
+
+		// Override max_num_pages value.
+		$wp_query->max_num_pages = $new_max_num_pages;
+
+		return $posts;
 	}
 
 	/**

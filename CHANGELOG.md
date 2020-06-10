@@ -3,6 +3,9 @@
 ## _(in-progress)_
 * Fix: Prevent plugin settings page timeouts for sites with lots of authors, categories, and/or tags. Fixes #2.
     * Change: Prevent `get_authors()`, `get_categories()`, and `get_tags()` from calling potentially resource-intensive functions when individual limits aren't enabled
+* Fix: Ensure count of total number of pages accurately accounts for potentially differing first and non-first page limits. Fixes #3.
+    * New: Add `adjust_max_num_pages()` to potentially adjust main query object's max_num_pages value
+    * Change: Add optional argument to `custom_post_limits()` for forcing it to behave as if query was paged
 * Unit tests:
     * New: Add tests for `get_authors()`, `get_categories()`
     * Change: Alter `test_tags_paged_limit()` for versatility by accepting arguments and calculating assertion expectations based on those parameters

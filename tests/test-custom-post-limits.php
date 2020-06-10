@@ -1187,6 +1187,46 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * adjust_max_num_pages()
+	 */
+
+	public function test_adjust_max_num_pages_first_page_without_paginated_limits() {
+		$this->test_tags_paged_limit( 1, 3, 3, 21 );
+
+		$this->assertEquals( 7, $GLOBALS['wp_query']->max_num_pages );
+	}
+
+	public function test_adjust_max_num_pages_second_page_without_paginated_limits() {
+		$this->test_tags_paged_limit( 2, 3, 3, 21 );
+
+		$this->assertEquals( 7, $GLOBALS['wp_query']->max_num_pages );
+	}
+
+	public function test_adjust_max_num_pages_first_page_with_paginated_limits() {
+		$this->test_tags_paged_limit( 1, 3, 10, 21 );
+
+		$this->assertEquals( 3, $GLOBALS['wp_query']->max_num_pages );
+	}
+
+	public function test_adjust_max_num_pages_first_page_with_paginated_limits2() {
+		$this->test_tags_paged_limit( 1, 3, 7, 21 );
+
+		$this->assertEquals( 4, $GLOBALS['wp_query']->max_num_pages );
+	}
+
+	public function test_adjust_max_num_pages_second_page_with_paginated_limits() {
+		$this->test_tags_paged_limit( 2, 3, 10, 21 );
+
+		$this->assertEquals( 3, $GLOBALS['wp_query']->max_num_pages );
+	}
+
+	public function test_adjust_max_num_pages_second_page_with_paginated_limits2() {
+		$this->test_tags_paged_limit( 2, 3, 7, 21 );
+
+		$this->assertEquals( 4, $GLOBALS['wp_query']->max_num_pages );
+	}
+
+	/*
 	 * get_authors()
 	 */
 
