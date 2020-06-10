@@ -736,7 +736,18 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 	public function test_tags_paged_limit( $page_num = 2, $first_page_limit = 2, $paginated_limit = 4, $total_posts = 21 ) {
 		$tag = 'family';
-		$this->set_option( array( 'tags_limit' => $first_page_limit, 'tags_paged_limit' => $paginated_limit ) );
+
+		$config = array();
+		if ( $first_page_limit ) {
+			$config['tags_limit'] = $first_page_limit;
+		}
+		if ( $paginated_limit ) {
+			$config['tags_paged_limit'] = $paginated_limit;
+		} else {
+			$paginated_limit = $first_page_limit;
+		}
+		$this->set_option( $config );
+
 		$post_ids = $this->factory->post->create_many( $total_posts );
 		foreach ( $post_ids as $pid ) {
 			wp_add_post_tags( $pid, $tag );
@@ -1191,12 +1202,24 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_adjust_max_num_pages_first_page_without_paginated_limits() {
-		$this->test_tags_paged_limit( 1, 3, 3, 21 );
+		$this->test_tags_paged_limit( 1, 3, '', 21 );
 
 		$this->assertEquals( 7, $GLOBALS['wp_query']->max_num_pages );
 	}
 
 	public function test_adjust_max_num_pages_second_page_without_paginated_limits() {
+		$this->test_tags_paged_limit( 2, 3, '', 21 );
+
+		$this->assertEquals( 7, $GLOBALS['wp_query']->max_num_pages );
+	}
+
+	public function test_adjust_max_num_pages_first_page_with_matching_paginated_limits() {
+		$this->test_tags_paged_limit( 1, 3, 3, 21 );
+
+		$this->assertEquals( 7, $GLOBALS['wp_query']->max_num_pages );
+	}
+
+	public function test_adjust_max_num_pages_second_page_with_matching_paginated_limits() {
 		$this->test_tags_paged_limit( 2, 3, 3, 21 );
 
 		$this->assertEquals( 7, $GLOBALS['wp_query']->max_num_pages );

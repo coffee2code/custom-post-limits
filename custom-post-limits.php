@@ -1000,6 +1000,11 @@ $this->first_page_offset = null;
 			$limit = '18446744073709551615';
 		}
 
+		// If simulating paging, ensure first_page_offset has been set.
+		if ( $force_paged && ! $this->first_page_offset ) {
+			$this->first_page_offset = $limit;
+		}
+
 		return $limit;
 	}
 
@@ -1063,7 +1068,7 @@ $this->first_page_offset = null;
 		$non_first_page_limit = $this->custom_post_limits( -2, true );
 
 		// Save the first page limit.
-		$first_page_limit = $this->first_page_offset;
+		$first_page_limit = $this->first_page_offset ? $this->first_page_offset : 0;
 
 		// Restore original first page offset.
 		$this->first_page_offset = $orig_first_page_offset;
@@ -1080,7 +1085,7 @@ $this->first_page_offset = null;
 		$new_max_num_pages = 1 + $paged_pages;
 
 		// Override max_num_pages value.
-		$wp_query->max_num_pages = $new_max_num_pages;
+		$wp_query->max_num_pages = (int) $new_max_num_pages;
 
 		return $posts;
 	}
