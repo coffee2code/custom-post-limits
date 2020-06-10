@@ -719,7 +719,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$limit = 3;
 		$tag   = 'family';
 		$this->set_option( array( 'tags_limit' => $limit ) );
-		$post_ids = $this->factory->post->create_many( 7 );
+		$post_ids = $this->factory->post->create_many( 21 );
 		foreach ( $post_ids as $pid ) {
 			wp_add_post_tags( $pid, $tag );
 		}
@@ -734,21 +734,32 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$this->assertEquals( get_post( $post_ids[0] ), get_post( $q->posts[0] ) );
 	}
 
-	public function test_tags_paged_limit() {
-		$offset = 2;
-		$limit  = 4;
-		$tag    = 'family';
-		$this->set_option( array( 'tags_limit' => $offset, 'tags_paged_limit' => $limit ) );
-		$post_ids = $this->factory->post->create_many( 7 );
+	public function test_tags_paged_limit( $page_num = 2, $first_page_limit = 2, $paginated_limit = 4, $total_posts = 21 ) {
+		$tag = 'family';
+		$this->set_option( array( 'tags_limit' => $first_page_limit, 'tags_paged_limit' => $paginated_limit ) );
+		$post_ids = $this->factory->post->create_many( $total_posts );
 		foreach ( $post_ids as $pid ) {
 			wp_add_post_tags( $pid, $tag );
 		}
 
-		$this->go_to( home_url() . "?tag=$tag&paged=2&orderby=ID&order=ASC" );
+		$this->go_to( home_url() . "?tag={$tag}&paged={$page_num}&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_tag( $tag ) );
-		$this->assertTrue( $q->is_paged() );
+		if ( 1 !== $page_num ) {
+			$this->assertTrue( $q->is_paged() );
+		}
+
+		$limit = 1 === $page_num ? $first_page_limit : $paginated_limit;
+
+		$offset = 0;
+		if ( $page_num > 1 ) {
+			$offset += $first_page_limit;
+		}
+		if ( $page_num > 2 ) {
+			$offset += ceil( 0, $paginated_limit * ( $page_num - 2 ) );
+		}
+
 		$this->assertEquals( $limit, count( $q->posts ) );
 		$this->assertEquals( array_slice( $post_ids, $offset, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
 		$this->assertEquals( get_post( $post_ids[ $offset ] ), get_post( $q->posts[0] ) );
