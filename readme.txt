@@ -43,7 +43,7 @@ Specifically, this plugin allows you to define limits for:
 
 If the limit field is empty or 0 for a particular section type, then the default post limit will apply. If the value is set to -1, then there will be NO limit for that section (meaning ALL posts will be shown). The Archives Limit value is also treated as the default limit for Day, Month, and Year archives, unless those are explicitly defined.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/custom-post-limits/) | [Plugin Directory Page](https://wordpress.org/plugins/custom-post-limits/) | [GitHub](https://github.com/coffee2code/custom-post-limits/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/custom-post-limits/) | [Plugin Directory Page](https://wordpress.org/plugins/custom-post-limits/) | [GitHub](https://github.com/coffee2code/custom-post-limits/) | [Author Homepage](https://coffee2code.com)
 
 
 == Installation ==

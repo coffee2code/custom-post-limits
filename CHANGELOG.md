@@ -7,6 +7,7 @@
     * New: Add `adjust_max_num_pages()` to potentially adjust main query object's max_num_pages value
     * Change: Add optional argument to `custom_post_limits()` for forcing it to behave as if query was paged
 * Change: Note compatibility through WP 5.4+
+* Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
     * New: Add tests for `get_authors()`, `get_categories()`
     * Change: Alter `test_tags_paged_limit()` for versatility by accepting arguments and calculating assertion expectations based on those parameters
