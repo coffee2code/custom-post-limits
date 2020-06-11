@@ -24,6 +24,7 @@
 * Unit tests:
     * New: Add tests for `get_authors()`, `get_categories()`
     * Fix: Fix two tests related to individual authors limit
+    * Fix: Define explicit ordering of results for `test_get_custom_taxonomy()` to avoid occasional failure
     * Change: Alter `test_tags_paged_limit()` for versatility by accepting arguments and calculating assertion expectations based on those parameters
     * Change: Call `reset_caches()` in `tearDown()`
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)

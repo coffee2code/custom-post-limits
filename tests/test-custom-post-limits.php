@@ -1069,6 +1069,8 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		$url = add_query_arg(
 			array(
 				'writers' => 'alice',
+				'orderby' => 'ID',
+				'order'   => 'ASC',
 			), '/'
 		);
 		$this->go_to( $url );
