@@ -23,6 +23,7 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 		// Reset options
 		c2c_CustomPostLimits::get_instance()->reset_options();
+		c2c_CustomPostLimits::get_instance()->reset_caches();
 	}
 
 
