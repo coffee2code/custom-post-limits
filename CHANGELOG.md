@@ -10,6 +10,7 @@
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility for version of WP older than 4.9
 * Change: Remove unnecessary `type='text/javascript'` attribute from `<script>` tag
+* Change: Use `is_main_query()` instead of replicating what it does
 * Change: Explicitly escape an admin URL before output within a link attribute (hardening)
 * Change: Add translator comment for string with multiple placeholders
 * Change: Update links to coffee2code.com to be HTTPS

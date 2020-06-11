@@ -1005,9 +1005,8 @@ $this->first_page_offset = null;
 	 * @return string The potentially modified LIMIT clause
 	 */
 	public function correct_paged_offset( $limit, $query_obj ) {
-		// Only intercede if on the main query. (Once WP3.3+ only, this can simply be is_main_query())
-		global $wp_the_query;
-		if ( $wp_the_query !== $query_obj ) {
+		// Only intercede if on the main query.
+		if ( ! $query_obj->is_main_query() ) {
 			return $limit;
 		}
 
