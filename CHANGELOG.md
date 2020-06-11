@@ -11,6 +11,7 @@
 * Unit tests:
     * New: Add tests for `get_authors()`, `get_categories()`
     * Change: Alter `test_tags_paged_limit()` for versatility by accepting arguments and calculating assertion expectations based on those parameters
+    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
 
 ## 4.2.2 _(2019-12-21)_
 
