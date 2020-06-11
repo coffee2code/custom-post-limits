@@ -9,6 +9,7 @@
 * Change: Note compatibility through WP 5.4+
 * Change: Remove unnecessary `type='text/javascript'` attribute from `<script>` tag
 * Change: Update links to coffee2code.com to be HTTPS
+* Change: Fix a few typos in inline docs
 * Unit tests:
     * New: Add tests for `get_authors()`, `get_categories()`
     * Change: Alter `test_tags_paged_limit()` for versatility by accepting arguments and calculating assertion expectations based on those parameters

@@ -380,7 +380,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 
 	/**
 	 * Recognizes post type registration so that the post limits setting for the
-	 * psot type gets created.
+	 * post type gets created.
 	 *
 	 * @since 4.0
 	 *
@@ -480,7 +480,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 			 *
 			 * The ability to set individual limits (e.g. for per-author or per-category
 			 * archives) isn't simply enabled by default because it can have a negative
-			 * performance impact depending on the number of items. Especially for a
+			 * performance impact depending on the number of items. Especially for
 			 * something most sites are unlikely to need.
 			 *
 			 * @since 3.6
@@ -505,7 +505,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 			 *
 			 * The ability to set individual limits (e.g. for per-author or per-category
 			 * archives) isn't simply enabled by default because it can have a negative
-			 * performance impact depending on the number of items. Especially for a
+			 * performance impact depending on the number of items. Especially for
 			 * something most sites are unlikely to need.
 			 *
 			 * @since 3.6
