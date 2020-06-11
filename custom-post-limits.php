@@ -447,6 +447,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 		_e( 'All but the individual archive limits support a "paged (non first page)" sub-setting that allows a different limit to apply for that listing type when not viewing the first page of the listing  (i.e. when on page 2 or later).', 'custom-post-limits' );
 		echo "</p>\n<p>";
 		printf(
+			/* translators: 1: integer value representing the configured post limit, 2: link to the Settings -> Reading page */
 			__( 'The default post limit as set in your settings is <strong>%1$d</strong>.  You can change this value %2$s, which is labeled as <em>Blog pages show at most</em>', 'custom-post-limits' ),
 			$current_limit,
 			$option_url

@@ -8,6 +8,7 @@
     * Change: Add optional argument to `custom_post_limits()` for forcing it to behave as if query was paged
 * Change: Note compatibility through WP 5.4+
 * Change: Remove unnecessary `type='text/javascript'` attribute from `<script>` tag
+* Change: Add translator comment for string with multiple placeholders
 * Change: Update links to coffee2code.com to be HTTPS
 * Change: Fix a few typos in inline docs
 * Unit tests:
