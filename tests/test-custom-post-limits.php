@@ -1282,9 +1282,9 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 			'authors_limit' => 5,
 			'enable_individual_authors_limit' => true,
 		) );
-		$user_id1 = $this->factory->user->create();
+		$user_id1 = $this->factory->user->create( array( 'role' => 'author' ) );
 		$post_id1 = $this->factory->post->create( array( 'post_author' => $user_id1 ) );
-		$user_id2 = $this->factory->user->create();
+		$user_id2 = $this->factory->user->create( array( 'role' => 'author' ) );
 		$post_id2 = $this->factory->post->create( array( 'post_author' => $user_id2 ) );
 
 		$value = c2c_CustomPostLimits::get_instance()->get_authors();
@@ -1303,6 +1303,27 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 
 		$this->assertIsBool( $value );
 		$this->assertTrue( $value );
+	}
+
+	public function test_get_authors_ignores_non_authors() {
+		$this->set_option( array(
+			'authors_limit' => 5,
+			'enable_individual_authors_limit' => true,
+		) );
+
+		$user_id1 = $this->factory->user->create( array( 'role' => 'subscriber' ) );
+		$post_id1 = $this->factory->post->create( array( 'post_author' => $user_id1 ) );
+		$user_id2 = $this->factory->user->create( array( 'role' => 'author' ) );
+		$post_id2 = $this->factory->post->create( array( 'post_author' => $user_id2 ) );
+		$user_id3 = $this->factory->user->create( array( 'role' => 'editor' ) );
+		$post_id3 = $this->factory->post->create( array( 'post_author' => $user_id3 ) );
+
+		$value = c2c_CustomPostLimits::get_instance()->get_authors();
+
+		$this->assertNotEmpty( $value );
+		$this->assertIsArray( $value );
+		$this->assertEquals( 3, count( $value ) );
+		$this->assertEquals( $value, get_users( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ), 'order' => 'display_name', 'who' => 'authors' ) ) );
 	}
 
 	/*

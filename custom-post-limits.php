@@ -1086,7 +1086,7 @@ $this->first_page_offset = null;
 	public function get_authors() {
 		if ( ! $this->authors ) {
 			$this->authors = $this->is_individual_limits_enabled( 'authors' )
-				? get_users( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ), 'order' => 'display_name' ) )
+				? get_users( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ), 'order' => 'display_name', 'who' => 'authors' ) )
 				: true;
 		}
 
