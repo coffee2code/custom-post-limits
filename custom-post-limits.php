@@ -760,7 +760,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 	 */
 	public function add_plugin_admin_js() {
 		echo <<<JS
-		<script type="text/javascript">
+		<script>
 			jQuery(document).ready(function($) {
 				$('#cpl-categories-link').click(function() { $(".cpl-categories").toggle(); return false; });
 				$('#cpl-tags-link').click(function() { $(".cpl-tags").toggle(); return false; });
