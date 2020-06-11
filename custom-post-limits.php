@@ -22,20 +22,6 @@
  */
 
 /*
- * TODO
- * - Extract post limit determination logic from custom_post_limits() into get_custom_limit( $type, $specific = null)
- *   (where specific can be a number to indicate a particular cat/tag/author or 'paged')
- * - Document in readme the order of precedence for limit fallbacks.
- * - For Author, Category, and Tag individual limits, either show the fields via show/hide if they are within a
- *   reasonable amount, or don't show at all and warn user that they have too many. The checkboxes are still needed
- *   so keep them. Add filters so that even if not shown, individual limits can be added programatically. This
- *   removes the potential for the user to cause the page to timeout. Could also consider another set of hooks
- *   to indicate the maximum number of items to safely display, so they could up it if they want.
- * - Add more unit tests
- * - Replace direct variable reference `$this->$type`
- */
-
-/*
 	Copyright (c) 2008-2020 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or

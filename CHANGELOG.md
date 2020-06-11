@@ -6,6 +6,7 @@
 * Fix: Ensure count of total number of pages accurately accounts for potentially differing first and non-first page limits. Fixes #3.
     * New: Add `adjust_max_num_pages()` to potentially adjust main query object's max_num_pages value
     * Change: Add optional argument to `custom_post_limits()` for forcing it to behave as if query was paged
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility for version of WP older than 4.9
 * Change: Remove unnecessary `type='text/javascript'` attribute from `<script>` tag
