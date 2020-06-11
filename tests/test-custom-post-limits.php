@@ -219,13 +219,13 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		) );
 		$post_ids = $this->factory->post->create_many( 7, array( 'post_author' => $user_id ) );
 
-		$this->go_to( home_url() . "?author=$user_id" );
+		$this->go_to( home_url() . "?author=$user_id&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_author( $user_id ) );
 		$this->assertEquals( $limit, count( $q->posts ) );
-		$this->assertEquals( array_slice( $post_ids, -$limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
-		$this->assertEquals( get_post( $post_ids[ 6 ] ), get_post( $q->posts[0] ) );
+		$this->assertEquals( array_slice( $post_ids, 0, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ 0 ] ), get_post( $q->posts[0] ) );
 	}
 
 	public function test_individual_authors_limit_via_author_name() {
@@ -239,13 +239,13 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 		) );
 		$post_ids = $this->factory->post->create_many( 7, array( 'post_author' => $user_id ) );
 
-		$this->go_to( home_url() . "?author_name=$author_name" );
+		$this->go_to( home_url() . "?author_name=$author_name&orderby=ID&order=ASC" );
 		$q = $GLOBALS['wp_query'];
 
 		$this->assertTrue( $q->is_author( $user_id ) );
 		$this->assertEquals( $limit, count( $q->posts ) );
-		$this->assertEquals( array_slice( $post_ids, -$limit ), wp_list_pluck( array_reverse( $q->posts ), 'ID' ) );
-		$this->assertEquals( get_post( $post_ids[ 6 ] ), get_post( $q->posts[0] ) );
+		$this->assertEquals( array_slice( $post_ids, 0, $limit ), wp_list_pluck( $q->posts, 'ID' ) );
+		$this->assertEquals( get_post( $post_ids[ 0 ] ), get_post( $q->posts[0] ) );
 	}
 
 	public function test_individual_authors_limit_ignored_if_not_enabled() {
