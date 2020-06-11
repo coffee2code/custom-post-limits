@@ -436,7 +436,7 @@ final class c2c_CustomPostLimits extends c2c_CustomPostLimits_Plugin_049 {
 	public function options_page_description( $localized_heading_text = '' ) {
 		$options = $this->get_options();
 		$current_limit = get_option( 'posts_per_page' );
-		$option_url = '<a href="' . admin_url( 'options-reading.php' ) . '">' . __( 'here', 'custom-post-limits' ) . '</a>';
+		$option_url = '<a href="' . esc_url( admin_url( 'options-reading.php' ) ) . '">' . __( 'here', 'custom-post-limits' ) . '</a>';
 
 		parent::options_page_description( __( 'Custom Post Limits Settings', 'custom-post-limits' ) );
 		echo '<p>';
