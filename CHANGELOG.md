@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 4.3 _(2020-06-16)_
+
+### Highlights:
+
+This release prevents plugin settings page timeouts for sites with lots of authors/categories/tags, fixes pagination page counts, omits limit fields for non-authors, adds TODO.md file, updates a few URLs to be HTTPS, expands unit testing, changes compatibility to be WP 4.9-5.4+, and more.
+
+### Details:
+
 * Fix: Prevent plugin settings page timeouts for sites with lots of authors, categories, and/or tags. Fixes #2.
     * Change: Prevent `get_authors()`, `get_categories()`, and `get_tags()` from calling potentially resource-intensive functions when individual limits aren't enabled
 * Fix: Ensure count of total number of pages accurately accounts for potentially differing first and non-first page limits. Fixes #3.

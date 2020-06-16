@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.4
-Stable tag: 4.2.2
+Stable tag: 4.3
 
 Independently control the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
 
@@ -110,6 +110,43 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 
 == Changelog ==
 
+= 4.3 (2020-06-16) =
+
+### Highlights:
+
+* This release prevents plugin settings page timeouts for sites with lots of authors/categories/tags, fixes pagination page counts, omits limit fields for non-authors, adds TODO.md file, updates a few URLs to be HTTPS, expands unit testing, changes compatibility to be WP 4.9-5.4+, and more.
+
+### Details:
+
+* Fix: Prevent plugin settings page timeouts for sites with lots of authors, categories, and/or tags. Fixes #2.
+    * Change: Prevent `get_authors()`, `get_categories()`, and `get_tags()` from calling potentially resource-intensive functions when individual limits aren't enabled
+* Fix: Ensure count of total number of pages accurately accounts for potentially differing first and non-first page limits. Fixes #3.
+    * New: Add `adjust_max_num_pages()` to potentially adjust main query object's max_num_pages value
+    * Change: Add optional argument to `custom_post_limits()` for forcing it to behave as if query was paged
+* Change: Update plugin framework to 050
+    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
+    * Output donation markup using `printf()` rather than using string concatenation
+    * Update copyright date (2020)
+    * Note compatibility through WP 5.4+
+    * Drop compatibility with version of WP older than 4.9
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add to it)
+* Change: Exclude users from being returned by `get_author()` if they don't have the 'author' role
+* Change: Note compatibility through WP 5.4+
+* Change: Drop compatibility for version of WP older than 4.9
+* Change: Remove unnecessary `type='text/javascript'` attribute from `<script>` tag
+* Change: Use `is_main_query()` instead of replicating what it does
+* Change: Explicitly escape an admin URL before output within a link attribute (hardening)
+* Change: Add translator comment for string with multiple placeholders
+* Change: Update links to coffee2code.com to be HTTPS
+* Change: Fix a few typos in inline docs
+* Unit tests:
+    * New: Add tests for `get_authors()`, `get_categories()`
+    * Fix: Fix two tests related to individual authors limit
+    * Fix: Define explicit ordering of results for `test_get_custom_taxonomy()` to avoid occasional failure
+    * Change: Alter `test_tags_paged_limit()` for versatility by accepting arguments and calculating assertion expectations based on those parameters
+    * Change: Call `reset_caches()` in `tearDown()`
+    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
+
 = 4.2.2 (2019-12-21) =
 Highlights:
 
@@ -136,30 +173,13 @@ Details:
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
-= 4.2 (2019-04-14) =
-* Change: Initialize plugin on `plugins_loaded` action instead of on load
-* Change: Update plugin framework to 049
-    * 049:
-    * Correct last arg in call to `add_settings_field()` to be an array
-    * Wrap help text for settings in `label` instead of `p`
-    * Only use `label` for help text for checkboxes, otherwise use `p`
-    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
-    * Note compatibility through WP 5.1+
-    * Update copyright date (2019)
-* Change: Cast return value of both hooks as booleans
-* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
-* New: Add inline documentation for hooks
-* New: Unit tests: Add unit test for defaults for settings
-* Change: Add 'Hooks' section to readme.txt with documentation for hooks
-* Change: Note compatibility through WP 5.1+
-* Change: Update copyright date (2019)
-* Change: Update License URI to be HTTPS
-* Change: Split paragraph in README.md's "Support" section into two
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/custom-post-limits/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 4.3 =
+Recommended update: prevented plugin settings page timeouts for sites with lots of authors/categories/tags, fixed pagination page counts, omitted limit fields for non-authors, added TODO.md file, expanded unit testing, changed compatibility to be WP 4.9-5.4+, and more.
 
 = 4.2.2 =
 Recommended bugfix update: This release fixes a number of minor bugs.
