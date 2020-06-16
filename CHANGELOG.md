@@ -10,7 +10,7 @@
     * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
     * Output donation markup using `printf()` rather than using string concatenation
     * Update copyright date (2020)
-    * Note compatibility through WP 5.3+
+    * Note compatibility through WP 5.4+
     * Drop compatibility with version of WP older than 4.9
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add to it)
 * Change: Exclude users from being returned by `get_author()` if they don't have the 'author' role
