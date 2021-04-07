@@ -111,12 +111,11 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 == Changelog ==
 
 = 4.3 (2020-06-16) =
-
-### Highlights:
+Highlights:
 
 * This release prevents plugin settings page timeouts for sites with lots of authors/categories/tags, fixes pagination page counts, omits limit fields for non-authors, adds TODO.md file, updates a few URLs to be HTTPS, expands unit testing, changes compatibility to be WP 4.9-5.4+, and more.
 
-### Details:
+Details:
 
 * Fix: Prevent plugin settings page timeouts for sites with lots of authors, categories, and/or tags. Fixes #2.
     * Change: Prevent `get_authors()`, `get_categories()`, and `get_tags()` from calling potentially resource-intensive functions when individual limits aren't enabled
