@@ -5,7 +5,7 @@ Tags: posts, archives, listing, limit, query, front page, categories, tags, coff
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
-Tested up to: 5.4
+Tested up to: 5.7
 Stable tag: 4.3
 
 Independently control the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
