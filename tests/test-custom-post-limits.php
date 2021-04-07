@@ -109,11 +109,11 @@ class Custom_Post_Limits_Test extends WP_UnitTestCase {
 	}
 
 	public function test_plugin_framework_class_name() {
-		$this->assertTrue( class_exists( 'c2c_CustomPostLimits_Plugin_050' ) );
+		$this->assertTrue( class_exists( 'c2c_Plugin_060' ) );
 	}
 
 	public function test_plugin_framework_version() {
-		$this->assertEquals( '050', c2c_CustomPostLimits::get_instance()->c2c_plugin_version() );
+		$this->assertEquals( '060', c2c_CustomPostLimits::get_instance()->c2c_plugin_version() );
 	}
 
 	public function test_version() {
