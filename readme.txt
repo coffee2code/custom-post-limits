@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 4.4
+Stable tag: 4.4.1
 
 Independently control the number of posts listed on the front page, author/category/custom post type/custom taxonomy/tag archives, search results, etc.
 
@@ -110,6 +110,9 @@ add_filter( 'c2c_cpl_enable_all_individual_authors_limits', '__return_true' );
 
 == Changelog ==
 
+= 4.4.1 (2021-04-14) =
+* Fix: Update plugin framework to 061 to fix a bug preventing settings from getting saved
+
 = 4.4 (2021-04-07) =
 Highlights:
 
@@ -202,16 +205,13 @@ Details:
     * New: Add test that plugin initializes itself on `plugins_loaded`
 * New: Add inline documentation for class variables
 
-= 4.2.1 (2019-12-02) =
-* Fix: Minor fix to avoid a PHP notice.
-* Change: Update unit test install script and bootstrap to use latest WP unit test repo
-* Change: Note compatibility through WP 5.3+
-* Change: Update copyright date (2020)
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/custom-post-limits/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 4.4.1 =
+Recommended bugfix release: fixed a bug preventing settings from getting saved; updated plugin framework to v061
 
 = 4.4 =
 Minor release: updated plugin framework to v060, noted compatibility through WP 5.7+, and updated copyright date (2021).
