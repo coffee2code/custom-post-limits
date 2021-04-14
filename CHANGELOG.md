@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Fix: Update plugin framework to 061 to fix a bug preventing settings from getting saved
+
 ## 4.4 _(2021-04-07)_
 
 ### Highlights:
