@@ -5,6 +5,9 @@
  * @package Custom_Post_Limits
  */
 
+// Prevent web access.
+( php_sapi_name() !== 'cli' ) && die();
+
 ini_set( 'display_errors', 'on' );
 error_reporting( E_ALL );
 
